@@ -76,6 +76,8 @@ export type BracketMatch = {
 export type HighlightEntry = {
   /** Direct YouTube URL to the primary FIFA-channel highlights video. */
   youtube?: string;
+  /** FIFA official match-report / highlights article URL. */
+  fifa?: string;
   /** ISO timestamp of when scripts/resolve-highlights.mjs found it. */
   resolvedAt?: string;
 };

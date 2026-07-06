@@ -1,21 +1,23 @@
 #!/usr/bin/env node
 /**
- * Resolve match-highlight YouTube URLs by querying the YouTube Data API
- * scoped to the official FIFA channel, and cache them into
- * src/data/highlights.json.
+ * Resolve match-highlight URLs for every played bracket match and cache
+ * them into src/data/highlights.json.
+ *
+ * Primary source:  YouTube Data API v3 scoped to the official FIFA channel
+ *                  — picks up the canonical "Highlights | ..." videos.
+ * Fallback source: FIFA's own match-report article page — used when
+ *                  YouTube hasn't yet uploaded the canonical video.
  *
  * Usage:
- *   YOUTUBE_API_KEY=... node scripts/resolve-highlights.mjs                    # all played matches
- *   YOUTUBE_API_KEY=... node scripts/resolve-highlights.mjs --match=R16-5      # one match
- *   YOUTUBE_API_KEY=... node scripts/resolve-highlights.mjs --force            # re-resolve even if cached
+ *   YOUTUBE_API_KEY=... node scripts/resolve-highlights.mjs                  # all played matches
+ *   YOUTUBE_API_KEY=... node scripts/resolve-highlights.mjs --match=R16-5    # one match
+ *   YOUTUBE_API_KEY=... node scripts/resolve-highlights.mjs --force          # re-resolve even if cached
  *
- * The `.env` file (via `node --env-file=.env`) is the recommended local entrypoint.
+ * Local: `node --env-file=.env scripts/resolve-highlights.mjs`
  *
  * Get a key: https://console.cloud.google.com/apis/credentials
- *   1. Create/select a project
- *   2. APIs & Services → Library → enable "YouTube Data API v3"
- *   3. Credentials → Create credentials → API key
- *   4. Restrict the key to "YouTube Data API v3" (recommended)
+ *   → APIs & Services → Library → enable "YouTube Data API v3"
+ *   → Credentials → Create credentials → API key
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -32,6 +34,13 @@ if (!API_KEY) {
 // UCXlxRDXe75... ID which points elsewhere.
 const FIFA_CHANNEL_ID = "UCpcTrCXblq78GZrTUTLWeBw";
 
+// FIFA's public site is a client-rendered SPA — regular fetches get an
+// empty shell. Using a Googlebot UA gets the fully-SSR'd page with
+// meta tags and the article body, which lets us verify existence.
+const FIFA_BOT_UA = "Googlebot/2.1 (+http://www.google.com/bot.html)";
+const FIFA_ARTICLE_BASE =
+  "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles";
+
 const args = new Set(process.argv.slice(2));
 const onlyMatch = [...args].find((a) => a.startsWith("--match="))?.split("=")[1];
 const force = args.has("--force");
@@ -43,40 +52,15 @@ const highlights = JSON.parse(readFileSync(highlightsPath, "utf8"));
 
 const teamByCode = Object.fromEntries(teams.map((t) => [t.code, t]));
 
-function normalizeExisting(entry) {
-  if (!entry) return null;
-  if (typeof entry === "string") return { youtube: entry };
-  return entry;
-}
+// ─────────────────── YouTube ───────────────────
 
-function isPlayed(m) {
-  return m.scoreA !== null && m.scoreB !== null && m.teamCodeA && m.teamCodeB;
-}
-
-async function searchYouTube(query) {
-  const url = new URL("https://www.googleapis.com/youtube/v3/search");
-  url.searchParams.set("key", API_KEY);
-  url.searchParams.set("channelId", FIFA_CHANNEL_ID);
-  url.searchParams.set("q", query);
-  url.searchParams.set("type", "video");
-  url.searchParams.set("part", "snippet");
-  url.searchParams.set("maxResults", "5");
-  const res = await fetch(url);
-  const data = await res.json();
-  if (data.error) throw new Error(`YouTube API: ${data.error.message}`);
-  return data.items ?? [];
-}
-
-/** FIFA's main match-highlights video on the official channel follows
- *  ONE canonical title pattern:
+/** FIFA channel's canonical main-highlights title:
  *    "Highlights | <TeamA> <X-Y> <TeamB> | FIFA World Cup 2026™"
- *  Anything else — the "🆚 #FIFAWorldCupOnYT" Shorts/reels, Alt Cast
- *  broadcast feeds, pressers, training clips, single-goal edits,
- *  historical recaps — is NOT what a user clicking "watch highlights"
- *  wants. If no video matches the canonical pattern, we return null
- *  and let the client fall back to the FIFA-channel search URL. */
+ *  Everything else (🆚 Shorts reels, Alt Cast broadcast, pressers,
+ *  training clips, single-goal edits, historical recaps) is filtered
+ *  out — otherwise "watch highlights" ends up on the wrong video. */
 const NEGATIVE_MARKERS = [
-  "#fifaworldcupony",   // Shorts/reels (matches #FIFAWorldCupOnYT)
+  "#fifaworldcupony",
   "alt cast",
   "alternate cast",
   "press conference",
@@ -97,34 +81,30 @@ const NEGATIVE_MARKERS = [
   "women",
 ];
 
-/** FIFA's channel uses different team-name spellings than teams.json
- *  (e.g. "Cote d'Ivoire", "Cabo Verde", "USA", "Congo DR"). Aliases
- *  are checked in addition to the canonical name. */
-const NAME_ALIASES = {
-  "Ivory Coast": ["cote d", "côte d"],
-  "DR Congo": ["congo dr", "congo dr.", "dr congo", "democratic republic of congo"],
-  "United States": ["usa", "united states of america"],
-  "Cape Verde": ["cabo verde"],
-  "South Korea": ["korea republic", "republic of korea"],
-  "North Korea": ["korea dpr", "dpr korea"],
-  "Bosnia and Herzegovina": ["bosnia and herzegovina", "bosnia & herzegovina"],
-  "Czech Republic": ["czechia"],
+/** teams.json uses one spelling per country; FIFA's channel and article
+ *  URLs sometimes use another. `title` variants apply to YouTube title
+ *  matching; `slug` variants apply to FIFA URL construction. */
+const NAME_INFO = {
+  "Ivory Coast":            { title: ["cote d", "côte d"],                     slug: "cote-d-ivoire" },
+  "DR Congo":               { title: ["congo dr", "dr congo"],                 slug: "congo-dr" },
+  "United States":          { title: ["usa", "united states of america"],      slug: "usa" },
+  "Cape Verde":             { title: ["cabo verde"],                           slug: "cabo-verde" },
+  "South Korea":            { title: ["korea republic", "republic of korea"],  slug: "korea-republic" },
+  "North Korea":            { title: ["korea dpr", "dpr korea"],               slug: "korea-dpr" },
+  "Bosnia and Herzegovina": { title: ["bosnia & herzegovina"],                 slug: "bosnia-and-herzegovina" },
+  "Czech Republic":         { title: ["czechia"],                              slug: "czech-republic" },
 };
 
 function titleContainsName(title, name) {
   if (title.includes(name.toLowerCase())) return true;
-  const aliases = NAME_ALIASES[name] ?? [];
-  return aliases.some((a) => title.includes(a));
+  return (NAME_INFO[name]?.title ?? []).some((a) => title.includes(a));
 }
 
 function scoreCandidate(item, nameA, nameB) {
   const title = item.snippet.title.toLowerCase();
   if (!titleContainsName(title, nameA) || !titleContainsName(title, nameB)) return -Infinity;
   for (const neg of NEGATIVE_MARKERS) if (title.includes(neg)) return -Infinity;
-
-  // The canonical FIFA main-highlights format. Reject anything else.
   if (!title.startsWith("highlights |")) return -Infinity;
-
   let score = 10;
   if (title.includes("fifa world cup 2026")) score += 5;
   return score;
@@ -143,6 +123,98 @@ function pickBestMatch(items, nameA, nameB) {
   return bestScore > 0 ? best : null;
 }
 
+async function searchYouTube(query) {
+  const url = new URL("https://www.googleapis.com/youtube/v3/search");
+  url.searchParams.set("key", API_KEY);
+  url.searchParams.set("channelId", FIFA_CHANNEL_ID);
+  url.searchParams.set("q", query);
+  url.searchParams.set("type", "video");
+  url.searchParams.set("part", "snippet");
+  url.searchParams.set("maxResults", "5");
+  const res = await fetch(url);
+  const data = await res.json();
+  if (data.error) throw new Error(`YouTube API: ${data.error.message}`);
+  return data.items ?? [];
+}
+
+async function resolveYouTube(nameA, nameB) {
+  const items = await searchYouTube(`${nameA} ${nameB} highlights`);
+  const pick = pickBestMatch(items, nameA, nameB);
+  if (pick) {
+    return {
+      url: `https://www.youtube.com/watch?v=${pick.id.videoId}`,
+      title: pick.snippet.title,
+      topTitleIfMissed: null,
+    };
+  }
+  return {
+    url: null,
+    title: null,
+    topTitleIfMissed: items[0]?.snippet.title ?? null,
+  };
+}
+
+// ─────────────────── FIFA article ───────────────────
+
+function fifaSlug(name) {
+  const alias = NAME_INFO[name]?.slug;
+  if (alias) return alias;
+  return name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "") // strip diacritics
+    .replace(/'/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+}
+
+/** Check candidate FIFA article URL. Real articles return 200 with a
+ *  <title> like "Mexico 2-3 England | Match report & highlights | ..."
+ *  Non-existent slugs return 404 (even to Googlebot). */
+async function checkFifaUrl(url, nameA, nameB) {
+  const res = await fetch(url, { headers: { "User-Agent": FIFA_BOT_UA } });
+  if (res.status !== 200) return false;
+  const html = await res.text();
+  const m = html.match(/<title>([^<]+)<\/title>/);
+  if (!m) return false;
+  const title = m[1].toLowerCase();
+  if (!title.includes("match report") && !title.includes("highlights")) return false;
+  // Sanity: title should reference both teams (guards against a
+  // redirect to a generic page).
+  const hasA = titleContainsName(title, nameA);
+  const hasB = titleContainsName(title, nameB);
+  return hasA && hasB;
+}
+
+async function resolveFifa(nameA, nameB) {
+  const slugA = fifaSlug(nameA);
+  const slugB = fifaSlug(nameB);
+  // Try both orderings — the user's example was mexico-england (teamA
+  // first, matching bracket.json), but not every article follows that.
+  const candidates = [
+    `${slugA}-${slugB}-match-report-highlights`,
+    `${slugB}-${slugA}-match-report-highlights`,
+  ];
+  for (const slug of candidates) {
+    const url = `${FIFA_ARTICLE_BASE}/${slug}`;
+    if (await checkFifaUrl(url, nameA, nameB)) return url;
+  }
+  return null;
+}
+
+// ─────────────────── Main ───────────────────
+
+function normalizeExisting(entry) {
+  if (!entry) return null;
+  if (typeof entry === "string") return { youtube: entry };
+  return entry;
+}
+
+function isPlayed(m) {
+  return m.scoreA !== null && m.scoreB !== null && m.teamCodeA && m.teamCodeB;
+}
+
 const played = bracket.filter(isPlayed);
 const targets = onlyMatch ? played.filter((m) => m.id === onlyMatch) : played;
 
@@ -153,58 +225,72 @@ if (onlyMatch && targets.length === 0) {
 
 console.log(`Resolving ${targets.length} match${targets.length === 1 ? "" : "es"}...\n`);
 
-let resolved = 0;
+let resolvedYouTube = 0;
+let resolvedFifa = 0;
 let skipped = 0;
 let missed = 0;
 
 for (const m of targets) {
   const existing = normalizeExisting(highlights[m.id]);
-  if (!force && existing?.youtube) {
-    console.log(`- ${m.id} cached: ${existing.youtube}`);
+  const hasYouTube = Boolean(existing?.youtube);
+  const hasFifa = Boolean(existing?.fifa);
+  if (!force && hasYouTube) {
+    console.log(`- ${m.id} youtube cached`);
     skipped++;
     continue;
   }
   const nameA = teamByCode[m.teamCodeA]?.name ?? m.teamCodeA;
   const nameB = teamByCode[m.teamCodeB]?.name ?? m.teamCodeB;
-  const query = `${nameA} ${nameB} highlights`;
+  const next = { ...(existing ?? {}) };
 
   try {
-    const items = await searchYouTube(query);
-    const pick = pickBestMatch(items, nameA, nameB);
-    if (pick) {
-      const videoUrl = `https://www.youtube.com/watch?v=${pick.id.videoId}`;
-      highlights[m.id] = {
-        ...(existing ?? {}),
-        youtube: videoUrl,
-        resolvedAt: new Date().toISOString(),
-      };
-      console.log(`✓ ${m.id} ${nameA} vs ${nameB}`);
-      console.log(`  → ${videoUrl}`);
-      console.log(`  title: ${pick.snippet.title}`);
-      resolved++;
+    const yt = await resolveYouTube(nameA, nameB);
+    if (yt.url) {
+      next.youtube = yt.url;
+      // Once YouTube has the canonical video, the FIFA article link is
+      // redundant; drop any stale value.
+      delete next.fifa;
+      next.resolvedAt = new Date().toISOString();
+      highlights[m.id] = next;
+      console.log(`✓ ${m.id} youtube: ${nameA} vs ${nameB}`);
+      console.log(`  → ${yt.url}`);
+      console.log(`  title: ${yt.title}`);
+      resolvedYouTube++;
     } else {
-      console.log(`✗ ${m.id} ${nameA} vs ${nameB} — no matching video`);
-      if (items.length > 0) {
-        console.log(`  top result was: ${items[0].snippet.title}`);
+      // Fall back to the FIFA article page.
+      if (!force && hasFifa) {
+        console.log(`- ${m.id} youtube missing; fifa cached: ${existing.fifa}`);
+        skipped++;
+        continue;
       }
-      missed++;
+      const fifaUrl = await resolveFifa(nameA, nameB);
+      if (fifaUrl) {
+        next.fifa = fifaUrl;
+        next.resolvedAt = new Date().toISOString();
+        highlights[m.id] = next;
+        console.log(`✓ ${m.id} fifa: ${nameA} vs ${nameB}`);
+        console.log(`  → ${fifaUrl}`);
+        resolvedFifa++;
+      } else {
+        console.log(`✗ ${m.id} ${nameA} vs ${nameB} — no youtube video, no fifa article`);
+        if (yt.topTitleIfMissed) console.log(`  yt top result was: ${yt.topTitleIfMissed}`);
+        missed++;
+      }
     }
   } catch (err) {
-    // Persist whatever we've got so far, then continue. The YouTube
-    // API sometimes returns transient "cannot act on behalf of"
-    // errors under load; skipping the failing match now lets a later
-    // scheduled run pick it up.
     console.error(`⚠ ${m.id} ${nameA} vs ${nameB} — ${err.message} (skipping)`);
     writeFileSync(highlightsPath, JSON.stringify(highlights, null, 2) + "\n");
     missed++;
   }
 
-  // Be gentle: 1.5s between calls. Free tier quota isn't the concern
-  // here (search costs 100 units, 100 searches/day), but we don't
-  // want to spike QPS.
+  // Gentle: 1.5s between matches. YouTube search costs 100 units of the
+  // 10k/day quota; FIFA fetches are free but we still don't want to
+  // spam them.
   if (targets.length > 1) await new Promise((r) => setTimeout(r, 1500));
 }
 
 writeFileSync(highlightsPath, JSON.stringify(highlights, null, 2) + "\n");
 
-console.log(`\nDone. resolved=${resolved} skipped=${skipped} missed=${missed}`);
+console.log(
+  `\nDone. youtube=${resolvedYouTube} fifa=${resolvedFifa} skipped=${skipped} missed=${missed}`,
+);

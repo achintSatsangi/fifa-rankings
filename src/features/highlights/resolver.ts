@@ -5,37 +5,41 @@ import { teamByCode } from "../teams/data";
 const CURATED: HighlightsMap = highlightsData as HighlightsMap;
 const FIFA_CHANNEL_HANDLE = "@fifa";
 
-export type HighlightSource = "youtube" | "search";
+export type HighlightSource = "youtube" | "fifa" | "search";
 
 export type ResolvedHighlight = {
   url: string;
   source: HighlightSource;
 };
 
-function directYouTube(matchId: string): string | null {
+function directUrls(matchId: string): { youtube: string | null; fifa: string | null } {
   const entry = CURATED[matchId];
-  if (!entry) return null;
-  if (typeof entry === "string") return entry.startsWith("http") ? entry : null;
-  if (typeof entry === "object" && typeof entry.youtube === "string" && entry.youtube.startsWith("http")) {
-    return entry.youtube;
+  if (!entry) return { youtube: null, fifa: null };
+  if (typeof entry === "string") {
+    return { youtube: entry.startsWith("http") ? entry : null, fifa: null };
   }
-  return null;
+  return {
+    youtube: typeof entry.youtube === "string" && entry.youtube.startsWith("http") ? entry.youtube : null,
+    fifa: typeof entry.fifa === "string" && entry.fifa.startsWith("http") ? entry.fifa : null,
+  };
 }
 
 /**
- * Resolve a highlights link for a match. Returns the FIFA-channel YouTube
- * video when one has been cached in highlights.json; otherwise falls back
- * to a YouTube search scoped to the FIFA channel with both team names in
- * the query. Callers can style the click target differently based on
- * `source` (direct video → YouTube-red play icon, search → muted icon).
+ * Resolve a highlights link for a match. Priority:
+ *   1. Cached YouTube video (FIFA channel main highlights)
+ *   2. Cached FIFA article page (match report with embedded video)
+ *   3. Fallback: YouTube search scoped to the FIFA channel
+ * Callers style the click target off `source` (YouTube red, FIFA blue,
+ * search grey).
  */
 export function resolveHighlight(
   matchId: string,
   teamCodeA?: string | null,
   teamCodeB?: string | null,
 ): ResolvedHighlight {
-  const direct = directYouTube(matchId);
-  if (direct) return { url: direct, source: "youtube" };
+  const { youtube, fifa } = directUrls(matchId);
+  if (youtube) return { url: youtube, source: "youtube" };
+  if (fifa) return { url: fifa, source: "fifa" };
 
   const a = teamByCode(teamCodeA)?.name ?? teamCodeA ?? "";
   const b = teamByCode(teamCodeB)?.name ?? teamCodeB ?? "";
@@ -52,5 +56,6 @@ export function highlightUrl(matchId: string, teamCodeA?: string | null, teamCod
 }
 
 export function hasCuratedHighlight(matchId: string): boolean {
-  return directYouTube(matchId) !== null;
+  const { youtube, fifa } = directUrls(matchId);
+  return Boolean(youtube || fifa);
 }

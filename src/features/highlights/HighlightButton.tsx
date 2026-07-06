@@ -6,24 +6,29 @@ type Props = {
   label: string;
 };
 
-/** YouTube-red pill when we have a direct FIFA-channel video; a muted
- *  neutral pill when we're falling back to a channel search URL. Both
- *  share the play-triangle glyph so the affordance reads the same. */
+/** Pill styling keyed off source so the origin of the video reads at a
+ *  glance:
+ *    youtube → YouTube brand red
+ *    fifa    → Vimeo-style teal-blue (FIFA article with embedded player)
+ *    search  → muted grey (best-effort search-URL fallback) */
+const STYLE_BY_SOURCE: Record<HighlightSource, string> = {
+  youtube: "bg-[#ff0000] text-white hover:opacity-85",
+  fifa: "bg-[#1AB7EA] text-white hover:opacity-85",
+  search: "bg-[var(--surface-muted)] text-[var(--text-muted)] hover:text-[var(--text-secondary)]",
+};
+
 export function HighlightButton({ url, source, label }: Props) {
-  const isYouTube = source === "youtube";
-  const classes = isYouTube
-    ? "bg-[#ff0000] text-white hover:opacity-85"
-    : "bg-[var(--surface-muted)] text-[var(--text-muted)] hover:text-[var(--text-secondary)]";
+  const title = source === "fifa" ? `${label} (fifa.com)` : label;
   return (
     <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={label}
-      title={label}
+      aria-label={title}
+      title={title}
       className={
         "inline-flex h-4 w-6 items-center justify-center rounded-[3px] transition-colors " +
-        classes
+        STYLE_BY_SOURCE[source]
       }
     >
       <svg
