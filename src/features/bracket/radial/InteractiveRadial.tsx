@@ -1,6 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { BracketRound } from "../../../data/types";
+import type { BracketMatch, BracketRound } from "../../../data/types";
+import { BRACKET } from "../data";
 import { computeTeamStates, type TeamPickState } from "../picks/state";
 import { PickToast } from "../picks/PickToast";
 import { usePicksStore } from "../picks/store";
@@ -41,6 +42,7 @@ export function InteractiveRadial() {
   }, []);
 
   const teamStates = useMemo(() => computeTeamStates(picks), [picks]);
+  const finalMatch = useMemo(() => BRACKET.find((m) => m.round === "F"), []);
 
   // Pick celebration state — monotonic tick + last picked code drive the
   // scale-pop on the picked flag and the toast at top of the container.
@@ -96,6 +98,7 @@ export function InteractiveRadial() {
             onClick={handleClick}
             pulsedCode={pulsedCode}
             pulseTick={pulseTick}
+            finalMatch={finalMatch}
           />
         ) : null}
       </div>
@@ -113,12 +116,14 @@ function Ring({
   onClick,
   pulsedCode,
   pulseTick,
+  finalMatch,
 }: {
   size: number;
   teamStates: TeamPickState[];
   onClick: (code: string) => void;
   pulsedCode: string | null;
   pulseTick: number;
+  finalMatch: BracketMatch | undefined;
 }) {
   const sizes = useMemo(() => flagSizesFor(size), [size]);
   const trophySize = useMemo(() => trophySizeFor(size), [size]);
@@ -150,7 +155,7 @@ function Ring({
           />
         );
       })}
-      <Trophy size={trophySize} />
+      <Trophy size={trophySize} match={finalMatch} />
     </div>
   );
 }

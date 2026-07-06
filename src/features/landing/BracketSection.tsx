@@ -27,9 +27,9 @@ export function BracketSection() {
   const tagline = isInteractive ? t("interactive.tagline") : t("bracket.tagline");
 
   return (
-    <section className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-2 py-12 sm:py-16">
+    <section className="mx-auto flex w-full max-w-none flex-col gap-4 px-4 py-12 sm:py-16">
       <ScrollReveal>
-        <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <div className="mx-auto flex w-full max-w-6xl flex-wrap items-baseline justify-between gap-3">
           <div>
             <h2 className="m-0 text-2xl font-semibold text-[var(--text)] sm:text-3xl">
               {t("landing.bracketSection")}
@@ -40,12 +40,16 @@ export function BracketSection() {
         </div>
       </ScrollReveal>
 
-      {/* Fixed square-ish container so the ResizeObserver inside the
-          bracket components sees a definite width AND height. Aspect
-          ratio is roughly square on desktop; on very narrow phones we
-          drop it slightly wider so the rings still get room. */}
+      {/* Grand square: fills the viewport as wide as it can go without
+          exceeding vertical breathing room. `min(...)` clamps by:
+            - available width (100% of the section, up to a hard 1600px
+              ceiling so ultra-wide monitors don't get a bracket you
+              can't take in with one glance),
+            - `88svh` so the bracket + section title + toggle all fit
+              in a single viewport height without scrolling past.
+          The result is the biggest square that stays fully in view. */}
       <ScrollReveal delay={120}>
-        <div className="mx-auto aspect-square w-full max-w-[min(90vw,720px)]">
+        <div className="mx-auto aspect-square w-full max-w-[min(100%,88svh,1600px)]">
           {isInteractive ? <InteractiveRadial /> : <RadialBracket />}
         </div>
       </ScrollReveal>

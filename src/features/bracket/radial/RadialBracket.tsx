@@ -78,11 +78,17 @@ export function RadialBracket() {
   }, []);
 
   const unplayedMarkers = useMemo(() => {
-    return BRACKET.filter((m) => m.round !== "3RD" && !isMatchPlayed(m)).map((m) => ({
+    // Skip F: the trophy occupies its centre and doubles as the
+    // Final's info affordance (see Trophy component).
+    return BRACKET.filter(
+      (m) => m.round !== "3RD" && m.round !== "F" && !isMatchPlayed(m),
+    ).map((m) => ({
       match: m,
       point: matchCenterPoint(m),
     }));
   }, []);
+
+  const finalMatch = useMemo(() => BRACKET.find((m) => m.round === "F"), []);
 
   const currentMatch = useMemo<Map<string, BracketMatch>>(() => {
     const map = new Map<string, BracketMatch>();
@@ -139,6 +145,7 @@ export function RadialBracket() {
             currentMatch={currentMatch}
             r32ByTeam={r32ByTeam}
             innermostByTeam={innermostByTeam}
+            finalMatch={finalMatch}
             onTeamClick={setSelectedCode}
           />
         ) : null}
@@ -162,6 +169,7 @@ function RingContent({
   currentMatch,
   r32ByTeam,
   innermostByTeam,
+  finalMatch,
   onTeamClick,
 }: {
   size: number;
@@ -172,6 +180,7 @@ function RingContent({
   currentMatch: Map<string, BracketMatch>;
   r32ByTeam: Map<string, BracketMatch>;
   innermostByTeam: Map<string, number>;
+  finalMatch: BracketMatch | undefined;
   onTeamClick: (code: string) => void;
 }) {
   const sizes = useMemo(() => flagSizesFor(size), [size]);
@@ -230,7 +239,11 @@ function RingContent({
       {unplayedMarkers.map((m) => (
         <MatchMarker key={`u-${m.match.id}`} match={m.match} point={m.point} size={markerSize} />
       ))}
-      <Trophy size={trophySize} />
+      <Trophy
+        size={trophySize}
+        match={finalMatch}
+        focusTeam={finalMatch?.teamCodeA ?? undefined}
+      />
     </div>
   );
 }
