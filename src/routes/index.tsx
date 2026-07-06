@@ -1,5 +1,5 @@
 import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
-import type { ComponentType, SVGProps } from "react";
+import { useEffect, type ComponentType, type SVGProps } from "react";
 import { useTranslation } from "react-i18next";
 import { BracketIcon, GroupsIcon, TeamsIcon, TrophyIcon } from "../components/NavIcons";
 import { FavouriteTeamLink } from "../features/favourites/FavouriteTeamLink";
@@ -9,10 +9,16 @@ import {
   readSkipLanding,
 } from "../features/preferences/preferences";
 
+type LandingSearch = { home?: 1 };
+
 export const Route = createFileRoute("/")({
-  // If the user has ticked "Start on bracket", short-circuit to it
-  // before this page renders.
-  beforeLoad: () => {
+  // `?home=1` is the escape hatch — the sidebar Home link uses it so
+  // clicking Home always shows the landing, regardless of the
+  // "Start on bracket" pref. A plain `/` visit still honours the pref.
+  validateSearch: (search: Record<string, unknown>): LandingSearch =>
+    search.home === "1" || search.home === 1 ? { home: 1 } : {},
+  beforeLoad: ({ search }) => {
+    if (search.home) return;
     if (readSkipLanding()) {
       throw redirect({ to: "/bracket", search: { view: readBracketView() } });
     }
@@ -23,6 +29,17 @@ export const Route = createFileRoute("/")({
 function LandingPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  // Strip the `?home=1` marker from the address bar once we're rendered
+  // — it's only there to bypass beforeLoad, no need to keep it around.
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.has("home")) {
+      url.searchParams.delete("home");
+      const clean = url.pathname + (url.search ? url.search : "") + url.hash;
+      window.history.replaceState(null, "", clean);
+    }
+  }, []);
 
   const skipNextTime = () => {
     persistSkipLanding(true);

@@ -54,7 +54,7 @@ export function Sidebar({ onNavClick, onClose }: Props) {
         aria-label={t("nav.primary")}
         className="flex flex-col gap-1 px-3 py-3"
       >
-        <NavItem to="/" label={t("nav.home")} Icon={HomeIcon} onNavigate={onNavClick} />
+        <HomeNavItem label={t("nav.home")} onNavigate={onNavClick} />
         <NavItem to="/bracket" label={t("nav.bracket")} Icon={BracketIcon} onNavigate={onNavClick} />
         <NavItem to="/teams" label={t("nav.teams")} Icon={TeamsIcon} onNavigate={onNavClick} />
         <NavItem to="/groups" label={t("nav.groups")} Icon={GroupsIcon} onNavigate={onNavClick} />
@@ -107,13 +107,23 @@ function SkipLandingToggle() {
   );
 }
 
+const NAV_CLASS =
+  "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium " +
+  "text-[var(--text-secondary)] transition-colors " +
+  "hover:bg-[var(--surface-muted)] hover:text-[var(--text)]";
+
+const NAV_ACTIVE = {
+  className:
+    "!bg-[var(--btn-bg)] !text-[var(--btn-text)] hover:!bg-[var(--btn-bg-hover)]",
+};
+
 function NavItem({
   to,
   label,
   Icon,
   onNavigate,
 }: {
-  to: string;
+  to: "/bracket" | "/teams" | "/groups";
   label: string;
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
   onNavigate?: () => void;
@@ -121,19 +131,33 @@ function NavItem({
   return (
     <Link
       to={to}
-      activeOptions={{ exact: to === "/" }}
       onClick={onNavigate}
-      className={
-        "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium " +
-        "text-[var(--text-secondary)] transition-colors " +
-        "hover:bg-[var(--surface-muted)] hover:text-[var(--text)]"
-      }
-      activeProps={{
-        className:
-          "!bg-[var(--btn-bg)] !text-[var(--btn-text)] hover:!bg-[var(--btn-bg-hover)]",
-      }}
+      className={NAV_CLASS}
+      activeProps={NAV_ACTIVE}
     >
       <Icon width={20} height={20} />
+      <span>{label}</span>
+    </Link>
+  );
+}
+
+/**
+ * The Home item passes `?home=1` so beforeLoad on `/` skips the
+ * "start on bracket" redirect — otherwise the button is a trap when
+ * that pref is on. `activeProps` still matches an exact `/` visit
+ * (no search), which is fine — Home is a manual jump target.
+ */
+function HomeNavItem({ label, onNavigate }: { label: string; onNavigate?: () => void }) {
+  return (
+    <Link
+      to="/"
+      search={{ home: 1 }}
+      activeOptions={{ exact: true }}
+      onClick={onNavigate}
+      className={NAV_CLASS}
+      activeProps={NAV_ACTIVE}
+    >
+      <HomeIcon width={20} height={20} />
       <span>{label}</span>
     </Link>
   );
