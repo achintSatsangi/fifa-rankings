@@ -35,7 +35,7 @@ export function Modal({ open, onClose, title, children, size = "lg" }: ModalProp
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-8"
+      className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-8"
       style={{ background: "var(--modal-overlay)" }}
       onClick={onClose}
       role="presentation"
@@ -59,7 +59,7 @@ export function Modal({ open, onClose, title, children, size = "lg" }: ModalProp
           aria-label={title}
         >
           {title ? (
-            <header className="flex shrink-0 items-center justify-between border-b border-[var(--border-subtle)] px-6 py-4">
+            <header className="flex shrink-0 items-center justify-between border-b border-[var(--border-subtle)] px-4 py-3 sm:px-6 sm:py-4">
               <h2 className="m-0 text-xl font-semibold text-[var(--text)]">{title}</h2>
               <button
                 type="button"
@@ -73,7 +73,7 @@ export function Modal({ open, onClose, title, children, size = "lg" }: ModalProp
               </button>
             </header>
           ) : null}
-          <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5">{children}</div>
+          <div className="min-h-0 flex-1 overflow-y-auto px-3 py-4 sm:px-6 sm:py-5">{children}</div>
         </div>
       </FocusTrap>
     </div>

@@ -52,11 +52,11 @@ export function JourneyModal({ code, onClose }: Props) {
             <THead>
               <TR>
                 <TH>{t("team.stage")}</TH>
-                <TH>{t("team.date")}</TH>
+                <TH className="hidden sm:table-cell">{t("team.date")}</TH>
                 <TH>{t("team.opponent")}</TH>
                 <TH align="center">{t("team.score")}</TH>
                 <TH align="center">{t("team.result")}</TH>
-                <TH>{t("team.venue")}</TH>
+                <TH className="hidden md:table-cell">{t("team.venue")}</TH>
                 <TH align="center">{t("team.highlights")}</TH>
               </TR>
             </THead>
@@ -68,15 +68,22 @@ export function JourneyModal({ code, onClose }: Props) {
                   : t("team.notPlayed");
                 return (
                   <TR key={r.matchId}>
-                    <TD className="whitespace-nowrap">{r.stage}</TD>
-                    <TD className="whitespace-nowrap text-[var(--text-secondary)]">
+                    <TD className="whitespace-nowrap">
+                      <div>{r.stage}</div>
+                      {/* On mobile, tuck the date under the stage since we
+                          hide the standalone Date column below `sm`. */}
+                      <div className="text-xs text-[var(--text-muted)] sm:hidden">
+                        {formatMatchDate(r.date)}
+                      </div>
+                    </TD>
+                    <TD className="hidden whitespace-nowrap text-[var(--text-secondary)] sm:table-cell">
                       {formatMatchDate(r.date)}
                     </TD>
                     <TD>
                       {r.opponentCode ? (
                         <span className="inline-flex items-center gap-2">
                           <Flag code={r.opponentCode} size={20} />
-                          <span>{opp?.name ?? r.opponentCode}</span>
+                          <span className="truncate">{opp?.name ?? r.opponentCode}</span>
                         </span>
                       ) : (
                         <span className="text-[var(--text-muted)]">TBD</span>
@@ -92,7 +99,7 @@ export function JourneyModal({ code, onClose }: Props) {
                         <span className="text-[var(--text-muted)]">—</span>
                       )}
                     </TD>
-                    <TD className="text-[var(--text-secondary)]">{r.venue}</TD>
+                    <TD className="hidden text-[var(--text-secondary)] md:table-cell">{r.venue}</TD>
                     <TD align="center">
                       {r.played ? (
                         <a
