@@ -1,4 +1,6 @@
+import type { MouseEvent } from "react";
 import type { BracketMatch } from "../../../data/types";
+import { useHoverTapToggle } from "../../../lib/hoverTapToggle";
 import { Flag } from "../../flags/Flag";
 import { teamByCode } from "../../teams/data";
 import { MatchTooltip } from "../MatchTooltip";
@@ -14,9 +16,27 @@ export function MatchCard({ match, onTeamClick }: Props) {
   const codeA = resolveSlotCode(match.slotA, match.teamCodeA);
   const codeB = resolveSlotCode(match.slotB, match.teamCodeB);
   const upcoming = !isMatchPlayed(match);
+  const { visible, triggerProps, containerRef } = useHoverTapToggle();
+
+  const handleCardClick = (e: MouseEvent) => {
+    if (!upcoming) return;
+    // Team-row buttons open the journey modal — don't hijack them.
+    const target = e.target as HTMLElement;
+    if (target.closest("button")) return;
+    triggerProps.onClick(e);
+  };
+
   return (
     <article
-      className="group relative flex w-56 flex-col rounded-md border border-[var(--border-subtle)] bg-[var(--surface-elevated)] shadow-sm"
+      ref={upcoming ? (containerRef as React.RefObject<HTMLElement>) : undefined}
+      onMouseEnter={upcoming ? triggerProps.onMouseEnter : undefined}
+      onMouseLeave={upcoming ? triggerProps.onMouseLeave : undefined}
+      onClick={handleCardClick}
+      className={
+        "group relative flex w-56 flex-col rounded-md border border-[var(--border-subtle)] " +
+        "bg-[var(--surface-elevated)] shadow-sm " +
+        (upcoming ? "cursor-pointer" : "")
+      }
       aria-label={`${match.id} ${formatMatchDate(match.date)}`}
     >
       <header className="flex items-center justify-between border-b border-[var(--border-subtle)] px-2 py-1 text-[10px] uppercase tracking-wide text-[var(--text-muted)]">
@@ -46,7 +66,7 @@ export function MatchCard({ match, onTeamClick }: Props) {
             : "a.e.t."}
         </footer>
       ) : null}
-      {upcoming ? <MatchTooltip match={match} /> : null}
+      {upcoming ? <MatchTooltip match={match} visible={visible} /> : null}
     </article>
   );
 }

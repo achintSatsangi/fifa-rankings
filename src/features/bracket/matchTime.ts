@@ -58,8 +58,9 @@ export function isMatchPlayed(
 }
 
 /**
- * Days / hours / minutes until kickoff. Returns null if the match is
- * already past, or if the timestamp isn't parseable.
+ * Days / hours / minutes / seconds until kickoff. Returns null if the
+ * match is already past, or if the timestamp isn't parseable. Meant to
+ * be recomputed once per second by callers so the value ticks live.
  */
 export function formatCountdown(iso: string, now: number = Date.now()): string | null {
   const target = new Date(iso).getTime();
@@ -67,14 +68,16 @@ export function formatCountdown(iso: string, now: number = Date.now()): string |
   const diffMs = target - now;
   if (diffMs <= 0) return null;
 
-  const totalMinutes = Math.floor(diffMs / 60_000);
-  const days = Math.floor(totalMinutes / (60 * 24));
-  const hours = Math.floor((totalMinutes % (60 * 24)) / 60);
-  const minutes = totalMinutes % 60;
+  const totalSec = Math.floor(diffMs / 1000);
+  const days = Math.floor(totalSec / 86_400);
+  const hours = Math.floor((totalSec % 86_400) / 3600);
+  const minutes = Math.floor((totalSec % 3600) / 60);
+  const seconds = totalSec % 60;
 
   const parts: string[] = [];
   if (days > 0) parts.push(`${days}d`);
   if (days > 0 || hours > 0) parts.push(`${hours}h`);
-  parts.push(`${minutes}m`);
+  if (days > 0 || hours > 0 || minutes > 0) parts.push(`${minutes}m`);
+  parts.push(`${seconds}s`);
   return parts.join(" ");
 }
