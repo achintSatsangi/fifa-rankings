@@ -16,13 +16,19 @@
   "favourite": {
     "add": "Marcar como favorito",
     "remove": "Remover dos favoritos",
-    "yourTeam": "Sua seleção"
+    "yourTeam": "Sua candidata"
   },
   "landing": {
     "bracketSection": "O chaveamento",
     "groupsSection": "Os grupos",
     "horizontalLink": "Prefere o layout clássico? →",
     "scrollHint": "Role para explorar",
+    "disclaimer": {
+      "body": "Feito por um fã com muita ajuda de IA, sobre APIs públicas gratuitas — bugs e placares atrasados acontecem.",
+      "linkPrefix": "Notou algo estranho? ",
+      "linkText": "Abra uma issue no GitHub",
+      "linkSuffix": " — todo mundo é bem-vindo."
+    },
     "storyline": {
       "creditPrefix": "Conceito por ",
       "creditName": "Paul Noble",
@@ -33,11 +39,13 @@
     "startOnBracket": "Iniciar no chaveamento"
   },
   "meta": {
-    "dataUpdated": "Dados atualizados",
-    "nextRefresh": "Próxima atualização",
+    "dataUpdated": "Dados do gramado sincronizados",
+    "nextRefresh": "Próxima injeção tática",
+    "livePulseLabel": "Ao vivo",
+    "syncedLabel": "sincronizado",
     "justNow": "agora mesmo",
     "minutesAgo": "há {{count}}m",
-    "dueNow": "atualizando…",
+    "dueNow": "sincronizando…",
     "nextInMinutes": "próxima em {{count}}m"
   },
   "matches": {
@@ -67,7 +75,16 @@
   "interactive": {
     "tagline": "Escolha os vencedores — clique numa seleção para avançá-la.",
     "picks": "escolhas",
-    "hint": "Toque ou clique numa seleção para avançar. Mudar uma escolha reinicia as seguintes."
+    "hint": "Toque ou clique numa seleção para avançar. Mudar uma escolha reinicia as seguintes.",
+    "pickToast": {
+      "advance": "Escolha ousada! Você mandou {{team}} para {{round}}.",
+      "crowned": "Escolha ousada! Você acabou de coroar {{team}} campeã.",
+      "roundR16": "as oitavas",
+      "roundQF": "quartas",
+      "roundSF": "semifinais",
+      "roundF": "a final",
+      "roundChampion": "o trono"
+    }
   },
   "teams": {
     "title": "Seleções",

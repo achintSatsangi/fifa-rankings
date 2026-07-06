@@ -5,94 +5,109 @@
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* Design tokens: reference these via CSS vars everywhere. Tailwind utilities
-   can also read them via arbitrary values e.g. bg-[var(--surface)]. */
+/*
+ * Design tokens — reference via CSS vars everywhere (Tailwind arbitrary
+ * values `bg-[var(--surface)]` too). Two palettes:
+ *
+ *  Stadium Light — editorial paper + slate typography, deep green accent.
+ *  Pitch Dark    — rich obsidian + high-contrast text, neon turf accent.
+ *
+ * Every non-neutral color runs through --accent / --accent-glow so
+ * "turf" highlights (active connectors, focus rings, pick pulses) share
+ * one tunable knob per theme.
+ */
 :root {
   color-scheme: light;
-  --bg: #ece8e2;
-  --bg-flag: #ece8e2;
-  --text: #111;
-  --text-secondary: #444;
-  --text-muted: #666;
-  --border: #ccc;
-  --border-strong: #aaa;
-  --border-subtle: #ddd;
-  --surface: #f5f5f5;
-  --surface-elevated: #fff;
-  --surface-muted: rgba(255, 255, 255, 0.45);
-  --btn-bg: #222;
-  --btn-bg-hover: #333;
-  --btn-text: #fff;
-  --btn-disabled-bg: #bbb;
-  --btn-disabled-text: #fff;
-  --modal-overlay: rgba(0, 0, 0, 0.35);
-  --modal-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  --focus-outline: #888;
-  --error: #b00020;
-  --success: #2e7d32;
-  --connector: #c8c8c8;
-  --accent: #111;
-  --tooltip-bg: rgba(17, 17, 17, 0.92);
-  --tooltip-text: #fff;
+  --bg: #F8FAFC;
+  --bg-flag: #F8FAFC;
+  --text: #0F172A;
+  --text-secondary: #334155;
+  --text-muted: #64748B;
+  --border: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --border-subtle: #EDF2F7;
+  --surface: #FFFFFF;
+  --surface-elevated: #FFFFFF;
+  --surface-muted: #F1F5F9;
+  --btn-bg: #0F172A;
+  --btn-bg-hover: #1E293B;
+  --btn-text: #F8FAFC;
+  --btn-disabled-bg: #CBD5E1;
+  --btn-disabled-text: #94A3B8;
+  --modal-overlay: rgba(15, 23, 42, 0.40);
+  --modal-shadow: 0 12px 40px rgba(15, 23, 42, 0.15);
+  --focus-outline: #059669;
+  --error: #DC2626;
+  --success: #059669;
+  --connector: #CBD5E1;
+  --connector-active: #059669;
+  --accent: #059669;
+  --accent-glow: rgba(5, 150, 105, 0.35);
+  --tooltip-bg: rgba(15, 23, 42, 0.94);
+  --tooltip-text: #F8FAFC;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #121316;
-  --bg-flag: #121316;
-  --text: #ede8e4;
-  --text-secondary: #b8aea8;
-  --text-muted: #8f8480;
-  --border: #3d3835;
-  --border-strong: #524c48;
-  --border-subtle: #35302d;
-  --surface: #1f1c1a;
-  --surface-elevated: #2a2623;
+  --bg: #0B0F19;
+  --bg-flag: #0B0F19;
+  --text: #F5F7FA;
+  --text-secondary: #B8C0CC;
+  --text-muted: #7A8496;
+  --border: #2A3244;
+  --border-strong: #3D4762;
+  --border-subtle: #1E2534;
+  --surface: #131824;
+  --surface-elevated: #1B2130;
   --surface-muted: rgba(255, 255, 255, 0.04);
-  --btn-bg: #ede8e4;
-  --btn-bg-hover: #fff;
-  --btn-text: #161412;
-  --btn-disabled-bg: #4a4540;
-  --btn-disabled-text: #8f8480;
-  --modal-overlay: rgba(0, 0, 0, 0.55);
-  --modal-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-  --focus-outline: #8f8480;
-  --error: #ff6b6b;
-  --success: #6fcf97;
-  --connector: #4b4d50;
-  --accent: #ede8e4;
-  --tooltip-bg: rgba(237, 232, 228, 0.95);
-  --tooltip-text: #161412;
+  --btn-bg: #F5F7FA;
+  --btn-bg-hover: #FFFFFF;
+  --btn-text: #0B0F19;
+  --btn-disabled-bg: #2A3244;
+  --btn-disabled-text: #7A8496;
+  --modal-overlay: rgba(3, 6, 13, 0.65);
+  --modal-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+  --focus-outline: #4ADE80;
+  --error: #FB7185;
+  --success: #4ADE80;
+  --connector: #2A3244;
+  --connector-active: #4ADE80;
+  --accent: #4ADE80;
+  --accent-glow: rgba(74, 222, 128, 0.55);
+  --tooltip-bg: rgba(245, 247, 250, 0.95);
+  --tooltip-text: #0B0F19;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-    --bg: #121316;
-    --bg-flag: #121316;
-    --text: #ede8e4;
-    --text-secondary: #b8aea8;
-    --text-muted: #8f8480;
-    --border: #3d3835;
-    --border-strong: #524c48;
-    --border-subtle: #35302d;
-    --surface: #1f1c1a;
-    --surface-elevated: #2a2623;
+    --bg: #0B0F19;
+    --bg-flag: #0B0F19;
+    --text: #F5F7FA;
+    --text-secondary: #B8C0CC;
+    --text-muted: #7A8496;
+    --border: #2A3244;
+    --border-strong: #3D4762;
+    --border-subtle: #1E2534;
+    --surface: #131824;
+    --surface-elevated: #1B2130;
     --surface-muted: rgba(255, 255, 255, 0.04);
-    --btn-bg: #ede8e4;
-    --btn-bg-hover: #fff;
-    --btn-text: #161412;
-    --btn-disabled-bg: #4a4540;
-    --btn-disabled-text: #8f8480;
-    --modal-overlay: rgba(0, 0, 0, 0.55);
-    --modal-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-    --focus-outline: #8f8480;
-    --error: #ff6b6b;
-    --success: #6fcf97;
-    --connector: #4b4d50;
-    --accent: #ede8e4;
-    --tooltip-bg: rgba(237, 232, 228, 0.95);
-    --tooltip-text: #161412;
+    --btn-bg: #F5F7FA;
+    --btn-bg-hover: #FFFFFF;
+    --btn-text: #0B0F19;
+    --btn-disabled-bg: #2A3244;
+    --btn-disabled-text: #7A8496;
+    --modal-overlay: rgba(3, 6, 13, 0.65);
+    --modal-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+    --focus-outline: #4ADE80;
+    --error: #FB7185;
+    --success: #4ADE80;
+    --connector: #2A3244;
+    --connector-active: #4ADE80;
+    --accent: #4ADE80;
+    --accent-glow: rgba(74, 222, 128, 0.55);
+    --tooltip-bg: rgba(245, 247, 250, 0.95);
+    --tooltip-text: #0B0F19;
   }
 }
 
@@ -113,4 +128,38 @@ body {
   outline: 2px solid var(--focus-outline);
   outline-offset: 2px;
   border-radius: 3px;
+}
+
+/* Pick pop: brief scale bounce when the user advances a team in the
+   interactive bracket. Applied via a keyed React remount so it fires
+   every time (a CSS animation without a key would only run once). */
+@keyframes pick-pop {
+  0%   { transform: translate(-50%, -50%) scale(1); }
+  40%  { transform: translate(-50%, -50%) scale(1.35); filter: drop-shadow(0 0 12px var(--accent-glow)); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+.animate-pick-pop {
+  animation: pick-pop 520ms cubic-bezier(0.2, 0.9, 0.3, 1.3);
+}
+
+/* Live pulse dot for the freshness chip. */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.55; transform: scale(0.75); }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+
+/* Pick toast: brief slide-in from just above, hold, then fade. Runs
+   once per mount — the interactive picker keys the toast so a new
+   pick remounts and re-triggers the animation. */
+@keyframes pick-toast-in {
+  0%   { opacity: 0; transform: translate(-50%, -8px); }
+  15%  { opacity: 1; transform: translate(-50%, 0); }
+  85%  { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -4px); }
+}
+.animate-pick-toast {
+  animation: pick-toast-in 2400ms ease-out forwards;
 }

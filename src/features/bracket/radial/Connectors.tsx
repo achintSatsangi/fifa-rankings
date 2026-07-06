@@ -7,7 +7,9 @@ import type { MatchGeometry } from "./layout";
  *   1. two short radial stubs from each source inward to the shoulder ring
  *   2. one tangent arc joining the two stubs along the shoulder ring
  *   3. one radial stem from the arc's midpoint inward to the match centre
- * Small dots mark the stub-to-arc corners so the geometry reads cleanly.
+ * Elbow dots at each corner mark the geometry — those dots pick up
+ * the theme accent (turf green) and get a soft blur glow so the
+ * whole diagram reads as "lit up" without swamping the flag markers.
  */
 export function Connectors() {
   const geoms = useMemo(bracketGeometry, []);
@@ -26,6 +28,19 @@ export function Connectors() {
       viewBox="0 0 100 100"
       className="pointer-events-none absolute inset-0 h-full w-full"
     >
+      <defs>
+        {/* Soft glow for accent-colored geometry. feGaussianBlur is
+            cheap at this resolution; feMerge stacks the blur behind
+            the original stroke so shapes stay crisp. */}
+        <filter id="connector-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="0.6" result="glow" />
+          <feMerge>
+            <feMergeNode in="glow" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
       {guideRings.map((r) => (
         <circle
           key={r}
@@ -69,9 +84,10 @@ function MatchBracket({ g }: { g: MatchGeometry }) {
       <path d={`M ${eA.x} ${eA.y} A ${r} ${r} 0 0 ${sweep} ${eB.x} ${eB.y}`} />
       {/* Radial stem, shoulder mid → match centre */}
       <line x1={mid.x} y1={mid.y} x2={mc.x} y2={mc.y} />
-      {/* Corner dots at each elbow — visual polish */}
-      <circle cx={eA.x} cy={eA.y} r={0.35} fill={strokeColor} stroke="none" />
-      <circle cx={eB.x} cy={eB.y} r={0.35} fill={strokeColor} stroke="none" />
+      {/* Corner dots at each elbow — accent-colored + subtle glow so
+          the geometry reads as lit-up turf lines. */}
+      <circle cx={eA.x} cy={eA.y} r={0.42} fill="var(--accent)" stroke="none" filter="url(#connector-glow)" />
+      <circle cx={eB.x} cy={eB.y} r={0.42} fill="var(--accent)" stroke="none" filter="url(#connector-glow)" />
     </g>
   );
 }

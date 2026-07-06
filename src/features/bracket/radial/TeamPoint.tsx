@@ -16,6 +16,10 @@ type Props = {
    *  this team. Suppresses Flag's built-in name tooltip so they don't
    *  overlap. */
   match?: BracketMatch;
+  /** Monotonic counter used to trigger the scale-pop animation. When
+   *  this changes, the wrapper remounts and the pop plays fresh. Used
+   *  by InteractiveRadial to celebrate the picked team. */
+  pulseKey?: number;
 };
 
 export function TeamPoint({
@@ -26,6 +30,7 @@ export function TeamPoint({
   onClick,
   layer = "outer",
   match,
+  pulseKey,
 }: Props) {
   const team = teamByCode(code);
   const [hovered, setHovered] = useState(false);
@@ -86,11 +91,16 @@ export function TeamPoint({
     );
   }
 
+  // When pulseKey changes, remount the button so the CSS pick-pop
+  // animation replays (motion-safe respects prefers-reduced-motion).
+  const popClass = pulseKey !== undefined ? "motion-safe:animate-pick-pop" : "";
+
   return (
     <button
+      key={pulseKey}
       type="button"
       onClick={() => onClick(team.code)}
-      className="absolute rounded-full ring-0 transition-transform hover:z-10 hover:scale-110 focus-visible:z-10 focus-visible:scale-110"
+      className={`absolute rounded-full ring-0 transition-transform hover:z-10 hover:scale-110 focus-visible:z-10 focus-visible:scale-110 ${popClass}`}
       style={style}
       aria-label={team.name}
       title={showTooltip ? undefined : team.name}

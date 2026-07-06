@@ -16,32 +16,40 @@
   "favourite": {
     "add": "Set as favourite",
     "remove": "Remove from favourites",
-    "yourTeam": "Your team"
+    "yourTeam": "Your contender"
   },
   "landing": {
     "bracketSection": "The bracket",
     "groupsSection": "The groups",
     "horizontalLink": "Prefer the classic layout? →",
     "scrollHint": "Scroll to explore",
+    "disclaimer": {
+      "body": "Fan-built with a lot of AI help, powered by free public APIs — so bugs and stale scores happen.",
+      "linkPrefix": "Spot something off? ",
+      "linkText": "Open an issue on GitHub",
+      "linkSuffix": " — everyone's welcome."
+    },
     "storyline": {
-      "beat1": "The knockout, redrawn as a circle.",
-      "beat2": "32 nations around the edge. The trophy at the center.",
-      "beat3": "Every team, exactly the same distance from glory.",
-      "beat4": "A left-to-right bracket tells a story before kickoff — favorites on one side, underdogs on the other, an unspoken order.",
-      "beat5": "The circle refuses that story.",
-      "beat6": "Because when the whistle blows, none of it matters. Anyone can beat anyone.",
-      "beat7": "The bracket only writes itself in retrospect.",
+      "beat1": "48 nations. 104 matches. One circular cage.",
+      "beat2": "The knockout, redrawn as a ring — 32 survivors on the outside, one trophy at the center.",
+      "beat3": "Every flag the same distance from glory. No seeds. No favorites. No invisible order.",
+      "beat4": "A left-to-right bracket writes the ending before kickoff.",
+      "beat5": "The circle refuses to spoil the story.",
+      "beat6": "When the whistle blows, no one owns the next ninety minutes. Anyone can beat anyone.",
+      "beat7": "The traditional bracket is dead. Welcome to the wheel of destiny. Scroll to predict.",
       "creditPrefix": "Concept by ",
       "creditName": "Paul Noble",
-      "creditSuffix": ". The pitch does the rest."
+      "creditSuffix": ". Everything else, decided on the pitch."
     }
   },
   "meta": {
-    "dataUpdated": "Data updated",
-    "nextRefresh": "Next refresh",
+    "dataUpdated": "Pitch data synced",
+    "nextRefresh": "Next tactical injection",
+    "livePulseLabel": "Live",
+    "syncedLabel": "synced",
     "justNow": "just now",
     "minutesAgo": "{{count}}m ago",
-    "dueNow": "refreshing…",
+    "dueNow": "syncing…",
     "nextInMinutes": "next in {{count}}m"
   },
   "matches": {
@@ -72,7 +80,16 @@
   "interactive": {
     "tagline": "Pick your winners — click a team to advance them.",
     "picks": "picks",
-    "hint": "Tap or click a team to advance them. Change a pick and downstream ones reset."
+    "hint": "Tap or click a team to advance them. Change a pick and downstream ones reset.",
+    "pickToast": {
+      "advance": "Bold choice! You sent {{team}} through to the {{round}}.",
+      "crowned": "Bold choice! You just crowned {{team}} champion.",
+      "roundR16": "Round of 16",
+      "roundQF": "Quarterfinals",
+      "roundSF": "Semifinals",
+      "roundF": "the Final",
+      "roundChampion": "champion's seat"
+    }
   },
   "teams": {
     "title": "Teams",

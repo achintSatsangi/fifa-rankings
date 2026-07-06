@@ -16,13 +16,19 @@
   "favourite": {
     "add": "Ajouter aux favoris",
     "remove": "Retirer des favoris",
-    "yourTeam": "Votre équipe"
+    "yourTeam": "Votre outsider"
   },
   "landing": {
     "bracketSection": "Le tableau",
     "groupsSection": "Les groupes",
     "horizontalLink": "Vous préférez la mise en page classique ? →",
     "scrollHint": "Faites défiler pour explorer",
+    "disclaimer": {
+      "body": "Créé par un fan avec beaucoup d'aide de l'IA, sur des APIs publiques gratuites — bugs et scores en retard arrivent.",
+      "linkPrefix": "Un souci ? ",
+      "linkText": "Ouvrez une issue sur GitHub",
+      "linkSuffix": " — tout le monde est bienvenu."
+    },
     "storyline": {
       "creditPrefix": "Concept de ",
       "creditName": "Paul Noble",
@@ -33,11 +39,13 @@
     "startOnBracket": "Démarrer sur le tableau"
   },
   "meta": {
-    "dataUpdated": "Données mises à jour",
-    "nextRefresh": "Prochaine actualisation",
+    "dataUpdated": "Données du terrain synchronisées",
+    "nextRefresh": "Prochaine injection tactique",
+    "livePulseLabel": "En direct",
+    "syncedLabel": "sync.",
     "justNow": "à l’instant",
     "minutesAgo": "il y a {{count}} min",
-    "dueNow": "actualisation…",
+    "dueNow": "sync. en cours…",
     "nextInMinutes": "prochaine dans {{count}} min"
   },
   "matches": {
@@ -67,7 +75,16 @@
   "interactive": {
     "tagline": "Choisissez vos vainqueurs — cliquez sur une équipe pour la faire avancer.",
     "picks": "choix",
-    "hint": "Touchez ou cliquez une équipe pour l'avancer. Modifier un choix remet à zéro les suivants."
+    "hint": "Touchez ou cliquez une équipe pour l'avancer. Modifier un choix remet à zéro les suivants.",
+    "pickToast": {
+      "advance": "Choix audacieux ! Vous avez envoyé {{team}} en {{round}}.",
+      "crowned": "Choix audacieux ! Vous venez de sacrer {{team}} champion.",
+      "roundR16": "huitièmes",
+      "roundQF": "quarts",
+      "roundSF": "demies",
+      "roundF": "finale",
+      "roundChampion": "le trône"
+    }
   },
   "teams": {
     "title": "Équipes",

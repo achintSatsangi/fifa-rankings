@@ -16,13 +16,19 @@
   "favourite": {
     "add": "Markér som favorit",
     "remove": "Fjern favorit",
-    "yourTeam": "Dit hold"
+    "yourTeam": "Din kandidat"
   },
   "landing": {
     "bracketSection": "Slutrunden",
     "groupsSection": "Grupperne",
     "horizontalLink": "Foretrækker du det klassiske layout? →",
     "scrollHint": "Rul for at udforske",
+    "disclaimer": {
+      "body": "Lavet af en fan med masser af AI-hjælp, drevet af gratis offentlige API'er — så bugs og lidt gamle resultater sker.",
+      "linkPrefix": "Så du noget skævt? ",
+      "linkText": "Åbn en issue på GitHub",
+      "linkSuffix": " — alle er velkomne."
+    },
     "storyline": {
       "creditPrefix": "Koncept af ",
       "creditName": "Paul Noble",
@@ -33,11 +39,13 @@
     "startOnBracket": "Start på slutrunden"
   },
   "meta": {
-    "dataUpdated": "Data opdateret",
-    "nextRefresh": "Næste opdatering",
+    "dataUpdated": "Banedata synkroniseret",
+    "nextRefresh": "Næste taktiske injektion",
+    "livePulseLabel": "Live",
+    "syncedLabel": "synk.",
     "justNow": "lige nu",
     "minutesAgo": "for {{count}}m siden",
-    "dueNow": "opdaterer…",
+    "dueNow": "synkroniserer…",
     "nextInMinutes": "næste om {{count}}m"
   },
   "matches": {
@@ -67,7 +75,16 @@
   "interactive": {
     "tagline": "Vælg vinderne — klik på et hold for at avancere.",
     "picks": "valg",
-    "hint": "Tryk eller klik på et hold for at avancere. Ændrer du et valg nulstilles de senere."
+    "hint": "Tryk eller klik på et hold for at avancere. Ændrer du et valg nulstilles de senere.",
+    "pickToast": {
+      "advance": "Modigt valg! Du sendte {{team}} videre til {{round}}.",
+      "crowned": "Modigt valg! Du kronede lige {{team}} som mester.",
+      "roundR16": "ottendedelsfinalen",
+      "roundQF": "kvartfinalen",
+      "roundSF": "semifinalen",
+      "roundF": "finalen",
+      "roundChampion": "tronen"
+    }
   },
   "teams": {
     "title": "Hold",

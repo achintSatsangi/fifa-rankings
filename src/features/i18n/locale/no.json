@@ -16,13 +16,19 @@
   "favourite": {
     "add": "Sett som favoritt",
     "remove": "Fjern favoritt",
-    "yourTeam": "Ditt lag"
+    "yourTeam": "Din kandidat"
   },
   "landing": {
     "bracketSection": "Utslagsrunden",
     "groupsSection": "Gruppene",
     "horizontalLink": "Foretrekker du den klassiske layouten? →",
     "scrollHint": "Bla for å utforske",
+    "disclaimer": {
+      "body": "Laget av en fan med mye AI-hjelp, drevet av gratis offentlige APIer — så bugs og litt gamle resultater skjer.",
+      "linkPrefix": "Så du noe rart? ",
+      "linkText": "Åpne en issue på GitHub",
+      "linkSuffix": " — alle er velkomne."
+    },
     "storyline": {
       "creditPrefix": "Konsept av ",
       "creditName": "Paul Noble",
@@ -33,11 +39,13 @@
     "startOnBracket": "Start på utslagsrunden"
   },
   "meta": {
-    "dataUpdated": "Data oppdatert",
-    "nextRefresh": "Neste oppdatering",
+    "dataUpdated": "Banedata synkronisert",
+    "nextRefresh": "Neste taktiske injeksjon",
+    "livePulseLabel": "Live",
+    "syncedLabel": "synk.",
     "justNow": "akkurat nå",
     "minutesAgo": "for {{count}}m siden",
-    "dueNow": "oppdaterer…",
+    "dueNow": "synkroniserer…",
     "nextInMinutes": "neste om {{count}}m"
   },
   "matches": {
@@ -67,7 +75,16 @@
   "interactive": {
     "tagline": "Velg vinnerne — klikk et lag for å ta det videre.",
     "picks": "valg",
-    "hint": "Trykk eller klikk et lag for å ta det videre. Endrer du et valg nullstilles de senere."
+    "hint": "Trykk eller klikk et lag for å ta det videre. Endrer du et valg nullstilles de senere.",
+    "pickToast": {
+      "advance": "Modig valg! Du sendte {{team}} videre til {{round}}.",
+      "crowned": "Modig valg! Du kronet {{team}} som mester.",
+      "roundR16": "åttedelsfinalen",
+      "roundQF": "kvartfinalen",
+      "roundSF": "semifinalen",
+      "roundF": "finalen",
+      "roundChampion": "tronen"
+    }
   },
   "teams": {
     "title": "Lag",

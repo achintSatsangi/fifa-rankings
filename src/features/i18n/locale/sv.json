@@ -16,13 +16,19 @@
   "favourite": {
     "add": "Markera som favorit",
     "remove": "Ta bort favorit",
-    "yourTeam": "Ditt lag"
+    "yourTeam": "Din utmanare"
   },
   "landing": {
     "bracketSection": "Slutspelet",
     "groupsSection": "Grupperna",
     "horizontalLink": "Föredrar du den klassiska layouten? →",
     "scrollHint": "Skrolla för att utforska",
+    "disclaimer": {
+      "body": "Gjord av ett fan med mycket AI-hjälp, driven av gratis publika APIer — så buggar och lite gamla resultat händer.",
+      "linkPrefix": "Såg du något konstigt? ",
+      "linkText": "Öppna en issue på GitHub",
+      "linkSuffix": " — alla är välkomna."
+    },
     "storyline": {
       "creditPrefix": "Koncept av ",
       "creditName": "Paul Noble",
@@ -33,11 +39,13 @@
     "startOnBracket": "Starta på slutspelet"
   },
   "meta": {
-    "dataUpdated": "Data uppdaterad",
-    "nextRefresh": "Nästa uppdatering",
+    "dataUpdated": "Plandata synkroniserad",
+    "nextRefresh": "Nästa taktiska injektion",
+    "livePulseLabel": "Live",
+    "syncedLabel": "synk.",
     "justNow": "just nu",
     "minutesAgo": "för {{count}}m sedan",
-    "dueNow": "uppdaterar…",
+    "dueNow": "synkroniserar…",
     "nextInMinutes": "nästa om {{count}}m"
   },
   "matches": {
@@ -67,7 +75,16 @@
   "interactive": {
     "tagline": "Välj vinnarna — klicka på ett lag för att gå vidare.",
     "picks": "val",
-    "hint": "Tryck eller klicka på ett lag för att gå vidare. Ändrar du ett val nollställs de senare."
+    "hint": "Tryck eller klicka på ett lag för att gå vidare. Ändrar du ett val nollställs de senare.",
+    "pickToast": {
+      "advance": "Djärvt val! Du skickade {{team}} vidare till {{round}}.",
+      "crowned": "Djärvt val! Du krönte just {{team}} till mästare.",
+      "roundR16": "åttondelsfinalen",
+      "roundQF": "kvartsfinalen",
+      "roundSF": "semifinalen",
+      "roundF": "finalen",
+      "roundChampion": "tronen"
+    }
   },
   "teams": {
     "title": "Lag",

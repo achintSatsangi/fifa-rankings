@@ -4,9 +4,12 @@ import { minutesSince, minutesUntil, nextRefreshAt } from "../lib/refreshSchedul
 import { useSecondTicker } from "../lib/ticker";
 
 /**
- * Small pill in the header showing when data was last refreshed and
- * when the next scheduled refresh will fire. Hidden entirely when
- * BUILD_TIMESTAMP is missing (local dev without VITE_BUILD_TIMESTAMP).
+ * "Live Pulse" chip in the header — sports-broadcast styling: a
+ * pulsing accent dot, then compact live copy ("Live · synced 5m ago ·
+ * next in 12m"). Mobile drops to the pulse dot + minutes-ago count
+ * (tap/hover reveals the full absolute timestamps in the tooltip).
+ * Hidden entirely when BUILD_TIMESTAMP is missing (local dev without
+ * VITE_BUILD_TIMESTAMP).
  */
 export function DataFreshnessChip() {
   const { t } = useTranslation();
@@ -30,29 +33,22 @@ ${t("meta.nextRefresh")} ${formatAbsolute(next.toISOString())}`;
       title={title}
       aria-label={title}
     >
-      <RefreshIcon />
-      <span>{agoLabel}</span>
+      <span
+        aria-hidden="true"
+        className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--accent)] motion-safe:animate-pulse-dot"
+        style={{ boxShadow: "0 0 8px var(--accent-glow)" }}
+      />
+      <span className="hidden font-semibold uppercase tracking-wide text-[var(--text)] sm:inline">
+        {t("meta.livePulseLabel")}
+      </span>
+      <span aria-hidden="true" className="hidden opacity-50 sm:inline">·</span>
+      <span className="hidden sm:inline">
+        {t("meta.syncedLabel")} {agoLabel}
+      </span>
+      {/* Mobile: pulse dot + short ago */}
+      <span className="sm:hidden">{agoLabel}</span>
       <span aria-hidden="true" className="hidden opacity-50 sm:inline">·</span>
       <span className="hidden sm:inline">{nextLabel}</span>
     </div>
-  );
-}
-
-function RefreshIcon() {
-  return (
-    <svg
-      width="12"
-      height="12"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M21 12a9 9 0 1 1-3.51-7.13" />
-      <polyline points="21 3 21 9 15 9" />
-    </svg>
   );
 }

@@ -1,11 +1,25 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import type { BracketRound } from "../../../data/types";
 import { computeTeamStates, type TeamPickState } from "../picks/state";
+import { PickToast } from "../picks/PickToast";
 import { usePicksStore } from "../picks/store";
+import { teamByCode } from "../../teams/data";
 import { Connectors } from "./Connectors";
 import { TeamPoint } from "./TeamPoint";
 import { Trophy } from "./Trophy";
 import { flagSizesFor, trophySizeFor, WINNER_RING_RADIUS, OUTER_FLAG_RADIUS } from "./layout";
+
+/** Which round the winner of a given match advances into.
+ *  R32 winner → Round of 16; SF winner → the Final; F winner → champion. */
+const NEXT_ROUND_KEY: Record<BracketRound, string> = {
+  R32: "interactive.pickToast.roundR16",
+  R16: "interactive.pickToast.roundQF",
+  QF:  "interactive.pickToast.roundSF",
+  SF:  "interactive.pickToast.roundF",
+  F:   "interactive.pickToast.roundChampion",
+  "3RD": "interactive.pickToast.roundR16", // never hit in this flow; keep type-complete
+};
 
 export function InteractiveRadial() {
   const picks = usePicksStore((s) => s.picks);
@@ -28,10 +42,28 @@ export function InteractiveRadial() {
 
   const teamStates = useMemo(() => computeTeamStates(picks), [picks]);
 
+  // Pick celebration state — monotonic tick + last picked code drive the
+  // scale-pop on the picked flag and the toast at top of the container.
+  const [pulseTick, setPulseTick] = useState(0);
+  const [pulsedCode, setPulsedCode] = useState<string | null>(null);
+  const [toast, setToast] = useState<string>("");
+
   const handleClick = (teamCode: string) => {
     const state = teamStates.find((s) => s.code === teamCode);
     if (!state || state.eliminated || !state.nextMatch || !state.canAdvance) return;
+    const round = state.nextMatch.round;
     setPick(state.nextMatch.id, teamCode);
+
+    // Celebrate.
+    const teamName = teamByCode(teamCode)?.name ?? teamCode;
+    const nextRound = t(NEXT_ROUND_KEY[round]);
+    const template =
+      round === "F"
+        ? t("interactive.pickToast.crowned", { team: teamName })
+        : t("interactive.pickToast.advance", { team: teamName, round: nextRound });
+    setToast(template);
+    setPulsedCode(teamCode);
+    setPulseTick((n) => n + 1);
   };
 
   const totalPicks = Object.keys(picks).length;
@@ -56,7 +88,16 @@ export function InteractiveRadial() {
         ref={outerRef}
         className="relative flex min-h-0 flex-1 items-center justify-center"
       >
-        {size > 0 ? <Ring size={size} teamStates={teamStates} onClick={handleClick} /> : null}
+        <PickToast message={toast} tick={pulseTick} />
+        {size > 0 ? (
+          <Ring
+            size={size}
+            teamStates={teamStates}
+            onClick={handleClick}
+            pulsedCode={pulsedCode}
+            pulseTick={pulseTick}
+          />
+        ) : null}
       </div>
 
       <p className="mt-2 shrink-0 text-center text-xs text-[var(--text-muted)]">
@@ -70,10 +111,14 @@ function Ring({
   size,
   teamStates,
   onClick,
+  pulsedCode,
+  pulseTick,
 }: {
   size: number;
   teamStates: TeamPickState[];
   onClick: (code: string) => void;
+  pulsedCode: string | null;
+  pulseTick: number;
 }) {
   const sizes = useMemo(() => flagSizesFor(size), [size]);
   const trophySize = useMemo(() => trophySizeFor(size), [size]);
@@ -101,6 +146,7 @@ function Ring({
             faded={state.eliminated}
             onClick={clickable ? onClick : undefined}
             layer={state.radius === OUTER_FLAG_RADIUS ? "outer" : "winner"}
+            pulseKey={state.code === pulsedCode ? pulseTick : undefined}
           />
         );
       })}

@@ -16,13 +16,19 @@
   "favourite": {
     "add": "Merkitse suosikiksi",
     "remove": "Poista suosikeista",
-    "yourTeam": "Joukkueesi"
+    "yourTeam": "Suosikkisi"
   },
   "landing": {
     "bracketSection": "Pudotuspelit",
     "groupsSection": "Lohkot",
     "horizontalLink": "Klassinen näkymä? →",
     "scrollHint": "Vieritä tutkiaksesi",
+    "disclaimer": {
+      "body": "Fanin tekemä isolla AI-avulla, ilmaisten julkisten APIen varassa — bugit ja vanhentuneet tulokset ovat mahdollisia.",
+      "linkPrefix": "Näitkö jotain outoa? ",
+      "linkText": "Avaa issue GitHubissa",
+      "linkSuffix": " — kaikki ovat tervetulleita."
+    },
     "storyline": {
       "creditPrefix": "Idean takana ",
       "creditName": "Paul Noble",
@@ -33,11 +39,13 @@
     "startOnBracket": "Aloita pudotuspeleistä"
   },
   "meta": {
-    "dataUpdated": "Tiedot päivitetty",
-    "nextRefresh": "Seuraava päivitys",
+    "dataUpdated": "Kenttädata synkronoitu",
+    "nextRefresh": "Seuraava taktinen injektio",
+    "livePulseLabel": "Live",
+    "syncedLabel": "synk.",
     "justNow": "juuri nyt",
     "minutesAgo": "{{count}}m sitten",
-    "dueNow": "päivittää…",
+    "dueNow": "synkronoidaan…",
     "nextInMinutes": "seuraava {{count}}m kuluttua"
   },
   "matches": {
@@ -67,7 +75,16 @@
   "interactive": {
     "tagline": "Valitse voittajat — klikkaa joukkuetta viedäksesi eteenpäin.",
     "picks": "valintaa",
-    "hint": "Napauta tai klikkaa joukkuetta viedäksesi eteenpäin. Valinnan muuttaminen nollaa myöhemmät."
+    "hint": "Napauta tai klikkaa joukkuetta viedäksesi eteenpäin. Valinnan muuttaminen nollaa myöhemmät.",
+    "pickToast": {
+      "advance": "Rohkea valinta! Lähetit {{team}} eteenpäin: {{round}}.",
+      "crowned": "Rohkea valinta! Kruunasit juuri joukkueen {{team}} mestariksi.",
+      "roundR16": "16 parasta",
+      "roundQF": "puolivälierät",
+      "roundSF": "välierät",
+      "roundF": "finaali",
+      "roundChampion": "valtaistuin"
+    }
   },
   "teams": {
     "title": "Joukkueet",

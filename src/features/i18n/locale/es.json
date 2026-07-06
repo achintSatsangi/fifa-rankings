@@ -16,13 +16,19 @@
   "favourite": {
     "add": "Marcar como favorito",
     "remove": "Quitar de favoritos",
-    "yourTeam": "Tu equipo"
+    "yourTeam": "Tu candidato"
   },
   "landing": {
     "bracketSection": "El cuadro",
     "groupsSection": "Los grupos",
     "horizontalLink": "¿Prefieres el diseño clásico? →",
     "scrollHint": "Desliza para explorar",
+    "disclaimer": {
+      "body": "Hecho por un fan con mucha ayuda de IA, sobre APIs públicas gratuitas — habrá bugs y datos algo viejos.",
+      "linkPrefix": "¿Notaste algo raro? ",
+      "linkText": "Abre un issue en GitHub",
+      "linkSuffix": " — todo el mundo es bienvenido."
+    },
     "storyline": {
       "creditPrefix": "Concepto de ",
       "creditName": "Paul Noble",
@@ -33,11 +39,13 @@
     "startOnBracket": "Iniciar en eliminatorias"
   },
   "meta": {
-    "dataUpdated": "Datos actualizados",
-    "nextRefresh": "Próxima actualización",
+    "dataUpdated": "Datos de la cancha sincronizados",
+    "nextRefresh": "Próxima inyección táctica",
+    "livePulseLabel": "En vivo",
+    "syncedLabel": "sincronizado",
     "justNow": "ahora mismo",
     "minutesAgo": "hace {{count}}m",
-    "dueNow": "actualizando…",
+    "dueNow": "sincronizando…",
     "nextInMinutes": "próxima en {{count}}m"
   },
   "matches": {
@@ -67,7 +75,16 @@
   "interactive": {
     "tagline": "Elige a los ganadores — haz clic en un equipo para avanzarlo.",
     "picks": "elecciones",
-    "hint": "Toca o haz clic en un equipo para avanzarlo. Cambiar una elección reinicia las posteriores."
+    "hint": "Toca o haz clic en un equipo para avanzarlo. Cambiar una elección reinicia las posteriores.",
+    "pickToast": {
+      "advance": "¡Jugada audaz! Enviaste a {{team}} a {{round}}.",
+      "crowned": "¡Jugada audaz! Acabas de coronar a {{team}} campeón.",
+      "roundR16": "los octavos",
+      "roundQF": "cuartos",
+      "roundSF": "semifinales",
+      "roundF": "la final",
+      "roundChampion": "el trono"
+    }
   },
   "teams": {
     "title": "Equipos",
