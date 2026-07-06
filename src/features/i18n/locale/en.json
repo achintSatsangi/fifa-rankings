@@ -1,0 +1,82 @@
+{
+  "app": {
+    "title": "FIFA Ranking",
+    "tagline": "Play the FIFA World Cup 2026 knockout bracket. Predict, share, and follow live results.",
+    "footer": "Fan-made. Not affiliated with FIFA."
+  },
+  "nav": {
+    "bracket": "Bracket",
+    "teams": "Teams",
+    "groups": "Groups"
+  },
+  "language": { "label": "Language" },
+  "theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "bracket": {
+    "title": "Knockout Bracket",
+    "viewRadial": "Radial",
+    "viewHorizontal": "Horizontal",
+    "reset": "Reset",
+    "undo": "Undo",
+    "share": "Share",
+    "download": "Download PNG"
+  },
+  "teams": {
+    "title": "Teams",
+    "filterGroup": "Group",
+    "filterConfederation": "Confederation",
+    "sortRank": "By FIFA rank",
+    "sortName": "By name",
+    "all": "All",
+    "empty": "No teams found."
+  },
+  "team": {
+    "group": "Group",
+    "confederation": "Confederation",
+    "rank": "FIFA rank",
+    "journey": "Journey",
+    "path": "Bracket path",
+    "matches": "Matches",
+    "stage": "Stage",
+    "date": "Date",
+    "venue": "Venue",
+    "opponent": "Opponent",
+    "score": "Score",
+    "result": "Result",
+    "highlights": "Highlights",
+    "watchHighlights": "Watch highlights",
+    "resultWin": "W",
+    "resultDraw": "D",
+    "resultLoss": "L",
+    "notPlayed": "—"
+  },
+  "groups": {
+    "title": "Group Stage",
+    "played": "P",
+    "won": "W",
+    "drawn": "D",
+    "lost": "L",
+    "goalsFor": "GF",
+    "goalsAgainst": "GA",
+    "goalDiff": "GD",
+    "points": "Pts"
+  },
+  "simulator": {
+    "modeQuick": "Quick",
+    "modeDetailed": "Detailed",
+    "resetToReal": "Reset to real results"
+  },
+  "share": {
+    "title": "Share your bracket",
+    "copy": "Copy link",
+    "copied": "Copied!"
+  },
+  "shortcuts": {
+    "title": "Keyboard shortcuts",
+    "hint": "Press ? for help"
+  }
+}

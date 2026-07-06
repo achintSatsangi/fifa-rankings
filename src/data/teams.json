@@ -1,0 +1,61 @@
+[
+  { "code": "MEX", "name": "Mexico",                 "confederation": "CONCACAF", "fifaRank": 14, "groupId": "A", "groupPosition": 1, "advanced": true },
+  { "code": "RSA", "name": "South Africa",           "confederation": "CAF",      "fifaRank": 60, "groupId": "A", "groupPosition": 2, "advanced": true },
+  { "code": "KOR", "name": "South Korea",            "confederation": "AFC",      "fifaRank": 25, "groupId": "A", "groupPosition": 3, "advanced": false },
+  { "code": "CZE", "name": "Czech Republic",         "confederation": "UEFA",     "fifaRank": 40, "groupId": "A", "groupPosition": 4, "advanced": false },
+
+  { "code": "SUI", "name": "Switzerland",            "confederation": "UEFA",     "fifaRank": 19, "groupId": "B", "groupPosition": 1, "advanced": true },
+  { "code": "CAN", "name": "Canada",                 "confederation": "CONCACAF", "fifaRank": 30, "groupId": "B", "groupPosition": 2, "advanced": true },
+  { "code": "BIH", "name": "Bosnia and Herzegovina", "confederation": "UEFA",     "fifaRank": 64, "groupId": "B", "groupPosition": 3, "advanced": true },
+  { "code": "QAT", "name": "Qatar",                  "confederation": "AFC",      "fifaRank": 56, "groupId": "B", "groupPosition": 4, "advanced": false },
+
+  { "code": "BRA", "name": "Brazil",                 "confederation": "CONMEBOL", "fifaRank": 6,  "groupId": "C", "groupPosition": 1, "advanced": true },
+  { "code": "MAR", "name": "Morocco",                "confederation": "CAF",      "fifaRank": 7,  "groupId": "C", "groupPosition": 2, "advanced": true },
+  { "code": "SCO", "name": "Scotland",               "confederation": "UEFA",     "fifaRank": 42, "groupId": "C", "groupPosition": 3, "advanced": false },
+  { "code": "HAI", "name": "Haiti",                  "confederation": "CONCACAF", "fifaRank": 83, "groupId": "C", "groupPosition": 4, "advanced": false },
+
+  { "code": "USA", "name": "United States",          "confederation": "CONCACAF", "fifaRank": 17, "groupId": "D", "groupPosition": 1, "advanced": true },
+  { "code": "AUS", "name": "Australia",              "confederation": "AFC",      "fifaRank": 27, "groupId": "D", "groupPosition": 2, "advanced": true },
+  { "code": "PAR", "name": "Paraguay",               "confederation": "CONMEBOL", "fifaRank": 41, "groupId": "D", "groupPosition": 3, "advanced": true },
+  { "code": "TUR", "name": "Turkey",                 "confederation": "UEFA",     "fifaRank": 22, "groupId": "D", "groupPosition": 4, "advanced": false },
+
+  { "code": "GER", "name": "Germany",                "confederation": "UEFA",     "fifaRank": 10, "groupId": "E", "groupPosition": 1, "advanced": true },
+  { "code": "CIV", "name": "Ivory Coast",            "confederation": "CAF",      "fifaRank": 33, "groupId": "E", "groupPosition": 2, "advanced": true },
+  { "code": "ECU", "name": "Ecuador",                "confederation": "CONMEBOL", "fifaRank": 23, "groupId": "E", "groupPosition": 3, "advanced": true },
+  { "code": "CUW", "name": "Curaçao",                "confederation": "CONCACAF", "fifaRank": 82, "groupId": "E", "groupPosition": 4, "advanced": false },
+
+  { "code": "NED", "name": "Netherlands",            "confederation": "UEFA",     "fifaRank": 8,  "groupId": "F", "groupPosition": 1, "advanced": true },
+  { "code": "JPN", "name": "Japan",                  "confederation": "AFC",      "fifaRank": 18, "groupId": "F", "groupPosition": 2, "advanced": true },
+  { "code": "SWE", "name": "Sweden",                 "confederation": "UEFA",     "fifaRank": 38, "groupId": "F", "groupPosition": 3, "advanced": true },
+  { "code": "TUN", "name": "Tunisia",                "confederation": "CAF",      "fifaRank": 45, "groupId": "F", "groupPosition": 4, "advanced": false },
+
+  { "code": "BEL", "name": "Belgium",                "confederation": "UEFA",     "fifaRank": 9,  "groupId": "G", "groupPosition": 1, "advanced": true },
+  { "code": "EGY", "name": "Egypt",                  "confederation": "CAF",      "fifaRank": 29, "groupId": "G", "groupPosition": 2, "advanced": true },
+  { "code": "IRN", "name": "Iran",                   "confederation": "AFC",      "fifaRank": 20, "groupId": "G", "groupPosition": 3, "advanced": false },
+  { "code": "NZL", "name": "New Zealand",            "confederation": "OFC",      "fifaRank": 85, "groupId": "G", "groupPosition": 4, "advanced": false },
+
+  { "code": "ESP", "name": "Spain",                  "confederation": "UEFA",     "fifaRank": 2,  "groupId": "H", "groupPosition": 1, "advanced": true },
+  { "code": "CPV", "name": "Cape Verde",             "confederation": "CAF",      "fifaRank": 67, "groupId": "H", "groupPosition": 2, "advanced": true },
+  { "code": "URU", "name": "Uruguay",                "confederation": "CONMEBOL", "fifaRank": 16, "groupId": "H", "groupPosition": 3, "advanced": false },
+  { "code": "KSA", "name": "Saudi Arabia",           "confederation": "AFC",      "fifaRank": 61, "groupId": "H", "groupPosition": 4, "advanced": false },
+
+  { "code": "FRA", "name": "France",                 "confederation": "UEFA",     "fifaRank": 3,  "groupId": "I", "groupPosition": 1, "advanced": true },
+  { "code": "NOR", "name": "Norway",                 "confederation": "UEFA",     "fifaRank": 31, "groupId": "I", "groupPosition": 2, "advanced": true },
+  { "code": "SEN", "name": "Senegal",                "confederation": "CAF",      "fifaRank": 15, "groupId": "I", "groupPosition": 3, "advanced": true },
+  { "code": "IRQ", "name": "Iraq",                   "confederation": "AFC",      "fifaRank": 57, "groupId": "I", "groupPosition": 4, "advanced": false },
+
+  { "code": "ARG", "name": "Argentina",              "confederation": "CONMEBOL", "fifaRank": 1,  "groupId": "J", "groupPosition": 1, "advanced": true },
+  { "code": "AUT", "name": "Austria",                "confederation": "UEFA",     "fifaRank": 24, "groupId": "J", "groupPosition": 2, "advanced": true },
+  { "code": "ALG", "name": "Algeria",                "confederation": "CAF",      "fifaRank": 28, "groupId": "J", "groupPosition": 3, "advanced": true },
+  { "code": "JOR", "name": "Jordan",                 "confederation": "AFC",      "fifaRank": 63, "groupId": "J", "groupPosition": 4, "advanced": false },
+
+  { "code": "COL", "name": "Colombia",               "confederation": "CONMEBOL", "fifaRank": 13, "groupId": "K", "groupPosition": 1, "advanced": true },
+  { "code": "POR", "name": "Portugal",               "confederation": "UEFA",     "fifaRank": 5,  "groupId": "K", "groupPosition": 2, "advanced": true },
+  { "code": "COD", "name": "DR Congo",               "confederation": "CAF",      "fifaRank": 46, "groupId": "K", "groupPosition": 3, "advanced": true },
+  { "code": "UZB", "name": "Uzbekistan",             "confederation": "AFC",      "fifaRank": 50, "groupId": "K", "groupPosition": 4, "advanced": false },
+
+  { "code": "ENG", "name": "England",                "confederation": "UEFA",     "fifaRank": 4,  "groupId": "L", "groupPosition": 1, "advanced": true },
+  { "code": "CRO", "name": "Croatia",                "confederation": "UEFA",     "fifaRank": 11, "groupId": "L", "groupPosition": 2, "advanced": true },
+  { "code": "GHA", "name": "Ghana",                  "confederation": "CAF",      "fifaRank": 73, "groupId": "L", "groupPosition": 3, "advanced": true },
+  { "code": "PAN", "name": "Panama",                 "confederation": "CONCACAF", "fifaRank": 34, "groupId": "L", "groupPosition": 4, "advanced": false }
+]

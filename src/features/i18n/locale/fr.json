@@ -1,0 +1,82 @@
+{
+  "app": {
+    "title": "FIFA Ranking",
+    "tagline": "Jouez le tableau à élimination directe de la Coupe du Monde 2026. Pronostiquez, partagez, suivez.",
+    "footer": "Créé par des fans. Non affilié à la FIFA."
+  },
+  "nav": {
+    "bracket": "Tableau",
+    "teams": "Équipes",
+    "groups": "Groupes"
+  },
+  "language": { "label": "Langue" },
+  "theme": {
+    "label": "Thème",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
+  },
+  "bracket": {
+    "title": "Tableau à élimination directe",
+    "viewRadial": "Radial",
+    "viewHorizontal": "Horizontal",
+    "reset": "Réinitialiser",
+    "undo": "Annuler",
+    "share": "Partager",
+    "download": "Télécharger PNG"
+  },
+  "teams": {
+    "title": "Équipes",
+    "filterGroup": "Groupe",
+    "filterConfederation": "Confédération",
+    "sortRank": "Par classement FIFA",
+    "sortName": "Par nom",
+    "all": "Toutes",
+    "empty": "Aucune équipe."
+  },
+  "team": {
+    "group": "Groupe",
+    "confederation": "Confédération",
+    "rank": "Classement FIFA",
+    "journey": "Parcours",
+    "path": "Chemin",
+    "matches": "Matchs",
+    "stage": "Phase",
+    "date": "Date",
+    "venue": "Stade",
+    "opponent": "Adversaire",
+    "score": "Score",
+    "result": "Résultat",
+    "highlights": "Résumé",
+    "watchHighlights": "Voir le résumé",
+    "resultWin": "V",
+    "resultDraw": "N",
+    "resultLoss": "D",
+    "notPlayed": "—"
+  },
+  "groups": {
+    "title": "Phase de groupes",
+    "played": "J",
+    "won": "V",
+    "drawn": "N",
+    "lost": "D",
+    "goalsFor": "BP",
+    "goalsAgainst": "BC",
+    "goalDiff": "Diff",
+    "points": "Pts"
+  },
+  "simulator": {
+    "modeQuick": "Rapide",
+    "modeDetailed": "Détaillé",
+    "resetToReal": "Réinitialiser aux vrais résultats"
+  },
+  "share": {
+    "title": "Partagez votre pronostic",
+    "copy": "Copier le lien",
+    "copied": "Copié !"
+  },
+  "shortcuts": {
+    "title": "Raccourcis clavier",
+    "hint": "Appuyez sur ? pour l'aide"
+  }
+}

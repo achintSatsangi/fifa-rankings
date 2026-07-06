@@ -1,0 +1,82 @@
+{
+  "app": {
+    "title": "FIFA Ranking",
+    "tagline": "Pelaa MM-kisojen 2026 pudotuspelit. Ennusta, jaa ja seuraa tuloksia.",
+    "footer": "Fanien tekemä. Ei yhteydessä FIFA:an."
+  },
+  "nav": {
+    "bracket": "Pudotuspelit",
+    "teams": "Joukkueet",
+    "groups": "Lohkot"
+  },
+  "language": { "label": "Kieli" },
+  "theme": {
+    "label": "Teema",
+    "light": "Vaalea",
+    "dark": "Tumma",
+    "system": "Järjestelmä"
+  },
+  "bracket": {
+    "title": "Pudotuspelit",
+    "viewRadial": "Ympyrä",
+    "viewHorizontal": "Vaaka",
+    "reset": "Nollaa",
+    "undo": "Kumoa",
+    "share": "Jaa",
+    "download": "Lataa PNG"
+  },
+  "teams": {
+    "title": "Joukkueet",
+    "filterGroup": "Lohko",
+    "filterConfederation": "Konfederaatio",
+    "sortRank": "FIFA-sijoituksen mukaan",
+    "sortName": "Nimen mukaan",
+    "all": "Kaikki",
+    "empty": "Ei joukkueita."
+  },
+  "team": {
+    "group": "Lohko",
+    "confederation": "Konfederaatio",
+    "rank": "FIFA-sijoitus",
+    "journey": "Matka",
+    "path": "Reitti",
+    "matches": "Ottelut",
+    "stage": "Vaihe",
+    "date": "Päivä",
+    "venue": "Stadion",
+    "opponent": "Vastustaja",
+    "score": "Tulos",
+    "result": "Lopputulos",
+    "highlights": "Kohokohdat",
+    "watchHighlights": "Katso kohokohdat",
+    "resultWin": "V",
+    "resultDraw": "T",
+    "resultLoss": "H",
+    "notPlayed": "—"
+  },
+  "groups": {
+    "title": "Lohkovaihe",
+    "played": "O",
+    "won": "V",
+    "drawn": "T",
+    "lost": "H",
+    "goalsFor": "TM",
+    "goalsAgainst": "PM",
+    "goalDiff": "ME",
+    "points": "P"
+  },
+  "simulator": {
+    "modeQuick": "Nopea",
+    "modeDetailed": "Yksityiskohtainen",
+    "resetToReal": "Palauta oikeat tulokset"
+  },
+  "share": {
+    "title": "Jaa ennusteesi",
+    "copy": "Kopioi linkki",
+    "copied": "Kopioitu!"
+  },
+  "shortcuts": {
+    "title": "Pikanäppäimet",
+    "hint": "Paina ? saadaksesi apua"
+  }
+}

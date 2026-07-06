@@ -1,0 +1,82 @@
+{
+  "app": {
+    "title": "FIFA Ranking",
+    "tagline": "Jogue o mata-mata da Copa do Mundo 2026. Preveja, compartilhe e acompanhe.",
+    "footer": "Feito por fãs. Sem afiliação com a FIFA."
+  },
+  "nav": {
+    "bracket": "Chaveamento",
+    "teams": "Seleções",
+    "groups": "Grupos"
+  },
+  "language": { "label": "Idioma" },
+  "theme": {
+    "label": "Tema",
+    "light": "Claro",
+    "dark": "Escuro",
+    "system": "Sistema"
+  },
+  "bracket": {
+    "title": "Mata-mata",
+    "viewRadial": "Radial",
+    "viewHorizontal": "Horizontal",
+    "reset": "Redefinir",
+    "undo": "Desfazer",
+    "share": "Compartilhar",
+    "download": "Baixar PNG"
+  },
+  "teams": {
+    "title": "Seleções",
+    "filterGroup": "Grupo",
+    "filterConfederation": "Confederação",
+    "sortRank": "Por ranking FIFA",
+    "sortName": "Por nome",
+    "all": "Todas",
+    "empty": "Nenhuma seleção."
+  },
+  "team": {
+    "group": "Grupo",
+    "confederation": "Confederação",
+    "rank": "Ranking FIFA",
+    "journey": "Trajetória",
+    "path": "Caminho",
+    "matches": "Jogos",
+    "stage": "Fase",
+    "date": "Data",
+    "venue": "Estádio",
+    "opponent": "Adversário",
+    "score": "Placar",
+    "result": "Resultado",
+    "highlights": "Melhores momentos",
+    "watchHighlights": "Ver melhores momentos",
+    "resultWin": "V",
+    "resultDraw": "E",
+    "resultLoss": "D",
+    "notPlayed": "—"
+  },
+  "groups": {
+    "title": "Fase de grupos",
+    "played": "J",
+    "won": "V",
+    "drawn": "E",
+    "lost": "D",
+    "goalsFor": "GP",
+    "goalsAgainst": "GC",
+    "goalDiff": "SG",
+    "points": "Pts"
+  },
+  "simulator": {
+    "modeQuick": "Rápido",
+    "modeDetailed": "Detalhado",
+    "resetToReal": "Redefinir para resultados reais"
+  },
+  "share": {
+    "title": "Compartilhe sua previsão",
+    "copy": "Copiar link",
+    "copied": "Copiado!"
+  },
+  "shortcuts": {
+    "title": "Atalhos de teclado",
+    "hint": "Pressione ? para ajuda"
+  }
+}

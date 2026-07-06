@@ -1,0 +1,82 @@
+{
+  "app": {
+    "title": "FIFA Ranking",
+    "tagline": "Spela VM 2026-slutspelet. Tippa, dela och följ resultat.",
+    "footer": "Fan-gjord. Ej ansluten till FIFA."
+  },
+  "nav": {
+    "bracket": "Slutspel",
+    "teams": "Lag",
+    "groups": "Grupper"
+  },
+  "language": { "label": "Språk" },
+  "theme": {
+    "label": "Tema",
+    "light": "Ljust",
+    "dark": "Mörkt",
+    "system": "System"
+  },
+  "bracket": {
+    "title": "Slutspel",
+    "viewRadial": "Cirkulärt",
+    "viewHorizontal": "Horisontellt",
+    "reset": "Återställ",
+    "undo": "Ångra",
+    "share": "Dela",
+    "download": "Ladda ner PNG"
+  },
+  "teams": {
+    "title": "Lag",
+    "filterGroup": "Grupp",
+    "filterConfederation": "Konfederation",
+    "sortRank": "Efter FIFA-ranking",
+    "sortName": "Efter namn",
+    "all": "Alla",
+    "empty": "Inga lag."
+  },
+  "team": {
+    "group": "Grupp",
+    "confederation": "Konfederation",
+    "rank": "FIFA-ranking",
+    "journey": "Resa",
+    "path": "Väg",
+    "matches": "Matcher",
+    "stage": "Runda",
+    "date": "Datum",
+    "venue": "Arena",
+    "opponent": "Motståndare",
+    "score": "Resultat",
+    "result": "Utfall",
+    "highlights": "Höjdpunkter",
+    "watchHighlights": "Se höjdpunkter",
+    "resultWin": "V",
+    "resultDraw": "O",
+    "resultLoss": "F",
+    "notPlayed": "—"
+  },
+  "groups": {
+    "title": "Gruppspel",
+    "played": "M",
+    "won": "V",
+    "drawn": "O",
+    "lost": "F",
+    "goalsFor": "GM",
+    "goalsAgainst": "IM",
+    "goalDiff": "MS",
+    "points": "P"
+  },
+  "simulator": {
+    "modeQuick": "Snabb",
+    "modeDetailed": "Detaljerad",
+    "resetToReal": "Återställ till riktiga resultat"
+  },
+  "share": {
+    "title": "Dela din tippning",
+    "copy": "Kopiera länk",
+    "copied": "Kopierat!"
+  },
+  "shortcuts": {
+    "title": "Tangentbordsgenvägar",
+    "hint": "Tryck ? för hjälp"
+  }
+}

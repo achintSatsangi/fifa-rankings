@@ -1,0 +1,82 @@
+{
+  "app": {
+    "title": "FIFA Ranking",
+    "tagline": "Juega el cuadro eliminatorio de la Copa Mundial 2026. Predice, comparte y sigue los resultados.",
+    "footer": "Hecho por aficionados. No afiliado con la FIFA."
+  },
+  "nav": {
+    "bracket": "Eliminatorias",
+    "teams": "Equipos",
+    "groups": "Grupos"
+  },
+  "language": { "label": "Idioma" },
+  "theme": {
+    "label": "Tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "bracket": {
+    "title": "Cuadro eliminatorio",
+    "viewRadial": "Radial",
+    "viewHorizontal": "Horizontal",
+    "reset": "Reiniciar",
+    "undo": "Deshacer",
+    "share": "Compartir",
+    "download": "Descargar PNG"
+  },
+  "teams": {
+    "title": "Equipos",
+    "filterGroup": "Grupo",
+    "filterConfederation": "Confederación",
+    "sortRank": "Por ranking FIFA",
+    "sortName": "Por nombre",
+    "all": "Todos",
+    "empty": "Sin equipos."
+  },
+  "team": {
+    "group": "Grupo",
+    "confederation": "Confederación",
+    "rank": "Ranking FIFA",
+    "journey": "Trayectoria",
+    "path": "Camino",
+    "matches": "Partidos",
+    "stage": "Fase",
+    "date": "Fecha",
+    "venue": "Sede",
+    "opponent": "Rival",
+    "score": "Marcador",
+    "result": "Resultado",
+    "highlights": "Resumen",
+    "watchHighlights": "Ver resumen",
+    "resultWin": "G",
+    "resultDraw": "E",
+    "resultLoss": "P",
+    "notPlayed": "—"
+  },
+  "groups": {
+    "title": "Fase de grupos",
+    "played": "PJ",
+    "won": "G",
+    "drawn": "E",
+    "lost": "P",
+    "goalsFor": "GF",
+    "goalsAgainst": "GC",
+    "goalDiff": "DG",
+    "points": "Pts"
+  },
+  "simulator": {
+    "modeQuick": "Rápido",
+    "modeDetailed": "Detallado",
+    "resetToReal": "Reiniciar a resultados reales"
+  },
+  "share": {
+    "title": "Comparte tu predicción",
+    "copy": "Copiar enlace",
+    "copied": "¡Copiado!"
+  },
+  "shortcuts": {
+    "title": "Atajos de teclado",
+    "hint": "Pulsa ? para ayuda"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "app": {
+    "title": "FIFA Ranking",
+    "tagline": "Spil VM 2026-slutrunden. Tip, del og følg resultater.",
+    "footer": "Fan-lavet. Ikke tilknyttet FIFA."
+  },
+  "nav": {
+    "bracket": "Slutrunde",
+    "teams": "Hold",
+    "groups": "Grupper"
+  },
+  "language": { "label": "Sprog" },
+  "theme": {
+    "label": "Tema",
+    "light": "Lyst",
+    "dark": "Mørkt",
+    "system": "System"
+  },
+  "bracket": {
+    "title": "Slutrunde",
+    "viewRadial": "Cirkulær",
+    "viewHorizontal": "Horisontal",
+    "reset": "Nulstil",
+    "undo": "Fortryd",
+    "share": "Del",
+    "download": "Hent PNG"
+  },
+  "teams": {
+    "title": "Hold",
+    "filterGroup": "Gruppe",
+    "filterConfederation": "Konføderation",
+    "sortRank": "Efter FIFA-rangering",
+    "sortName": "Efter navn",
+    "all": "Alle",
+    "empty": "Ingen hold."
+  },
+  "team": {
+    "group": "Gruppe",
+    "confederation": "Konføderation",
+    "rank": "FIFA-rangering",
+    "journey": "Rejse",
+    "path": "Vej",
+    "matches": "Kampe",
+    "stage": "Runde",
+    "date": "Dato",
+    "venue": "Arena",
+    "opponent": "Modstander",
+    "score": "Resultat",
+    "result": "Udfald",
+    "highlights": "Højdepunkter",
+    "watchHighlights": "Se højdepunkter",
+    "resultWin": "S",
+    "resultDraw": "U",
+    "resultLoss": "T",
+    "notPlayed": "—"
+  },
+  "groups": {
+    "title": "Gruppespil",
+    "played": "K",
+    "won": "S",
+    "drawn": "U",
+    "lost": "T",
+    "goalsFor": "M+",
+    "goalsAgainst": "M-",
+    "goalDiff": "MD",
+    "points": "P"
+  },
+  "simulator": {
+    "modeQuick": "Hurtig",
+    "modeDetailed": "Detaljeret",
+    "resetToReal": "Nulstil til rigtige resultater"
+  },
+  "share": {
+    "title": "Del din tipning",
+    "copy": "Kopiér link",
+    "copied": "Kopieret!"
+  },
+  "shortcuts": {
+    "title": "Tastaturgenveje",
+    "hint": "Tryk ? for hjælp"
+  }
+}

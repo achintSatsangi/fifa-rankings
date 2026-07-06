@@ -1,0 +1,82 @@
+{
+  "app": {
+    "title": "FIFA Ranking",
+    "tagline": "Spill VM 2026-utslagsrunden. Tipp, del og følg resultater.",
+    "footer": "Laget av fans. Ikke tilknyttet FIFA."
+  },
+  "nav": {
+    "bracket": "Utslagsrunde",
+    "teams": "Lag",
+    "groups": "Grupper"
+  },
+  "language": { "label": "Språk" },
+  "theme": {
+    "label": "Tema",
+    "light": "Lyst",
+    "dark": "Mørkt",
+    "system": "System"
+  },
+  "bracket": {
+    "title": "Utslagsrunde",
+    "viewRadial": "Sirkulær",
+    "viewHorizontal": "Horisontal",
+    "reset": "Nullstill",
+    "undo": "Angre",
+    "share": "Del",
+    "download": "Last ned PNG"
+  },
+  "teams": {
+    "title": "Lag",
+    "filterGroup": "Gruppe",
+    "filterConfederation": "Konføderasjon",
+    "sortRank": "Etter FIFA-rangering",
+    "sortName": "Etter navn",
+    "all": "Alle",
+    "empty": "Ingen lag."
+  },
+  "team": {
+    "group": "Gruppe",
+    "confederation": "Konføderasjon",
+    "rank": "FIFA-rangering",
+    "journey": "Reise",
+    "path": "Vei",
+    "matches": "Kamper",
+    "stage": "Runde",
+    "date": "Dato",
+    "venue": "Arena",
+    "opponent": "Motstander",
+    "score": "Resultat",
+    "result": "Utfall",
+    "highlights": "Høydepunkter",
+    "watchHighlights": "Se høydepunkter",
+    "resultWin": "S",
+    "resultDraw": "U",
+    "resultLoss": "T",
+    "notPlayed": "—"
+  },
+  "groups": {
+    "title": "Gruppespill",
+    "played": "K",
+    "won": "S",
+    "drawn": "U",
+    "lost": "T",
+    "goalsFor": "M+",
+    "goalsAgainst": "M-",
+    "goalDiff": "MD",
+    "points": "P"
+  },
+  "simulator": {
+    "modeQuick": "Rask",
+    "modeDetailed": "Detaljert",
+    "resetToReal": "Nullstill til ekte resultater"
+  },
+  "share": {
+    "title": "Del tippingen din",
+    "copy": "Kopier lenke",
+    "copied": "Kopiert!"
+  },
+  "shortcuts": {
+    "title": "Hurtigtaster",
+    "hint": "Trykk ? for hjelp"
+  }
+}
