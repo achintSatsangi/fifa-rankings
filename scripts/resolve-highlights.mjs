@@ -46,6 +46,7 @@ const onlyMatch = [...args].find((a) => a.startsWith("--match="))?.split("=")[1]
 const force = args.has("--force");
 
 const bracket = JSON.parse(readFileSync("src/data/bracket.json", "utf8"));
+const groups = JSON.parse(readFileSync("src/data/groups.json", "utf8"));
 const teams = JSON.parse(readFileSync("src/data/teams.json", "utf8"));
 const highlightsPath = "src/data/highlights.json";
 const highlights = JSON.parse(readFileSync(highlightsPath, "utf8"));
@@ -211,12 +212,38 @@ function normalizeExisting(entry) {
   return entry;
 }
 
-function isPlayed(m) {
+function isBracketPlayed(m) {
   return m.scoreA !== null && m.scoreB !== null && m.teamCodeA && m.teamCodeB;
 }
 
-const played = bracket.filter(isPlayed);
-const targets = onlyMatch ? played.filter((m) => m.id === onlyMatch) : played;
+function isGroupPlayed(gm) {
+  return gm.homeScore !== null && gm.awayScore !== null && gm.homeCode && gm.awayCode;
+}
+
+/** Journey modal keys group-stage rows as `G-{groupId}-{matchDay}-{homeCode}-{awayCode}`
+ *  (see src/features/teams/journey.ts). Mirror that exactly so
+ *  highlights.json keys line up. */
+function groupMatchId(groupId, gm) {
+  return `G-${groupId}-${gm.matchDay}-${gm.homeCode}-${gm.awayCode}`;
+}
+
+function collectTargets() {
+  const out = [];
+  for (const m of bracket) {
+    if (!isBracketPlayed(m)) continue;
+    out.push({ id: m.id, codeA: m.teamCodeA, codeB: m.teamCodeB });
+  }
+  for (const g of groups) {
+    for (const gm of g.matches) {
+      if (!isGroupPlayed(gm)) continue;
+      out.push({ id: groupMatchId(g.id, gm), codeA: gm.homeCode, codeB: gm.awayCode });
+    }
+  }
+  return out;
+}
+
+const all = collectTargets();
+const targets = onlyMatch ? all.filter((t) => t.id === onlyMatch) : all;
 
 if (onlyMatch && targets.length === 0) {
   console.error(`No played match with id=${onlyMatch}`);
@@ -230,17 +257,17 @@ let resolvedFifa = 0;
 let skipped = 0;
 let missed = 0;
 
-for (const m of targets) {
-  const existing = normalizeExisting(highlights[m.id]);
+for (const t of targets) {
+  const existing = normalizeExisting(highlights[t.id]);
   const hasYouTube = Boolean(existing?.youtube);
   const hasFifa = Boolean(existing?.fifa);
   if (!force && hasYouTube) {
-    console.log(`- ${m.id} youtube cached`);
+    console.log(`- ${t.id} youtube cached`);
     skipped++;
     continue;
   }
-  const nameA = teamByCode[m.teamCodeA]?.name ?? m.teamCodeA;
-  const nameB = teamByCode[m.teamCodeB]?.name ?? m.teamCodeB;
+  const nameA = teamByCode[t.codeA]?.name ?? t.codeA;
+  const nameB = teamByCode[t.codeB]?.name ?? t.codeB;
   const next = { ...(existing ?? {}) };
 
   try {
@@ -251,15 +278,15 @@ for (const m of targets) {
       // redundant; drop any stale value.
       delete next.fifa;
       next.resolvedAt = new Date().toISOString();
-      highlights[m.id] = next;
-      console.log(`✓ ${m.id} youtube: ${nameA} vs ${nameB}`);
+      highlights[t.id] = next;
+      console.log(`✓ ${t.id} youtube: ${nameA} vs ${nameB}`);
       console.log(`  → ${yt.url}`);
       console.log(`  title: ${yt.title}`);
       resolvedYouTube++;
     } else {
       // Fall back to the FIFA article page.
       if (!force && hasFifa) {
-        console.log(`- ${m.id} youtube missing; fifa cached: ${existing.fifa}`);
+        console.log(`- ${t.id} youtube missing; fifa cached: ${existing.fifa}`);
         skipped++;
         continue;
       }
@@ -267,20 +294,28 @@ for (const m of targets) {
       if (fifaUrl) {
         next.fifa = fifaUrl;
         next.resolvedAt = new Date().toISOString();
-        highlights[m.id] = next;
-        console.log(`✓ ${m.id} fifa: ${nameA} vs ${nameB}`);
+        highlights[t.id] = next;
+        console.log(`✓ ${t.id} fifa: ${nameA} vs ${nameB}`);
         console.log(`  → ${fifaUrl}`);
         resolvedFifa++;
       } else {
-        console.log(`✗ ${m.id} ${nameA} vs ${nameB} — no youtube video, no fifa article`);
+        console.log(`✗ ${t.id} ${nameA} vs ${nameB} — no youtube video, no fifa article`);
         if (yt.topTitleIfMissed) console.log(`  yt top result was: ${yt.topTitleIfMissed}`);
         missed++;
       }
     }
   } catch (err) {
-    console.error(`⚠ ${m.id} ${nameA} vs ${nameB} — ${err.message} (skipping)`);
+    console.error(`⚠ ${t.id} ${nameA} vs ${nameB} — ${err.message} (skipping)`);
     writeFileSync(highlightsPath, JSON.stringify(highlights, null, 2) + "\n");
     missed++;
+    // YouTube Data API's free tier is 10k units/day (100 searches).
+    // Once we hit that, every remaining call will fail the same way —
+    // bail out so we don't waste ~1.5s per remaining match on
+    // guaranteed failures. Quota resets at midnight Pacific.
+    if (/quota exceeded/i.test(err.message)) {
+      console.error(`\nYouTube quota exhausted. ${targets.length - (resolvedYouTube + resolvedFifa + skipped + missed)} match(es) unresolved this run; next scheduled workflow will pick them up after quota resets.`);
+      break;
+    }
   }
 
   // Gentle: 1.5s between matches. YouTube search costs 100 units of the

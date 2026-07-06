@@ -79,5 +79,173 @@
   "R16-4": {
     "fifa": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/brazil-norway-match-report-highlights",
     "resolvedAt": "2026-07-06T19:13:15.058Z"
+  },
+  "G-A-1-MEX-RSA": {
+    "youtube": "https://www.youtube.com/watch?v=PmevGCkUtM8",
+    "resolvedAt": "2026-07-06T19:19:00.668Z"
+  },
+  "G-A-1-KOR-CZE": {
+    "youtube": "https://www.youtube.com/watch?v=6k18EJY8zIc",
+    "resolvedAt": "2026-07-06T19:19:15.269Z"
+  },
+  "G-A-2-MEX-KOR": {
+    "youtube": "https://www.youtube.com/watch?v=o_AAtfdVp3Y",
+    "resolvedAt": "2026-07-06T19:19:18.859Z"
+  },
+  "G-A-3-CZE-MEX": {
+    "youtube": "https://www.youtube.com/watch?v=h9wH7diGNC0",
+    "resolvedAt": "2026-07-06T19:19:20.935Z"
+  },
+  "G-A-3-RSA-KOR": {
+    "youtube": "https://www.youtube.com/watch?v=cZoaEEYtKhE",
+    "resolvedAt": "2026-07-06T19:19:23.111Z"
+  },
+  "G-B-1-QAT-SUI": {
+    "youtube": "https://www.youtube.com/watch?v=KVz43-eddIQ",
+    "resolvedAt": "2026-07-06T19:19:26.698Z"
+  },
+  "G-B-2-SUI-BIH": {
+    "youtube": "https://www.youtube.com/watch?v=c9wbxaKBu2E",
+    "resolvedAt": "2026-07-06T19:19:28.713Z"
+  },
+  "G-B-2-CAN-QAT": {
+    "youtube": "https://www.youtube.com/watch?v=HTR0DIvBYlg",
+    "resolvedAt": "2026-07-06T19:19:30.654Z"
+  },
+  "G-B-3-SUI-CAN": {
+    "youtube": "https://www.youtube.com/watch?v=C4XX3Crp5Uk",
+    "resolvedAt": "2026-07-06T19:19:32.529Z"
+  },
+  "G-B-3-BIH-QAT": {
+    "youtube": "https://www.youtube.com/watch?v=-E4Mtblw9es",
+    "resolvedAt": "2026-07-06T19:19:34.414Z"
+  },
+  "G-C-1-BRA-MAR": {
+    "youtube": "https://www.youtube.com/watch?v=ECnK7UzAjIs",
+    "resolvedAt": "2026-07-06T19:19:36.373Z"
+  },
+  "G-C-1-HAI-SCO": {
+    "youtube": "https://www.youtube.com/watch?v=TcCufmPCsu4",
+    "resolvedAt": "2026-07-06T19:19:38.638Z"
+  },
+  "G-C-2-BRA-HAI": {
+    "youtube": "https://www.youtube.com/watch?v=lz3_atghfmY",
+    "resolvedAt": "2026-07-06T19:19:42.065Z"
+  },
+  "G-C-3-SCO-BRA": {
+    "youtube": "https://www.youtube.com/watch?v=oj5LlMvV0qk",
+    "resolvedAt": "2026-07-06T19:19:43.988Z"
+  },
+  "G-C-3-MAR-HAI": {
+    "youtube": "https://www.youtube.com/watch?v=ZU2ssk6Bmg8",
+    "resolvedAt": "2026-07-06T19:19:45.922Z"
+  },
+  "G-D-2-USA-AUS": {
+    "youtube": "https://www.youtube.com/watch?v=tXxvgvgMiRg",
+    "resolvedAt": "2026-07-06T19:19:50.993Z"
+  },
+  "G-D-3-PAR-AUS": {
+    "youtube": "https://www.youtube.com/watch?v=wZVzHTl__ck",
+    "resolvedAt": "2026-07-06T19:20:22.928Z"
+  },
+  "G-E-1-CIV-ECU": {
+    "youtube": "https://www.youtube.com/watch?v=84xvEwRc0iQ",
+    "resolvedAt": "2026-07-06T19:20:39.755Z"
+  },
+  "G-E-2-ECU-CUW": {
+    "fifa": "https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026/articles/ecuador-curacao-match-report-highlights",
+    "resolvedAt": "2026-07-06T19:20:44.745Z"
+  },
+  "G-E-3-ECU-GER": {
+    "youtube": "https://www.youtube.com/watch?v=TImmPYoLE-8",
+    "resolvedAt": "2026-07-06T19:20:48.471Z"
+  },
+  "G-F-1-NED-JPN": {
+    "youtube": "https://www.youtube.com/watch?v=r8SvHZxALQs",
+    "resolvedAt": "2026-07-06T19:20:50.675Z"
+  },
+  "G-F-1-SWE-TUN": {
+    "youtube": "https://www.youtube.com/watch?v=MM5hUuEzH3g",
+    "resolvedAt": "2026-07-06T19:20:52.805Z"
+  },
+  "G-F-2-TUN-JPN": {
+    "youtube": "https://www.youtube.com/watch?v=V7z6uzD91Ao",
+    "resolvedAt": "2026-07-06T19:20:56.576Z"
+  },
+  "G-F-3-JPN-SWE": {
+    "youtube": "https://www.youtube.com/watch?v=BppGXEZbiy4",
+    "resolvedAt": "2026-07-06T19:20:58.626Z"
+  },
+  "G-F-3-TUN-NED": {
+    "youtube": "https://www.youtube.com/watch?v=oHYtLWbrwUo",
+    "resolvedAt": "2026-07-06T19:21:00.542Z"
+  },
+  "G-G-1-BEL-EGY": {
+    "youtube": "https://www.youtube.com/watch?v=i8sD2Aea9_M",
+    "resolvedAt": "2026-07-06T19:21:02.444Z"
+  },
+  "G-G-1-IRN-NZL": {
+    "youtube": "https://www.youtube.com/watch?v=memCfdob60w",
+    "resolvedAt": "2026-07-06T19:21:04.445Z"
+  },
+  "G-G-3-NZL-BEL": {
+    "youtube": "https://www.youtube.com/watch?v=zpWO1X2yFjY",
+    "resolvedAt": "2026-07-06T19:21:11.477Z"
+  },
+  "G-H-2-ESP-KSA": {
+    "youtube": "https://www.youtube.com/watch?v=j0BQN0nJ7mM",
+    "resolvedAt": "2026-07-06T19:21:16.644Z"
+  },
+  "G-H-2-URU-CPV": {
+    "youtube": "https://www.youtube.com/watch?v=eh20EVuWFFI",
+    "resolvedAt": "2026-07-06T19:21:18.549Z"
+  },
+  "G-H-3-CPV-KSA": {
+    "youtube": "https://www.youtube.com/watch?v=JE0dqNUIOg4",
+    "resolvedAt": "2026-07-06T19:21:20.484Z"
+  },
+  "G-H-3-URU-ESP": {
+    "youtube": "https://www.youtube.com/watch?v=Petu_ouNzr4",
+    "resolvedAt": "2026-07-06T19:21:22.336Z"
+  },
+  "G-I-1-IRQ-NOR": {
+    "youtube": "https://www.youtube.com/watch?v=UzSswKnmpgk",
+    "resolvedAt": "2026-07-06T19:21:25.754Z"
+  },
+  "G-I-3-NOR-FRA": {
+    "youtube": "https://www.youtube.com/watch?v=ABdniNBWtRs",
+    "resolvedAt": "2026-07-06T19:21:30.885Z"
+  },
+  "G-I-3-SEN-IRQ": {
+    "youtube": "https://www.youtube.com/watch?v=6N2BzwoMrCw",
+    "resolvedAt": "2026-07-06T19:21:32.837Z"
+  },
+  "G-J-1-ARG-ALG": {
+    "youtube": "https://www.youtube.com/watch?v=JH_WRKTCPK4",
+    "resolvedAt": "2026-07-06T19:21:34.888Z"
+  },
+  "G-J-3-ALG-AUT": {
+    "youtube": "https://www.youtube.com/watch?v=5Mvh0mqY8ik",
+    "resolvedAt": "2026-07-06T19:21:41.347Z"
+  },
+  "G-K-1-POR-COD": {
+    "youtube": "https://www.youtube.com/watch?v=fJrctBM0poE",
+    "resolvedAt": "2026-07-06T19:21:44.814Z"
+  },
+  "G-K-1-UZB-COL": {
+    "youtube": "https://www.youtube.com/watch?v=cjsFUxVHAX0",
+    "resolvedAt": "2026-07-06T19:21:46.675Z"
+  },
+  "G-K-2-POR-UZB": {
+    "youtube": "https://www.youtube.com/watch?v=kwbH2dm1AXo",
+    "resolvedAt": "2026-07-06T19:21:48.548Z"
+  },
+  "G-K-3-COL-POR": {
+    "youtube": "https://www.youtube.com/watch?v=QhI0dUq1FKY",
+    "resolvedAt": "2026-07-06T19:21:51.878Z"
+  },
+  "G-L-1-ENG-CRO": {
+    "youtube": "https://www.youtube.com/watch?v=ynqGWHJPkuQ",
+    "resolvedAt": "2026-07-06T19:21:55.310Z"
   }
 }
