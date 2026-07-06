@@ -1,20 +1,21 @@
 import type { BracketMatch, BracketRound } from "../../../data/types";
-import { BRACKET, ROUNDS } from "../data";
+import { BRACKET, ROUNDS, matchesByRoundInTreeOrder } from "../data";
 import { winnerCode } from "../resolver";
 
 /**
  * Radial bracket layout math.
  *
  * The 32 outer team slots are evenly distributed around a circle
- * (OUTER_FLAG_RADIUS). Each round's winners live one ring further in:
- * R32 winners on the R32 ring (0.34), R16 winners on the R16 ring
- * (0.24), and so on toward the trophy at the centre.
+ * (OUTER_FLAG_RADIUS). Slot assignments come from the tree order —
+ * matches that share a parent in the bracket end up on adjacent slots
+ * — so every match's angular position is the true midpoint of its two
+ * sources' positions. Winners live one ring further in per round
+ * (R32→0.34, R16→0.24, QF→0.15, SF→0.075, F→centre/trophy).
  *
- * Each match position is at the angular midpoint of its two source
- * positions. Connectors follow a "bracket" pattern — a short radial
- * stub inward from each source, a tangent arc joining the pair on the
- * shoulder ring, then a single radial stem from the arc's midpoint to
- * the match centre. Same math applies at every ring.
+ * Connectors follow a "bracket" pattern — a short radial stub inward
+ * from each source, a tangent arc joining the pair on the shoulder
+ * ring, then a single radial stem from the arc's midpoint to the match
+ * centre. Same math applies at every ring.
  *
  * All positions are normalised to [0, 1] with (0.5, 0.5) as the centre.
  * `svgPoint` multiplies by 100 for use with SVG viewBox="0 0 100 100".
@@ -68,18 +69,49 @@ function slotAngle(slotUnits: number): number {
   return (slotUnits / 32) * TWO_PI;
 }
 
-/** Angular midpoint of a knockout match, in slot units (0..32). */
+/** R32 → tree-order position (0..15). Assigned once at module load. */
+const R32_TREE_POS: Record<string, number> = {};
+matchesByRoundInTreeOrder("R32").forEach((m, i) => {
+  R32_TREE_POS[m.id] = i;
+});
+
+/**
+ * Outer slot index (0..31) for a given R32 match and side. Derived
+ * from the tree-order position so that R32 pairs feeding the same R16
+ * land on adjacent slots, R16 pairs feeding the same QF span an
+ * adjacent quadrant, and so on.
+ */
+export function outerSlotIndex(r32MatchId: string, ab: "A" | "B"): number {
+  const pos = R32_TREE_POS[r32MatchId] ?? 0;
+  return pos * 2 + (ab === "A" ? 0 : 1);
+}
+
+/**
+ * Angular midpoint of a knockout match in slot units (0..32).
+ * Computed recursively as the midpoint of its two sources' slot units,
+ * bottoming out at R32 which reads its outer-slot pair. Cached so the
+ * recursion only pays off once per match.
+ */
+const SLOT_UNITS_CACHE = new Map<string, number>();
+
 function matchSlotUnits(match: BracketMatch): number {
-  const [, idxStr] = match.id.split("-");
-  const idx = Number(idxStr);
-  switch (match.round) {
-    case "R32": return 2 * (idx - 1) + 1;
-    case "R16": return 4 * (idx - 1) + 2;
-    case "QF":  return 8 * (idx - 1) + 4;
-    case "SF":  return 16 * (idx - 1) + 8;
-    case "F":   return 16;
-    case "3RD": return 0;
+  const cached = SLOT_UNITS_CACHE.get(match.id);
+  if (cached !== undefined) return cached;
+  let units: number;
+  if (match.round === "R32") {
+    const pos = R32_TREE_POS[match.id] ?? 0;
+    units = pos * 2 + 1; // midpoint of outer slots pos*2 and pos*2+1
+  } else if (match.round === "3RD") {
+    units = 0;
+  } else if (match.slotA.type === "winner" && match.slotB.type === "winner") {
+    const srcA = BRACKET.find((m) => m.id === (match.slotA as { ref: string }).ref);
+    const srcB = BRACKET.find((m) => m.id === (match.slotB as { ref: string }).ref);
+    units = srcA && srcB ? (matchSlotUnits(srcA) + matchSlotUnits(srcB)) / 2 : 0;
+  } else {
+    units = 0;
   }
+  SLOT_UNITS_CACHE.set(match.id, units);
+  return units;
 }
 
 function matchAngle(match: BracketMatch): number {
@@ -89,10 +121,6 @@ function matchAngle(match: BracketMatch): number {
 /** Outer ring slot i (0..31) — where a specific R32 team's flag sits. */
 export function outerSlotPoint(i: number): Point {
   return pointAt(slotAngle(i + 0.5), OUTER_FLAG_RADIUS);
-}
-
-export function outerSlotIndex(r32MatchIndex: number, ab: "A" | "B"): number {
-  return 2 * (r32MatchIndex - 1) + (ab === "A" ? 0 : 1);
 }
 
 /** Position where the match's winner appears (and where connectors converge). */
@@ -110,11 +138,10 @@ export type OuterSlot = {
 
 export function outerSlots(): OuterSlot[] {
   const out: OuterSlot[] = [];
-  const r32 = BRACKET.filter((m) => m.round === "R32");
-  for (const match of r32) {
-    const idx = Number(match.id.split("-")[1]);
+  for (const match of BRACKET) {
+    if (match.round !== "R32") continue;
     (["A", "B"] as const).forEach((ab) => {
-      const slot = outerSlotIndex(idx, ab);
+      const slot = outerSlotIndex(match.id, ab);
       out.push({
         slot,
         matchId: match.id,
@@ -166,9 +193,8 @@ function computeGeometry(match: BracketMatch): MatchGeometry | null {
 
   let angleA: number, angleB: number, sourceRadius: number;
   if (match.round === "R32") {
-    const idx = Number(match.id.split("-")[1]);
-    angleA = slotAngle(outerSlotIndex(idx, "A") + 0.5);
-    angleB = slotAngle(outerSlotIndex(idx, "B") + 0.5);
+    angleA = slotAngle(outerSlotIndex(match.id, "A") + 0.5);
+    angleB = slotAngle(outerSlotIndex(match.id, "B") + 0.5);
     sourceRadius = OUTER_FLAG_RADIUS;
   } else {
     if (match.slotA.type !== "winner" || match.slotB.type !== "winner") return null;
