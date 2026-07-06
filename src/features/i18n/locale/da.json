@@ -5,9 +5,17 @@
     "footer": "Fan-lavet. Ikke tilknyttet FIFA."
   },
   "nav": {
+    "primary": "Hovednavigation",
+    "openMenu": "Åbn menu",
+    "closeMenu": "Luk menu",
     "bracket": "Slutrunde",
     "teams": "Hold",
     "groups": "Grupper"
+  },
+  "favourite": {
+    "add": "Markér som favorit",
+    "remove": "Fjern favorit",
+    "yourTeam": "Dit hold"
   },
   "language": { "label": "Sprog" },
   "theme": {

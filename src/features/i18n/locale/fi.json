@@ -5,9 +5,17 @@
     "footer": "Fanien tekemä. Ei yhteydessä FIFA:an."
   },
   "nav": {
+    "primary": "Päänavigointi",
+    "openMenu": "Avaa valikko",
+    "closeMenu": "Sulje valikko",
     "bracket": "Pudotuspelit",
     "teams": "Joukkueet",
     "groups": "Lohkot"
+  },
+  "favourite": {
+    "add": "Merkitse suosikiksi",
+    "remove": "Poista suosikeista",
+    "yourTeam": "Joukkueesi"
   },
   "language": { "label": "Kieli" },
   "theme": {

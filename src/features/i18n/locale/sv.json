@@ -5,9 +5,17 @@
     "footer": "Fan-gjord. Ej ansluten till FIFA."
   },
   "nav": {
+    "primary": "Huvudnavigering",
+    "openMenu": "Öppna meny",
+    "closeMenu": "Stäng meny",
     "bracket": "Slutspel",
     "teams": "Lag",
     "groups": "Grupper"
+  },
+  "favourite": {
+    "add": "Markera som favorit",
+    "remove": "Ta bort favorit",
+    "yourTeam": "Ditt lag"
   },
   "language": { "label": "Språk" },
   "theme": {

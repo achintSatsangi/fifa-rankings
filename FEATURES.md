@@ -25,6 +25,9 @@ Living tracker. Move items between sections as they progress. Keep it terse; com
 - [x] **Bracket view toggle** — pill toggle (Radial / Horizontal) on `/`, URL-synced via TanStack Router `?view=` search param (`radial` is the default). Shared links keep the view.
 - [x] **Live data — foundation (football-data.org)** — `.env` + `.env.example`, `X-Auth-Token` client with 429/`retry-after` handling, TanStack Query hooks for `/competitions/WC`, `/competitions/WC/matches`, `/competitions/WC/standings`. Aggressive caching (5-min staleTime, no retry on 429) to respect the 10 req/min free-tier limit. Sidebar `LiveStatus` shows connection state and current matchday.
 - [x] **`scripts/refresh-live.mjs`** — one-shot Node script that refreshes `src/data/{groups,bracket}.json` from the API. Handles the two quirks: `utcDate` drifts a day for US-evening kickoffs (so we preserve local dates), and `fullTime` on pen-shootout matches includes shootout goals (so we subtract `penalties` back out). Run with `node --env-file=.env scripts/refresh-live.mjs`.
+- [x] **Cookie persistence** — `src/lib/cookies.ts` primitives (SameSite=Lax, 1-year default). Theme choice migrated from localStorage to cookie; i18next detector now caches to both cookie + localStorage. Ready for any future SSR/edge read of prefs.
+- [x] **Favourite team** — star toggle on team card + journey modal header; cookie-backed store (`useFavouriteTeam`); "★ Your team: X" line in the sidebar links to their journey. Survives refresh + across sessions.
+- [x] **Mobile nav + drawer** — sticky top `<header>` with hamburger on `< lg`; sidebar becomes a slide-in drawer with backdrop, Esc to close, focus trap, body scroll lock. Sidebar unchanged on `lg+`. Drawer auto-closes on route change. Semantic `<header>`/`<nav aria-label>`/`<aside aria-label>`/`<main>` throughout.
 
 ---
 

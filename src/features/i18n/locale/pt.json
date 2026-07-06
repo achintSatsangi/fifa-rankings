@@ -5,9 +5,17 @@
     "footer": "Feito por fãs. Sem afiliação com a FIFA."
   },
   "nav": {
+    "primary": "Navegação principal",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
     "bracket": "Chaveamento",
     "teams": "Seleções",
     "groups": "Grupos"
+  },
+  "favourite": {
+    "add": "Marcar como favorito",
+    "remove": "Remover dos favoritos",
+    "yourTeam": "Sua seleção"
   },
   "language": { "label": "Idioma" },
   "theme": {

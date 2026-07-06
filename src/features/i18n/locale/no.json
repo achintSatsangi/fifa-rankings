@@ -5,9 +5,17 @@
     "footer": "Laget av fans. Ikke tilknyttet FIFA."
   },
   "nav": {
+    "primary": "Hovednavigasjon",
+    "openMenu": "Åpne meny",
+    "closeMenu": "Lukk meny",
     "bracket": "Utslagsrunde",
     "teams": "Lag",
     "groups": "Grupper"
+  },
+  "favourite": {
+    "add": "Sett som favoritt",
+    "remove": "Fjern favoritt",
+    "yourTeam": "Ditt lag"
   },
   "language": { "label": "Språk" },
   "theme": {

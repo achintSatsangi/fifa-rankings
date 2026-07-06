@@ -1,60 +1,78 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { createRootRoute, Outlet, useRouterState } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import { useTranslation } from "react-i18next";
-import { LanguageSwitcher } from "../features/i18n/LanguageSwitcher";
-import { LiveStatus } from "../features/live/LiveStatus";
-import { ThemeToggle } from "../features/theme/ThemeToggle";
+import { FocusTrap } from "focus-trap-react";
+import { Sidebar } from "../components/Sidebar";
+import { MobileHeader } from "../components/MobileHeader";
 
 export const Route = createRootRoute({
   component: RootLayout,
 });
 
 function RootLayout() {
-  const { t } = useTranslation();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const routerLocation = useRouterState({ select: (s) => s.location.pathname });
+
+  // Close drawer on route change (nav-item click) and on Esc.
+  useEffect(() => setDrawerOpen(false), [routerLocation]);
+  useEffect(() => {
+    if (!drawerOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDrawerOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [drawerOpen]);
+
   return (
-    <div className="flex min-h-svh flex-col lg:flex-row">
-      <aside className="flex w-full shrink-0 flex-col gap-4 border-b border-[var(--border-subtle)] bg-[var(--surface)] px-7 py-6 lg:h-svh lg:w-72 lg:border-b-0 lg:border-r">
-        <div>
-          <h1 className="m-0 text-xl font-semibold tracking-tight text-[var(--text)]">
-            {t("app.title")}
-          </h1>
-          <p className="mt-2 text-sm leading-snug text-[var(--text-secondary)]">
-            {t("app.tagline")}
-          </p>
-        </div>
+    <div className="min-h-svh lg:flex">
+      <MobileHeader onOpenMenu={() => setDrawerOpen(true)} />
 
-        <nav className="flex flex-col gap-1 text-sm">
-          <NavItem to="/" label={t("nav.bracket")} />
-          <NavItem to="/teams" label={t("nav.teams")} />
-          <NavItem to="/groups" label={t("nav.groups")} />
-        </nav>
+      {drawerOpen ? (
+        <button
+          type="button"
+          aria-label="Close menu"
+          onClick={() => setDrawerOpen(false)}
+          className="fixed inset-0 z-40 bg-[var(--modal-overlay)] lg:hidden"
+        />
+      ) : null}
 
-        <div className="mt-auto flex flex-col gap-3 pt-6 text-sm">
-          <LanguageSwitcher />
-          <ThemeToggle />
-          <LiveStatus />
-          <p className="text-xs text-[var(--text-muted)]">{t("app.footer")}</p>
-        </div>
-      </aside>
+      <FocusTrap
+        active={drawerOpen}
+        focusTrapOptions={{
+          escapeDeactivates: false,
+          allowOutsideClick: true,
+          clickOutsideDeactivates: true,
+        }}
+      >
+        <aside
+          id="app-sidebar"
+          aria-label="App sidebar"
+          className={
+            "fixed inset-y-0 left-0 z-50 flex w-80 max-w-[85vw] flex-col " +
+            "border-r border-[var(--border-subtle)] bg-[var(--surface)] " +
+            "transition-transform duration-200 ease-out " +
+            "lg:sticky lg:top-0 lg:h-svh lg:w-72 lg:max-w-none lg:translate-x-0 lg:transition-none " +
+            (drawerOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0")
+          }
+        >
+          <Sidebar
+            onNavClick={() => setDrawerOpen(false)}
+            onClose={() => setDrawerOpen(false)}
+          />
+        </aside>
+      </FocusTrap>
 
-      <main className="flex flex-1 items-start justify-center overflow-x-auto p-6">
+      <main className="flex flex-1 items-start justify-center overflow-x-auto p-4 sm:p-6">
         <Outlet />
       </main>
 
       {import.meta.env.DEV ? <TanStackRouterDevtools position="bottom-right" /> : null}
     </div>
-  );
-}
-
-function NavItem({ to, label }: { to: string; label: string }) {
-  return (
-    <Link
-      to={to}
-      activeOptions={{ exact: to === "/" }}
-      className="rounded px-2 py-1.5 text-[var(--text)] hover:bg-[var(--surface-muted)]"
-      activeProps={{ className: "bg-[var(--surface-elevated)] font-semibold" }}
-    >
-      {label}
-    </Link>
   );
 }
