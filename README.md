@@ -53,7 +53,7 @@ The app has no client-side API integration — everything at runtime reads from 
 node --env-file=.env scripts/refresh-live.mjs
 ```
 
-**In CI:** `.github/workflows/refresh-and-deploy.yml` runs every hour at :17, refreshes the JSON, commits any changes back to `main` as `github-actions[bot]`, builds, and deploys to GitHub Pages. Store your key as the `FOOTBALL_DATA_KEY` repo secret.
+**In CI:** `.github/workflows/refresh-and-deploy.yml` runs every 15 minutes (at :02/:17/:32/:47), refreshes the JSON, commits any changes back to `main` as `github-actions[bot]`, builds, and deploys to GitHub Pages. Store your key as the `FOOTBALL_DATA_KEY` repo secret.
 
 Free key at [football-data.org/client/register](https://www.football-data.org/client/register). Their free tier includes the FIFA World Cup (competition code `WC`, id 2000) — 2026 season is accessible.
 

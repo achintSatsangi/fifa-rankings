@@ -70,7 +70,7 @@ The app has **no client-side API integration**. Everything at runtime reads from
 
 **Local:** `node --env-file=.env scripts/refresh-live.mjs`. Requires a personal key in `.env` (gitignored; template in `.env.example`).
 
-**CI:** `.github/workflows/refresh-and-deploy.yml` runs `:17` past every hour, on push to `main`, and on manual dispatch. It refreshes → commits changes (if any) as `github-actions[bot]` → builds → deploys to GitHub Pages. Key is stored as the `FOOTBALL_DATA_KEY` repo secret. The auto-commit uses `GITHUB_TOKEN`, so it doesn't retrigger the workflow.
+**CI:** `.github/workflows/refresh-and-deploy.yml` runs at `:02/:17/:32/:47` past every hour (offset from `:00` because GH Actions is congested there), on push to `main`, and on manual dispatch. It refreshes → commits changes (if any) as `github-actions[bot]` → builds → deploys to GitHub Pages. Key is stored as the `FOOTBALL_DATA_KEY` repo secret. The auto-commit uses `GITHUB_TOKEN`, so it doesn't retrigger the workflow.
 
 ## Deploy (GitHub Pages)
 
