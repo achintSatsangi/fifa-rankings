@@ -30,6 +30,9 @@
   "meta": {
     "dataUpdated": "Tiedot päivitetty"
   },
+  "matches": {
+    "startsIn": "Alkaa"
+  },
   "language": { "label": "Kieli" },
   "theme": {
     "label": "Teema",

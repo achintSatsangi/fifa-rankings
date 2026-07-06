@@ -30,6 +30,9 @@
   "meta": {
     "dataUpdated": "Data oppdatert"
   },
+  "matches": {
+    "startsIn": "Starter om"
+  },
   "language": { "label": "Språk" },
   "theme": {
     "label": "Tema",

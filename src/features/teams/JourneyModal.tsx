@@ -3,13 +3,12 @@ import { useTranslation } from "react-i18next";
 import { Modal } from "../../ui/Modal";
 import { Table, THead, TBody, TR, TH, TD } from "../../ui/Table";
 import { Badge } from "../../ui/Badge";
+import { formatMatchDate } from "../bracket/matchTime";
 import { Flag } from "../flags/Flag";
 import { FavouriteButton } from "../favourites/FavouriteButton";
 import { highlightUrl } from "../highlights/resolver";
 import { teamByCode } from "./data";
 import { buildJourney, currentStageLabel, type JourneyResult } from "./journey";
-
-const dateFmt = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric" });
 
 function resultVariant(r: JourneyResult): "success" | "warning" | "danger" | "neutral" {
   if (r === "W") return "success";
@@ -71,7 +70,7 @@ export function JourneyModal({ code, onClose }: Props) {
                   <TR key={r.matchId}>
                     <TD className="whitespace-nowrap">{r.stage}</TD>
                     <TD className="whitespace-nowrap text-[var(--text-secondary)]">
-                      {dateFmt.format(new Date(r.date))}
+                      {formatMatchDate(r.date)}
                     </TD>
                     <TD>
                       {r.opponentCode ? (

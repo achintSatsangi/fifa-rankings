@@ -1,9 +1,8 @@
 import { useTranslation } from "react-i18next";
 import type { GroupMatch } from "../../data/types";
+import { formatMatchDate } from "../bracket/matchTime";
 import { Flag } from "../flags/Flag";
 import { teamByCode } from "../teams/data";
-
-const dateFmt = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric" });
 
 export function MatchList({ matches }: { matches: GroupMatch[] }) {
   const { t } = useTranslation();
@@ -18,7 +17,7 @@ export function MatchList({ matches }: { matches: GroupMatch[] }) {
         return (
           <li key={i} className="flex items-center gap-3 py-2 text-sm">
             <span className="w-16 shrink-0 text-xs text-[var(--text-muted)]">
-              MD{m.matchDay} · {dateFmt.format(new Date(m.date))}
+              MD{m.matchDay} · {formatMatchDate(m.date)}
             </span>
             <span className="flex flex-1 items-center justify-end gap-2 text-right">
               <span className="text-[var(--text)]">{home?.name ?? m.homeCode}</span>

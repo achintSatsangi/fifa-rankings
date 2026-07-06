@@ -2,10 +2,8 @@ import type { BracketMatch } from "../../../data/types";
 import { Flag } from "../../flags/Flag";
 import { teamByCode } from "../../teams/data";
 import { MatchTooltip } from "../MatchTooltip";
-import { isMatchPlayed } from "../matchTime";
+import { formatMatchDate, isMatchPlayed } from "../matchTime";
 import { isWinner, resolveSlotCode, slotLabel } from "../resolver";
-
-const dateFmt = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric" });
 
 type Props = {
   match: BracketMatch;
@@ -19,11 +17,11 @@ export function MatchCard({ match, onTeamClick }: Props) {
   return (
     <article
       className="group relative flex w-56 flex-col rounded-md border border-[var(--border-subtle)] bg-[var(--surface-elevated)] shadow-sm"
-      aria-label={`${match.id} ${dateFmt.format(new Date(match.date))}`}
+      aria-label={`${match.id} ${formatMatchDate(match.date)}`}
     >
       <header className="flex items-center justify-between border-b border-[var(--border-subtle)] px-2 py-1 text-[10px] uppercase tracking-wide text-[var(--text-muted)]">
         <span>{match.id}</span>
-        <span>{dateFmt.format(new Date(match.date))}</span>
+        <span>{formatMatchDate(match.date)}</span>
       </header>
       <TeamRow
         code={codeA}

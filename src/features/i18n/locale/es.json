@@ -30,6 +30,9 @@
   "meta": {
     "dataUpdated": "Datos actualizados"
   },
+  "matches": {
+    "startsIn": "Comienza en"
+  },
   "language": { "label": "Idioma" },
   "theme": {
     "label": "Tema",

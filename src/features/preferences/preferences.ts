@@ -3,6 +3,7 @@ import { getStorageItem, setStorageItem } from "../../lib/storage";
 
 const BRACKET_VIEW_KEY = "fifa-ranking:bracket-view";
 const SKIP_LANDING_KEY = "fifa-ranking:skip-landing";
+const LANDING_BYPASS_KEY = "fifa-ranking:landing-bypass";
 
 const BRACKET_VIEW_EVENT = "fifa-ranking:bracket-view-change";
 const SKIP_LANDING_EVENT = "fifa-ranking:skip-landing-change";
@@ -33,6 +34,35 @@ export function persistSkipLanding(v: boolean): void {
   if (typeof window !== "undefined") {
     window.dispatchEvent(new CustomEvent<boolean>(SKIP_LANDING_EVENT, { detail: v }));
   }
+}
+
+/**
+ * One-shot "let me through" flag for the landing route. The sidebar's
+ * Home link sets this in sessionStorage right before navigating to `/`,
+ * and the landing route's `beforeLoad` consumes it so the "Start on
+ * bracket" pref doesn't redirect away. Session-scoped so a refresh on
+ * `/` reverts to the pref (as expected).
+ */
+export function requestLandingBypass(): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.setItem(LANDING_BYPASS_KEY, "1");
+  } catch {
+    /* ignore */
+  }
+}
+
+export function consumeLandingBypass(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    if (window.sessionStorage.getItem(LANDING_BYPASS_KEY) === "1") {
+      window.sessionStorage.removeItem(LANDING_BYPASS_KEY);
+      return true;
+    }
+  } catch {
+    /* ignore */
+  }
+  return false;
 }
 
 export function useSkipLanding(): [boolean, (v: boolean) => void] {

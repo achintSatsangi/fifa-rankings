@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "../features/i18n/LanguageSwitcher";
 import { ThemeToggle } from "../features/theme/ThemeToggle";
 import { FavouriteTeamLink } from "../features/favourites/FavouriteTeamLink";
-import { useSkipLanding } from "../features/preferences/preferences";
+import { requestLandingBypass, useSkipLanding } from "../features/preferences/preferences";
 import { BUILD_TIMESTAMP, formatAbsolute, formatRelative } from "../lib/buildInfo";
 import { BracketIcon, CloseIcon, GroupsIcon, HomeIcon, TeamsIcon, TrophyIcon } from "./NavIcons";
 
@@ -142,18 +142,21 @@ function NavItem({
 }
 
 /**
- * The Home item passes `?home=1` so beforeLoad on `/` skips the
- * "start on bracket" redirect — otherwise the button is a trap when
- * that pref is on. `activeProps` still matches an exact `/` visit
- * (no search), which is fine — Home is a manual jump target.
+ * Home flips a session-scoped bypass flag before navigating so the
+ * landing route's beforeLoad lets the render through even when the
+ * "Start on bracket" pref would otherwise redirect. Uses Link (not a
+ * button) so the active-page pill still lights up on `/`.
  */
 function HomeNavItem({ label, onNavigate }: { label: string; onNavigate?: () => void }) {
+  const handleClick = () => {
+    requestLandingBypass();
+    onNavigate?.();
+  };
   return (
     <Link
       to="/"
-      search={{ home: 1 }}
       activeOptions={{ exact: true }}
-      onClick={onNavigate}
+      onClick={handleClick}
       className={NAV_CLASS}
       activeProps={NAV_ACTIVE}
     >
