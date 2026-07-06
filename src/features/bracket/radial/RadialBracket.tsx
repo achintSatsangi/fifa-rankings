@@ -10,6 +10,8 @@ import { TeamPoint } from "./TeamPoint";
 import { Trophy } from "./Trophy";
 import {
   FLAG_SIZE,
+  OUTER_FLAG_RADIUS,
+  WINNER_RING_RADIUS,
   eliminationRound,
   flagSizesFor,
   markerSizeFor,
@@ -82,8 +84,6 @@ export function RadialBracket() {
     }));
   }, []);
 
-  // Each team focuses on their current-or-next match — their upcoming
-  // game if they're still alive, otherwise their loss (or final win).
   const currentMatch = useMemo<Map<string, BracketMatch>>(() => {
     const map = new Map<string, BracketMatch>();
     for (const s of outer) {
@@ -93,6 +93,35 @@ export function RadialBracket() {
     }
     return map;
   }, [outer]);
+
+  // For every team, look up their R32 match (used as the "past match"
+  // tooltip content for their outer flag when it's not their innermost).
+  const r32ByTeam = useMemo<Map<string, BracketMatch>>(() => {
+    const map = new Map<string, BracketMatch>();
+    for (const m of BRACKET) {
+      if (m.round !== "R32") continue;
+      if (m.teamCodeA) map.set(m.teamCodeA, m);
+      if (m.teamCodeB) map.set(m.teamCodeB, m);
+    }
+    return map;
+  }, []);
+
+  // For every team, the smallest radius they appear at across all rings —
+  // that's their "innermost" flag, which represents where they currently
+  // stand in the tournament.
+  const innermostByTeam = useMemo<Map<string, number>>(() => {
+    const map = new Map<string, number>();
+    for (const s of outer) {
+      if (s.teamCode) map.set(s.teamCode, OUTER_FLAG_RADIUS);
+    }
+    for (const w of winners) {
+      if (!w.code) continue;
+      const r = WINNER_RING_RADIUS[w.match.round];
+      const cur = map.get(w.code);
+      if (cur === undefined || r < cur) map.set(w.code, r);
+    }
+    return map;
+  }, [outer, winners]);
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -108,6 +137,8 @@ export function RadialBracket() {
             winners={winners}
             unplayedMarkers={unplayedMarkers}
             currentMatch={currentMatch}
+            r32ByTeam={r32ByTeam}
+            innermostByTeam={innermostByTeam}
             onTeamClick={setSelectedCode}
           />
         ) : null}
@@ -129,6 +160,8 @@ function RingContent({
   winners,
   unplayedMarkers,
   currentMatch,
+  r32ByTeam,
+  innermostByTeam,
   onTeamClick,
 }: {
   size: number;
@@ -137,11 +170,28 @@ function RingContent({
   winners: Winner[];
   unplayedMarkers: Marker[];
   currentMatch: Map<string, BracketMatch>;
+  r32ByTeam: Map<string, BracketMatch>;
+  innermostByTeam: Map<string, number>;
   onTeamClick: (code: string) => void;
 }) {
   const sizes = useMemo(() => flagSizesFor(size), [size]);
   const markerSize = useMemo(() => markerSizeFor(size), [size]);
   const trophySize = useMemo(() => trophySizeFor(size), [size]);
+
+  // Given a team + which ring the flag sits on, pick the tooltip's match:
+  // - Innermost flag → team's current/upcoming match
+  // - Other flags   → the past match this ring represents
+  const matchForFlag = (
+    teamCode: string,
+    thisRingRadius: number,
+    ringSpecificMatch: BracketMatch | undefined,
+  ): BracketMatch | undefined => {
+    const innermost = innermostByTeam.get(teamCode);
+    if (innermost !== undefined && thisRingRadius === innermost) {
+      return currentMatch.get(teamCode);
+    }
+    return ringSpecificMatch;
+  };
 
   return (
     <div className="relative" style={{ width: size, height: size }}>
@@ -155,7 +205,11 @@ function RingContent({
           faded={s.teamCode ? eliminationCache.get(s.teamCode) !== null : false}
           onClick={s.teamCode ? onTeamClick : undefined}
           layer="outer"
-          match={s.teamCode ? currentMatch.get(s.teamCode) : undefined}
+          match={
+            s.teamCode
+              ? matchForFlag(s.teamCode, OUTER_FLAG_RADIUS, r32ByTeam.get(s.teamCode))
+              : undefined
+          }
         />
       ))}
       {winners.map((w) => (
@@ -166,7 +220,11 @@ function RingContent({
           size={sizes[w.match.round]}
           onClick={w.code ? onTeamClick : undefined}
           layer="winner"
-          match={w.code ? currentMatch.get(w.code) : undefined}
+          match={
+            w.code
+              ? matchForFlag(w.code, WINNER_RING_RADIUS[w.match.round], w.match)
+              : undefined
+          }
         />
       ))}
       {unplayedMarkers.map((m) => (
