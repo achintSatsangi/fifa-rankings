@@ -25,6 +25,20 @@ declare module "@tanstack/react-router" {
   }
 }
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+router.subscribe("onResolved", () => {
+  window.gtag?.("event", "page_view", {
+    page_path: window.location.pathname + window.location.search,
+    page_location: window.location.href,
+    page_title: document.title,
+  });
+});
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
