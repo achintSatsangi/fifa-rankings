@@ -1,11 +1,10 @@
 /**
  * Mirrors the CI cron in .github/workflows/refresh-and-deploy.yml
- * (`2,17,32,47 * * * *`) so the client can display when the next
- * refresh should fire. The workflow runs in UTC, but each slot is
- * the same wall-clock minute in every timezone, so a local Date
- * works fine.
+ * (`2,32 * * * *`) so the client can display when the next refresh
+ * should fire. The workflow runs in UTC, but each slot is the same
+ * wall-clock minute in every timezone, so a local Date works fine.
  */
-const REFRESH_MINUTES = [2, 17, 32, 47];
+const REFRESH_MINUTES = [2, 32];
 
 export function nextRefreshAt(now: Date = new Date()): Date {
   const next = new Date(now);

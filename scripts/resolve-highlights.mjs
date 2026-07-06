@@ -94,6 +94,7 @@ const NAME_INFO = {
   "North Korea":            { title: ["korea dpr", "dpr korea"],               slug: "korea-dpr" },
   "Bosnia and Herzegovina": { title: ["bosnia & herzegovina"],                 slug: "bosnia-and-herzegovina" },
   "Czech Republic":         { title: ["czechia"],                              slug: "czech-republic" },
+  "Turkey":                 { title: ["türkiye", "turkiye"],                   slug: "turkiye" },
 };
 
 function titleContainsName(title, name) {
@@ -250,6 +251,20 @@ if (onlyMatch && targets.length === 0) {
   process.exit(1);
 }
 
+// YouTube fetching is manually gated by scripts/config/youtube-fetch.json.
+// The daily free-tier quota is only 100 searches; letting every 30-min
+// cron burn 40+ calls exhausts it fast. Instead the user flips
+// `enabled: true` and pushes when they want a fetch; the workflow
+// commits any changes plus a flag reset so it's a one-shot opt-in.
+// FIFA fallback runs regardless — it costs nothing.
+const YT_FLAG_PATH = "scripts/config/youtube-fetch.json";
+const ytFlag = JSON.parse(readFileSync(YT_FLAG_PATH, "utf8"));
+let youtubeAvailable = ytFlag.enabled === true;
+const youtubeWasEnabled = youtubeAvailable;
+if (!youtubeAvailable) {
+  console.log(`YouTube fetch disabled (flip scripts/config/youtube-fetch.json → enabled: true to run it once). FIFA fallback only for this run.\n`);
+}
+
 console.log(`Resolving ${targets.length} match${targets.length === 1 ? "" : "es"}...\n`);
 
 let resolvedYouTube = 0;
@@ -270,26 +285,48 @@ for (const t of targets) {
   const nameB = teamByCode[t.codeB]?.name ?? t.codeB;
   const next = { ...(existing ?? {}) };
 
-  try {
-    const yt = await resolveYouTube(nameA, nameB);
-    if (yt.url) {
-      next.youtube = yt.url;
-      // Once YouTube has the canonical video, the FIFA article link is
-      // redundant; drop any stale value.
-      delete next.fifa;
-      next.resolvedAt = new Date().toISOString();
-      highlights[t.id] = next;
-      console.log(`✓ ${t.id} youtube: ${nameA} vs ${nameB}`);
-      console.log(`  → ${yt.url}`);
-      console.log(`  title: ${yt.title}`);
-      resolvedYouTube++;
-    } else {
-      // Fall back to the FIFA article page.
-      if (!force && hasFifa) {
-        console.log(`- ${t.id} youtube missing; fifa cached: ${existing.fifa}`);
-        skipped++;
-        continue;
+  // Tier 1: YouTube (skip when in quota cooldown or already cached in
+  // this session).
+  let ytUrl = null;
+  let ytTitle = null;
+  if (youtubeAvailable) {
+    try {
+      const yt = await resolveYouTube(nameA, nameB);
+      ytUrl = yt.url;
+      ytTitle = yt.title;
+    } catch (err) {
+      if (/quota exceeded/i.test(err.message)) {
+        youtubeAvailable = false;
+        console.error(
+          `⚠ YouTube quota exhausted mid-run. Falling back to FIFA for remaining matches.`,
+        );
+      } else {
+        // Transient YouTube error ("cannot act on behalf of...") —
+        // don't disable the API for the whole run, just for this match.
+        console.error(`⚠ ${t.id} youtube: ${err.message}`);
       }
+    }
+  }
+
+  if (ytUrl) {
+    next.youtube = ytUrl;
+    // Once YouTube has the canonical video, the FIFA article link is
+    // redundant; drop any stale value.
+    delete next.fifa;
+    next.resolvedAt = new Date().toISOString();
+    highlights[t.id] = next;
+    console.log(`✓ ${t.id} youtube: ${nameA} vs ${nameB}`);
+    console.log(`  → ${ytUrl}`);
+    console.log(`  title: ${ytTitle}`);
+    resolvedYouTube++;
+  } else if (!force && hasFifa) {
+    console.log(`- ${t.id} fifa cached; awaiting youtube upload`);
+    skipped++;
+  } else {
+    // Tier 2: FIFA article. Always try when we don't have YouTube —
+    // costs nothing (free anonymous HTTP) and guarantees the button
+    // shows something meaningful instead of the search fallback.
+    try {
       const fifaUrl = await resolveFifa(nameA, nameB);
       if (fifaUrl) {
         next.fifa = fifaUrl;
@@ -300,31 +337,33 @@ for (const t of targets) {
         resolvedFifa++;
       } else {
         console.log(`✗ ${t.id} ${nameA} vs ${nameB} — no youtube video, no fifa article`);
-        if (yt.topTitleIfMissed) console.log(`  yt top result was: ${yt.topTitleIfMissed}`);
         missed++;
       }
-    }
-  } catch (err) {
-    console.error(`⚠ ${t.id} ${nameA} vs ${nameB} — ${err.message} (skipping)`);
-    writeFileSync(highlightsPath, JSON.stringify(highlights, null, 2) + "\n");
-    missed++;
-    // YouTube Data API's free tier is 10k units/day (100 searches).
-    // Once we hit that, every remaining call will fail the same way —
-    // bail out so we don't waste ~1.5s per remaining match on
-    // guaranteed failures. Quota resets at midnight Pacific.
-    if (/quota exceeded/i.test(err.message)) {
-      console.error(`\nYouTube quota exhausted. ${targets.length - (resolvedYouTube + resolvedFifa + skipped + missed)} match(es) unresolved this run; next scheduled workflow will pick them up after quota resets.`);
-      break;
+    } catch (err) {
+      console.error(`⚠ ${t.id} fifa: ${err.message}`);
+      missed++;
     }
   }
 
-  // Gentle: 1.5s between matches. YouTube search costs 100 units of the
-  // 10k/day quota; FIFA fetches are free but we still don't want to
-  // spam them.
-  if (targets.length > 1) await new Promise((r) => setTimeout(r, 1500));
+  // Persist after each match so a crash mid-run doesn't lose progress.
+  writeFileSync(highlightsPath, JSON.stringify(highlights, null, 2) + "\n");
+
+  // Gentle: 1s between matches to avoid hammering FIFA or YouTube.
+  if (targets.length > 1) await new Promise((r) => setTimeout(r, 1000));
 }
 
 writeFileSync(highlightsPath, JSON.stringify(highlights, null, 2) + "\n");
+
+// One-shot semantics: any run that started with the YouTube flag enabled
+// resets it to false at the end. The user re-enables when they next
+// want a fetch. This applies whether the run succeeded, hit quota, or
+// only got partway through — the flag exists to say "attempt YouTube
+// once", not "keep attempting until manually disabled".
+if (youtubeWasEnabled) {
+  ytFlag.enabled = false;
+  writeFileSync(YT_FLAG_PATH, JSON.stringify(ytFlag, null, 2) + "\n");
+  console.log(`\nYouTube fetch flag reset to false (was one-shot opt-in).`);
+}
 
 console.log(
   `\nDone. youtube=${resolvedYouTube} fifa=${resolvedFifa} skipped=${skipped} missed=${missed}`,

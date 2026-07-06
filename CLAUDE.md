@@ -72,16 +72,21 @@ The app has **no client-side API integration**. Everything at runtime reads from
 
 **Highlights resolver:** `scripts/resolve-highlights.mjs` — three-tier resolution per played match, cached in `src/data/highlights.json`.
 
-- **Tier 1 — YouTube canonical.** Queries YouTube Data API v3 scoped to the FIFA channel (`UCpcTrCXblq78GZrTUTLWeBw`). Only accepts titles matching `"Highlights | <TeamA> <X-Y> <TeamB> | FIFA World Cup 2026™"`. The `🆚 #FIFAWorldCupOnYT` Shorts/reels, Alt Cast broadcast feeds, pressers, training clips, and single-goal edits are filtered out via `NEGATIVE_MARKERS`.
-- **Tier 2 — FIFA article page.** When YouTube hasn't uploaded yet, guesses the FIFA match-report URL (`/tournaments/mens/worldcup/canadamexicousa2026/articles/<teamA>-<teamB>-match-report-highlights`), fetches with a Googlebot User-Agent (FIFA is a client-rendered SPA that only returns SSR content to bots), and verifies via the `<title>` tag ("Match report" / "highlights" + both team names). Tries both team orderings.
+- **Tier 1 — YouTube canonical (manually gated).** Queries YouTube Data API v3 scoped to the FIFA channel (`UCpcTrCXblq78GZrTUTLWeBw`). Only accepts titles matching `"Highlights | <TeamA> <X-Y> <TeamB> | FIFA World Cup 2026™"`. The `🆚 #FIFAWorldCupOnYT` Shorts/reels, Alt Cast broadcast feeds, pressers, training clips, and single-goal edits are filtered out via `NEGATIVE_MARKERS`. **Gated by `scripts/config/youtube-fetch.json` — see below.**
+- **Tier 2 — FIFA article page.** Always runs. Guesses the FIFA match-report URL (`/tournaments/mens/worldcup/canadamexicousa2026/articles/<teamA>-<teamB>-match-report-highlights`), fetches with a **Googlebot User-Agent** (FIFA is a client-rendered SPA that only serves SSR HTML to bots), and verifies via the `<title>` tag ("Match report" / "highlights" + both team names). Tries both team orderings.
 - **Tier 3 — Search URL.** Client-side only; returned by `resolveHighlight` when nothing is cached. Not stored.
 - Country-name variants (`Cote d'Ivoire`, `Cabo Verde`, `USA`, `Congo DR`) are unified via `NAME_INFO` — `title` variants match YouTube video titles, `slug` variants build FIFA article URLs.
-- Reads `YOUTUBE_API_KEY` from env. YouTube search costs 100 units against the 10k/day free-tier quota; FIFA fetches are free. Full backfill is ~50 calls per matchday, well under quota.
+- Reads `YOUTUBE_API_KEY` from env when the flag is on. YouTube search costs 100 units against the 10k/day free-tier quota (~100 searches/day); FIFA fetches are free.
 - API errors don't crash the run; unresolved matches are retried by the next scheduled workflow.
 - Flags: `--match=<id>` restricts to a single match; `--force` re-resolves even if cached.
 - Client rendering (`HighlightButton`): YouTube-red pill for tier 1, Vimeo-blue (`#1AB7EA`) pill for tier 2, muted grey pill for tier 3.
 
-**CI:** `.github/workflows/refresh-and-deploy.yml` runs at `:02/:17/:32/:47` past every hour (offset from `:00` because GH Actions is congested there), on push to `main`, and on manual dispatch. It refreshes scores → resolves any new highlights → commits changes (if any) as `github-actions[bot]` → builds → deploys to GitHub Pages. Secrets: `FOOTBALL_DATA_KEY` and `YOUTUBE_API_KEY` (the highlights step is skipped if the latter is unset). The auto-commit uses `GITHUB_TOKEN`, so it doesn't retrigger the workflow.
+**One-shot YouTube gate:** `scripts/config/youtube-fetch.json`
+- Default: `{ "enabled": false }`. Every scheduled cron reads this. When `false`, the resolver skips YouTube entirely and only runs the FIFA fallback — so new matches still get a link, but no YouTube quota is spent.
+- To fetch fresh YouTube URLs: flip to `true`, commit, push. The next scheduled run (or manual dispatch) does YouTube resolution, then **the script itself rewrites the file back to `false`** at the end of the run so it's genuinely one-shot. The workflow's commit step stages `scripts/config` so the reset gets pushed alongside the new highlights.
+- Rationale: the 100 searches/day quota gets burned in a single run when there are many unresolved matches. Manual gating gives the user control over when quota is spent; the FIFA fallback keeps the app populated in between.
+
+**CI:** `.github/workflows/refresh-and-deploy.yml` runs at `:02/:32` (every 30 minutes; offset from `:00` because GH Actions is congested there), on push to `main`, and on manual dispatch. It refreshes scores → resolves any new highlights (YouTube if the gate is on, FIFA always) → commits data + flag-reset (if any changed) as `github-actions[bot]` → builds → deploys to GitHub Pages. Secrets: `FOOTBALL_DATA_KEY` and `YOUTUBE_API_KEY`. The auto-commit uses `GITHUB_TOKEN`, so it doesn't retrigger the workflow.
 
 ## Deploy (GitHub Pages)
 

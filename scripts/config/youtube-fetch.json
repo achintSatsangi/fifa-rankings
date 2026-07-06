@@ -1,0 +1,4 @@
+{
+  "__note": "Flip enabled=true and push to trigger a YouTube fetch on the next CI run. The workflow will reset this back to false after the run, so each opt-in is one-shot. FIFA fallback always runs regardless.",
+  "enabled": false
+}
