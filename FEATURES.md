@@ -21,6 +21,8 @@ Living tracker. Move items between sections as they progress. Keep it terse; com
 - [x] **Team journey modal** — joins group + bracket matches for a team into one chronological table (stage, date, opponent flag, score with penalties/AET, W/D/L badge, venue, highlights link). Modal has focus trap + Esc.
 - [x] **Highlight link resolver** — `highlights.json` first, else fallback to `youtube.com/@fifa/search?query=...`. Opens in new tab (`rel="noopener noreferrer"`).
 - [x] **Horizontal bracket view** — 5 columns (R32→F) plus a Third-place card. Match cards show flag + name + score (+ penalty shootout / a.e.t. marker). Winner row bolded. Unresolved slots show the slot label (`Winner R16-3`, `3rd D`, etc.). Click a team → journey modal.
+- [x] **Radial bracket view** — concentric rings from R32 outer down to Final ring plus a centre trophy. 32 team flags around the outer ring with grayscale on R32 eliminations; winner flags placed on the inner rings for each played match. SVG connector tree, faint dashed guide circles. Third-place match rendered as a card below. Click any flag → journey modal.
+- [x] **Bracket view toggle** — pill toggle (Radial / Horizontal) on `/`, URL-synced via TanStack Router `?view=` search param (`radial` is the default). Shared links keep the view.
 
 ---
 
@@ -32,9 +34,7 @@ _Nothing right now — pick from Next._
 
 ## Next (priority order)
 
-1. [ ] **Radial bracket view (v1)** — concentric rings (32 → trophy at center), flags on outer ring, SVG connector paths, static render from `bracket.json`. No interactivity yet.
-2. [ ] **Bracket view toggle** — user picks radial vs horizontal; persist in URL (`?view=radial`) so shared links keep the view.
-3. [ ] **Pick winners** — click a flag to advance to the next ring; Zustand state; undo/reset. Wire up the R16→QF, QF→SF, SF→F propagation.
+1. [ ] **Pick winners** — click a flag to advance to the next ring; Zustand state; undo/reset. Wire up the R16→QF, QF→SF, SF→F propagation. On radial, animate the flag "travelling" inward to its next ring position.
 4. [ ] **URL codec for picks** — compact encoding into TanStack Router search params; state hydrates from URL on load; shareable.
 5. [ ] **Share modal** — copy link with picks summary; success toast.
 6. [ ] **Group-stage simulator** — Quick (pick winner/draw) + Detailed (enter score) modes; auto-computes standings; ranks best-third teams per FIFA tiebreakers; feeds R32 placeholders.
