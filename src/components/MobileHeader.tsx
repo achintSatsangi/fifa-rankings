@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { HamburgerIcon, TrophyIcon } from "./NavIcons";
 
 type Props = {
   onOpenMenu: () => void;
@@ -8,20 +9,26 @@ type Props = {
 export function MobileHeader({ onOpenMenu }: Props) {
   const { t } = useTranslation();
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between border-b border-[var(--border-subtle)] bg-[var(--surface)] px-4 py-3 lg:hidden">
-      <h1 className="m-0 text-base font-semibold tracking-tight text-[var(--text)]">
-        {t("app.title")}
-      </h1>
+    <header className="sticky top-0 z-30 flex items-center justify-between border-b border-[var(--border-subtle)] bg-[var(--surface)]/95 px-4 py-3 backdrop-blur lg:hidden">
+      <div className="flex items-center gap-2">
+        <span
+          aria-hidden="true"
+          className="inline-flex h-7 w-7 items-center justify-center rounded-md bg-[var(--btn-bg)] text-[var(--btn-text)]"
+        >
+          <TrophyIcon width={16} height={16} />
+        </span>
+        <h1 className="m-0 text-sm font-bold tracking-tight text-[var(--text)]">
+          {t("app.title")}
+        </h1>
+      </div>
       <button
         type="button"
         onClick={onOpenMenu}
         aria-label={t("nav.openMenu")}
         aria-controls="app-sidebar"
-        className="inline-flex items-center justify-center rounded p-2 text-[var(--text)] hover:bg-[var(--surface-muted)]"
+        className="inline-flex items-center justify-center rounded-md p-2 text-[var(--text)] hover:bg-[var(--surface-muted)]"
       >
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+        <HamburgerIcon />
       </button>
     </header>
   );

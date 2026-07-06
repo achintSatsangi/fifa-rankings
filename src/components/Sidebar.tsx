@@ -1,27 +1,36 @@
 import { Link } from "@tanstack/react-router";
+import type { ComponentType, SVGProps } from "react";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "../features/i18n/LanguageSwitcher";
 import { LiveStatus } from "../features/live/LiveStatus";
 import { ThemeToggle } from "../features/theme/ThemeToggle";
 import { FavouriteTeamLink } from "../features/favourites/FavouriteTeamLink";
+import { BracketIcon, CloseIcon, GroupsIcon, TeamsIcon, TrophyIcon } from "./NavIcons";
 
 type Props = {
-  /** Called when a nav link is clicked — useful for closing a mobile drawer. */
   onNavClick?: () => void;
-  /** Renders a close button in the drawer header. */
   onClose?: () => void;
 };
 
 export function Sidebar({ onNavClick, onClose }: Props) {
   const { t } = useTranslation();
   return (
-    <div className="flex h-full flex-col gap-4 px-7 py-6">
-      <div className="flex items-start justify-between gap-2">
-        <div>
-          <h1 className="m-0 text-xl font-semibold tracking-tight text-[var(--text)]">
-            {t("app.title")}
-          </h1>
-          <p className="mt-2 text-sm leading-snug text-[var(--text-secondary)]">
+    <div className="flex h-full flex-col">
+      {/* Brand */}
+      <div className="flex items-start justify-between gap-2 px-6 pt-6 pb-4">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2">
+            <span
+              aria-hidden="true"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--btn-bg)] text-[var(--btn-text)]"
+            >
+              <TrophyIcon width={18} height={18} />
+            </span>
+            <h1 className="m-0 text-lg font-bold tracking-tight text-[var(--text)]">
+              {t("app.title")}
+            </h1>
+          </div>
+          <p className="mt-2 text-[13px] leading-snug text-[var(--text-secondary)]">
             {t("app.tagline")}
           </p>
         </div>
@@ -30,39 +39,57 @@ export function Sidebar({ onNavClick, onClose }: Props) {
             type="button"
             onClick={onClose}
             aria-label={t("nav.closeMenu")}
-            className="-mt-1 -mr-1 rounded p-1 text-[var(--text-secondary)] hover:bg-[var(--surface-muted)] lg:hidden"
+            className="-mt-1 -mr-1 rounded-md p-1.5 text-[var(--text-secondary)] hover:bg-[var(--surface-muted)] lg:hidden"
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M18 6 6 18M6 6l12 12" />
-            </svg>
+            <CloseIcon />
           </button>
         ) : null}
       </div>
 
-      <nav aria-label={t("nav.primary")} className="flex flex-col gap-1 text-sm">
-        <NavItem to="/" label={t("nav.bracket")} onNavigate={onNavClick} />
-        <NavItem to="/teams" label={t("nav.teams")} onNavigate={onNavClick} />
-        <NavItem to="/groups" label={t("nav.groups")} onNavigate={onNavClick} />
+      <Divider />
+
+      {/* Primary nav */}
+      <nav
+        aria-label={t("nav.primary")}
+        className="flex flex-col gap-0.5 px-3 py-3"
+      >
+        <NavItem to="/" label={t("nav.bracket")} Icon={BracketIcon} onNavigate={onNavClick} />
+        <NavItem to="/teams" label={t("nav.teams")} Icon={TeamsIcon} onNavigate={onNavClick} />
+        <NavItem to="/groups" label={t("nav.groups")} Icon={GroupsIcon} onNavigate={onNavClick} />
       </nav>
 
-      <div className="mt-auto flex flex-col gap-3 pt-6 text-sm">
+      <Divider />
+
+      {/* Favourite team */}
+      <div className="px-6 py-3">
         <FavouriteTeamLink onNavigate={onNavClick} />
+      </div>
+
+      {/* Settings pushed to bottom */}
+      <div className="mt-auto flex flex-col gap-3 px-6 pb-6 pt-4">
+        <Divider className="-mx-6 mb-1" />
         <LanguageSwitcher />
         <ThemeToggle />
         <LiveStatus />
-        <p className="text-xs text-[var(--text-muted)]">{t("app.footer")}</p>
+        <p className="text-[11px] leading-snug text-[var(--text-muted)]">{t("app.footer")}</p>
       </div>
     </div>
   );
 }
 
+function Divider({ className = "" }: { className?: string }) {
+  return <div className={`border-t border-[var(--border-subtle)] ${className}`} aria-hidden="true" />;
+}
+
 function NavItem({
   to,
   label,
+  Icon,
   onNavigate,
 }: {
   to: string;
   label: string;
+  Icon: ComponentType<SVGProps<SVGSVGElement>>;
   onNavigate?: () => void;
 }) {
   return (
@@ -70,10 +97,18 @@ function NavItem({
       to={to}
       activeOptions={{ exact: to === "/" }}
       onClick={onNavigate}
-      className="rounded px-2 py-1.5 text-[var(--text)] hover:bg-[var(--surface-muted)]"
-      activeProps={{ className: "bg-[var(--surface-elevated)] font-semibold" }}
+      className={
+        "group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium " +
+        "text-[var(--text-secondary)] transition-colors " +
+        "hover:bg-[var(--surface-muted)] hover:text-[var(--text)]"
+      }
+      activeProps={{
+        className:
+          "!bg-[var(--btn-bg)] !text-[var(--btn-text)] hover:!bg-[var(--btn-bg-hover)]",
+      }}
     >
-      {label}
+      <Icon />
+      <span>{label}</span>
     </Link>
   );
 }
