@@ -26,7 +26,7 @@ function BracketPage() {
         <div>
           <h2 className="m-0 text-2xl font-semibold">{t("bracket.title")}</h2>
           <p className="mt-1 text-sm text-[var(--text-secondary)]">
-            Click any team to see their tournament journey. Scroll or pinch to zoom, drag to pan.
+            Click any team to see their tournament journey.
           </p>
         </div>
         <ViewToggle value={view} onChange={setView} />

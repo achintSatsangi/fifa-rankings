@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ZoomContainer } from "../../../components/ZoomContainer";
 import { BRACKET } from "../data";
 import { winnerCode } from "../resolver";
 import { JourneyModal } from "../../teams/JourneyModal";
@@ -13,10 +12,6 @@ import {
   matchCenterPoint,
   outerSlots,
 } from "./layout";
-
-/** Natural CSS-pixel size of the radial layout. ZoomContainer scales
- *  it down to fit the viewport on load; user gestures zoom in from there. */
-const CONTENT_SIZE = 720;
 
 export function RadialBracket() {
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
@@ -41,11 +36,20 @@ export function RadialBracket() {
 
   return (
     <div className="flex h-full w-full flex-col">
-      <div className="min-h-0 flex-1">
-        <ZoomContainer
-          storageKey="fifa-ranking:zoom:radial"
-          contentWidth={CONTENT_SIZE}
-          contentHeight={CONTENT_SIZE}
+      {/*
+       * `containerType: size` establishes an inline-and-block sized query
+       * container so we can size the aspect-square inner div to the
+       * smaller of the container's width/height using `min(100cqi, 100cqb)`.
+       * Result: the ring uses as much space as the layout offers without
+       * ever overflowing.
+       */}
+      <div
+        style={{ containerType: "size" }}
+        className="relative flex min-h-0 flex-1 items-center justify-center"
+      >
+        <div
+          className="relative aspect-square"
+          style={{ width: "min(100cqi, 100cqb)" }}
         >
           <Connectors />
           {outer.map((s) => (
@@ -70,7 +74,7 @@ export function RadialBracket() {
             />
           ))}
           <Trophy />
-        </ZoomContainer>
+        </div>
       </div>
 
       <p className="mt-2 text-center text-xs text-[var(--text-muted)]">{t("shortcuts.hint")}</p>

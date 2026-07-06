@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import type { ComponentType, SVGProps } from "react";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "../features/i18n/LanguageSwitcher";
-import { LiveStatus } from "../features/live/LiveStatus";
 import { ThemeToggle } from "../features/theme/ThemeToggle";
 import { FavouriteTeamLink } from "../features/favourites/FavouriteTeamLink";
 import { BracketIcon, CloseIcon, GroupsIcon, TeamsIcon, TrophyIcon } from "./NavIcons";
@@ -70,7 +69,6 @@ export function Sidebar({ onNavClick, onClose }: Props) {
         <Divider className="-mx-6 mb-1" />
         <LanguageSwitcher />
         <ThemeToggle />
-        <LiveStatus />
         <p className="text-[11px] leading-snug text-[var(--text-muted)]">{t("app.footer")}</p>
       </div>
     </div>
