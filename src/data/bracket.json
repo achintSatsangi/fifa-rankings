@@ -1,38 +1,777 @@
 [
-  { "id": "R32-1",  "round": "R32", "date": "2026-06-28", "venue": "SoFi Stadium, Inglewood",              "slotA": { "type": "group", "ref": "A2" },        "slotB": { "type": "group", "ref": "B2" },        "teamCodeA": "RSA", "teamCodeB": "CAN", "scoreA": 0, "scoreB": 1, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "R16-1", "slot": "A" } },
-  { "id": "R32-2",  "round": "R32", "date": "2026-06-29", "venue": "Estadio BBVA, Guadalupe",              "slotA": { "type": "group", "ref": "F1" },        "slotB": { "type": "group", "ref": "C2" },        "teamCodeA": "NED", "teamCodeB": "MAR", "scoreA": 1, "scoreB": 1, "penaltyA": 2,    "penaltyB": 3,    "feedsInto": { "matchId": "R16-1", "slot": "B" } },
-  { "id": "R32-3",  "round": "R32", "date": "2026-06-29", "venue": "Gillette Stadium, Foxborough",         "slotA": { "type": "group", "ref": "E1" },        "slotB": { "type": "best3", "ref": "Best3-D" },   "teamCodeA": "GER", "teamCodeB": "PAR", "scoreA": 1, "scoreB": 1, "penaltyA": 3,    "penaltyB": 4,    "feedsInto": { "matchId": "R16-2", "slot": "A" } },
-  { "id": "R32-4",  "round": "R32", "date": "2026-06-30", "venue": "MetLife Stadium, East Rutherford",     "slotA": { "type": "group", "ref": "I1" },        "slotB": { "type": "best3", "ref": "Best3-F" },   "teamCodeA": "FRA", "teamCodeB": "SWE", "scoreA": 3, "scoreB": 0, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "R16-2", "slot": "B" } },
-  { "id": "R32-5",  "round": "R32", "date": "2026-07-02", "venue": "BMO Field, Toronto",                    "slotA": { "type": "group", "ref": "K2" },        "slotB": { "type": "group", "ref": "L2" },        "teamCodeA": "POR", "teamCodeB": "CRO", "scoreA": 2, "scoreB": 1, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "R16-3", "slot": "A" } },
-  { "id": "R32-6",  "round": "R32", "date": "2026-07-02", "venue": "SoFi Stadium, Inglewood",              "slotA": { "type": "group", "ref": "H1" },        "slotB": { "type": "group", "ref": "J2" },        "teamCodeA": "ESP", "teamCodeB": "AUT", "scoreA": 3, "scoreB": 0, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "R16-3", "slot": "B" } },
-  { "id": "R32-7",  "round": "R32", "date": "2026-06-29", "venue": "NRG Stadium, Houston",                 "slotA": { "type": "group", "ref": "C1" },        "slotB": { "type": "group", "ref": "F2" },        "teamCodeA": "BRA", "teamCodeB": "JPN", "scoreA": 2, "scoreB": 1, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "R16-4", "slot": "A" } },
-  { "id": "R32-8",  "round": "R32", "date": "2026-06-30", "venue": "AT&T Stadium, Arlington",              "slotA": { "type": "group", "ref": "I2" },        "slotB": { "type": "group", "ref": "E2" },        "teamCodeA": "NOR", "teamCodeB": "CIV", "scoreA": 2, "scoreB": 1, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "R16-4", "slot": "B" } },
-  { "id": "R32-9",  "round": "R32", "date": "2026-06-30", "venue": "Estadio Azteca, Mexico City",          "slotA": { "type": "group", "ref": "A1" },        "slotB": { "type": "best3", "ref": "Best3-E" },   "teamCodeA": "MEX", "teamCodeB": "ECU", "scoreA": 2, "scoreB": 0, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "R16-5", "slot": "A" } },
-  { "id": "R32-10", "round": "R32", "date": "2026-07-01", "venue": "Mercedes-Benz Stadium, Atlanta",       "slotA": { "type": "group", "ref": "L1" },        "slotB": { "type": "best3", "ref": "Best3-K" },   "teamCodeA": "ENG", "teamCodeB": "COD", "scoreA": 2, "scoreB": 1, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "R16-5", "slot": "B" } },
-  { "id": "R32-11", "round": "R32", "date": "2026-07-01", "venue": "Levi's Stadium, Santa Clara",          "slotA": { "type": "group", "ref": "D1" },        "slotB": { "type": "best3", "ref": "Best3-B" },   "teamCodeA": "USA", "teamCodeB": "BIH", "scoreA": 2, "scoreB": 0, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "R16-6", "slot": "A" } },
-  { "id": "R32-12", "round": "R32", "date": "2026-07-01", "venue": "Lumen Field, Seattle",                  "slotA": { "type": "group", "ref": "G1" },        "slotB": { "type": "best3", "ref": "Best3-I" },   "teamCodeA": "BEL", "teamCodeB": "SEN", "scoreA": 3, "scoreB": 2, "penaltyA": null, "penaltyB": null, "extraTime": true, "feedsInto": { "matchId": "R16-6", "slot": "B" } },
-  { "id": "R32-13", "round": "R32", "date": "2026-07-03", "venue": "Hard Rock Stadium, Miami Gardens",     "slotA": { "type": "group", "ref": "J1" },        "slotB": { "type": "group", "ref": "H2" },        "teamCodeA": "ARG", "teamCodeB": "CPV", "scoreA": 3, "scoreB": 2, "penaltyA": null, "penaltyB": null, "extraTime": true, "feedsInto": { "matchId": "R16-7", "slot": "A" } },
-  { "id": "R32-14", "round": "R32", "date": "2026-07-03", "venue": "AT&T Stadium, Arlington",              "slotA": { "type": "group", "ref": "G2" },        "slotB": { "type": "group", "ref": "D2" },        "teamCodeA": "EGY", "teamCodeB": "AUS", "scoreA": 1, "scoreB": 1, "penaltyA": 4,    "penaltyB": 2,    "feedsInto": { "matchId": "R16-7", "slot": "B" } },
-  { "id": "R32-15", "round": "R32", "date": "2026-07-02", "venue": "BC Place, Vancouver",                   "slotA": { "type": "group", "ref": "B1" },        "slotB": { "type": "best3", "ref": "Best3-J" },   "teamCodeA": "SUI", "teamCodeB": "ALG", "scoreA": 2, "scoreB": 0, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "R16-8", "slot": "A" } },
-  { "id": "R32-16", "round": "R32", "date": "2026-07-03", "venue": "Arrowhead Stadium, Kansas City",       "slotA": { "type": "group", "ref": "K1" },        "slotB": { "type": "best3", "ref": "Best3-L" },   "teamCodeA": "COL", "teamCodeB": "GHA", "scoreA": 1, "scoreB": 0, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "R16-8", "slot": "B" } },
-
-  { "id": "R16-1", "round": "R16", "date": "2026-07-04", "venue": "NRG Stadium, Houston",                   "slotA": { "type": "winner", "ref": "R32-1" },  "slotB": { "type": "winner", "ref": "R32-2" },  "teamCodeA": "CAN", "teamCodeB": "MAR", "scoreA": 0, "scoreB": 1, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "QF-1", "slot": "A" } },
-  { "id": "R16-2", "round": "R16", "date": "2026-07-04", "venue": "Lincoln Financial Field, Philadelphia",  "slotA": { "type": "winner", "ref": "R32-3" },  "slotB": { "type": "winner", "ref": "R32-4" },  "teamCodeA": "PAR", "teamCodeB": "FRA", "scoreA": 0, "scoreB": 3, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "QF-1", "slot": "B" } },
-  { "id": "R16-3", "round": "R16", "date": "2026-07-06", "venue": "AT&T Stadium, Arlington",                "slotA": { "type": "winner", "ref": "R32-5" },  "slotB": { "type": "winner", "ref": "R32-6" },  "teamCodeA": "POR", "teamCodeB": "ESP", "scoreA": null, "scoreB": null, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "QF-2", "slot": "A" } },
-  { "id": "R16-4", "round": "R16", "date": "2026-07-05", "venue": "MetLife Stadium, East Rutherford",       "slotA": { "type": "winner", "ref": "R32-7" },  "slotB": { "type": "winner", "ref": "R32-8" },  "teamCodeA": "BRA", "teamCodeB": "NOR", "scoreA": 1, "scoreB": 2, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "QF-2", "slot": "B" } },
-  { "id": "R16-5", "round": "R16", "date": "2026-07-05", "venue": "Estadio Azteca, Mexico City",            "slotA": { "type": "winner", "ref": "R32-9" },  "slotB": { "type": "winner", "ref": "R32-10" }, "teamCodeA": "MEX", "teamCodeB": "ENG", "scoreA": 2, "scoreB": 3, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "QF-3", "slot": "A" } },
-  { "id": "R16-6", "round": "R16", "date": "2026-07-06", "venue": "Lumen Field, Seattle",                    "slotA": { "type": "winner", "ref": "R32-11" }, "slotB": { "type": "winner", "ref": "R32-12" }, "teamCodeA": "USA", "teamCodeB": "BEL", "scoreA": null, "scoreB": null, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "QF-3", "slot": "B" } },
-  { "id": "R16-7", "round": "R16", "date": "2026-07-07", "venue": "Mercedes-Benz Stadium, Atlanta",         "slotA": { "type": "winner", "ref": "R32-13" }, "slotB": { "type": "winner", "ref": "R32-14" }, "teamCodeA": "ARG", "teamCodeB": "EGY", "scoreA": null, "scoreB": null, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "QF-4", "slot": "A" } },
-  { "id": "R16-8", "round": "R16", "date": "2026-07-07", "venue": "BC Place, Vancouver",                     "slotA": { "type": "winner", "ref": "R32-15" }, "slotB": { "type": "winner", "ref": "R32-16" }, "teamCodeA": "SUI", "teamCodeB": "COL", "scoreA": null, "scoreB": null, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "QF-4", "slot": "B" } },
-
-  { "id": "QF-1", "round": "QF", "date": "2026-07-09", "venue": "Gillette Stadium, Foxborough",             "slotA": { "type": "winner", "ref": "R16-1" }, "slotB": { "type": "winner", "ref": "R16-2" }, "teamCodeA": "MAR", "teamCodeB": "FRA", "scoreA": null, "scoreB": null, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "SF-1", "slot": "A" } },
-  { "id": "QF-2", "round": "QF", "date": "2026-07-10", "venue": "SoFi Stadium, Inglewood",                  "slotA": { "type": "winner", "ref": "R16-3" }, "slotB": { "type": "winner", "ref": "R16-4" }, "teamCodeA": null,  "teamCodeB": "NOR", "scoreA": null, "scoreB": null, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "SF-1", "slot": "B" } },
-  { "id": "QF-3", "round": "QF", "date": "2026-07-11", "venue": "Hard Rock Stadium, Miami Gardens",         "slotA": { "type": "winner", "ref": "R16-5" }, "slotB": { "type": "winner", "ref": "R16-6" }, "teamCodeA": "ENG", "teamCodeB": null,  "scoreA": null, "scoreB": null, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "SF-2", "slot": "A" } },
-  { "id": "QF-4", "round": "QF", "date": "2026-07-11", "venue": "Arrowhead Stadium, Kansas City",           "slotA": { "type": "winner", "ref": "R16-7" }, "slotB": { "type": "winner", "ref": "R16-8" }, "teamCodeA": null,  "teamCodeB": null,  "scoreA": null, "scoreB": null, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "SF-2", "slot": "B" } },
-
-  { "id": "SF-1", "round": "SF", "date": "2026-07-14", "venue": "AT&T Stadium, Arlington",                   "slotA": { "type": "winner", "ref": "QF-1" }, "slotB": { "type": "winner", "ref": "QF-2" }, "teamCodeA": null, "teamCodeB": null, "scoreA": null, "scoreB": null, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "F",   "slot": "A" }, "losersFeedInto": { "matchId": "3RD", "slot": "A" } },
-  { "id": "SF-2", "round": "SF", "date": "2026-07-15", "venue": "Mercedes-Benz Stadium, Atlanta",            "slotA": { "type": "winner", "ref": "QF-3" }, "slotB": { "type": "winner", "ref": "QF-4" }, "teamCodeA": null, "teamCodeB": null, "scoreA": null, "scoreB": null, "penaltyA": null, "penaltyB": null, "feedsInto": { "matchId": "F",   "slot": "B" }, "losersFeedInto": { "matchId": "3RD", "slot": "B" } },
-
-  { "id": "3RD", "round": "3RD", "date": "2026-07-18", "venue": "Hard Rock Stadium, Miami Gardens",         "slotA": { "type": "loser", "ref": "SF-1" }, "slotB": { "type": "loser", "ref": "SF-2" }, "teamCodeA": null, "teamCodeB": null, "scoreA": null, "scoreB": null, "penaltyA": null, "penaltyB": null, "feedsInto": null },
-  { "id": "F",   "round": "F",   "date": "2026-07-19", "venue": "MetLife Stadium, East Rutherford",         "slotA": { "type": "winner", "ref": "SF-1" }, "slotB": { "type": "winner", "ref": "SF-2" }, "teamCodeA": null, "teamCodeB": null, "scoreA": null, "scoreB": null, "penaltyA": null, "penaltyB": null, "feedsInto": null }
+  {
+    "id": "R32-1",
+    "round": "R32",
+    "date": "2026-06-28",
+    "venue": "SoFi Stadium, Inglewood",
+    "slotA": {
+      "type": "group",
+      "ref": "A2"
+    },
+    "slotB": {
+      "type": "group",
+      "ref": "B2"
+    },
+    "teamCodeA": "RSA",
+    "teamCodeB": "CAN",
+    "scoreA": 0,
+    "scoreB": 1,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "R16-1",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "R32-2",
+    "round": "R32",
+    "date": "2026-06-29",
+    "venue": "Estadio BBVA, Guadalupe",
+    "slotA": {
+      "type": "group",
+      "ref": "F1"
+    },
+    "slotB": {
+      "type": "group",
+      "ref": "C2"
+    },
+    "teamCodeA": "NED",
+    "teamCodeB": "MAR",
+    "scoreA": 1,
+    "scoreB": 1,
+    "penaltyA": 2,
+    "penaltyB": 3,
+    "feedsInto": {
+      "matchId": "R16-1",
+      "slot": "B"
+    },
+    "extraTime": true
+  },
+  {
+    "id": "R32-3",
+    "round": "R32",
+    "date": "2026-06-29",
+    "venue": "Gillette Stadium, Foxborough",
+    "slotA": {
+      "type": "group",
+      "ref": "E1"
+    },
+    "slotB": {
+      "type": "best3",
+      "ref": "Best3-D"
+    },
+    "teamCodeA": "GER",
+    "teamCodeB": "PAR",
+    "scoreA": 1,
+    "scoreB": 1,
+    "penaltyA": 3,
+    "penaltyB": 4,
+    "feedsInto": {
+      "matchId": "R16-2",
+      "slot": "A"
+    },
+    "extraTime": true
+  },
+  {
+    "id": "R32-4",
+    "round": "R32",
+    "date": "2026-06-30",
+    "venue": "MetLife Stadium, East Rutherford",
+    "slotA": {
+      "type": "group",
+      "ref": "I1"
+    },
+    "slotB": {
+      "type": "best3",
+      "ref": "Best3-F"
+    },
+    "teamCodeA": "FRA",
+    "teamCodeB": "SWE",
+    "scoreA": 3,
+    "scoreB": 0,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "R16-2",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "R32-5",
+    "round": "R32",
+    "date": "2026-07-02",
+    "venue": "BMO Field, Toronto",
+    "slotA": {
+      "type": "group",
+      "ref": "K2"
+    },
+    "slotB": {
+      "type": "group",
+      "ref": "L2"
+    },
+    "teamCodeA": "POR",
+    "teamCodeB": "CRO",
+    "scoreA": 2,
+    "scoreB": 1,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "R16-3",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "R32-6",
+    "round": "R32",
+    "date": "2026-07-02",
+    "venue": "SoFi Stadium, Inglewood",
+    "slotA": {
+      "type": "group",
+      "ref": "H1"
+    },
+    "slotB": {
+      "type": "group",
+      "ref": "J2"
+    },
+    "teamCodeA": "ESP",
+    "teamCodeB": "AUT",
+    "scoreA": 3,
+    "scoreB": 0,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "R16-3",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "R32-7",
+    "round": "R32",
+    "date": "2026-06-29",
+    "venue": "NRG Stadium, Houston",
+    "slotA": {
+      "type": "group",
+      "ref": "C1"
+    },
+    "slotB": {
+      "type": "group",
+      "ref": "F2"
+    },
+    "teamCodeA": "BRA",
+    "teamCodeB": "JPN",
+    "scoreA": 2,
+    "scoreB": 1,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "R16-4",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "R32-8",
+    "round": "R32",
+    "date": "2026-06-30",
+    "venue": "AT&T Stadium, Arlington",
+    "slotA": {
+      "type": "group",
+      "ref": "I2"
+    },
+    "slotB": {
+      "type": "group",
+      "ref": "E2"
+    },
+    "teamCodeA": "NOR",
+    "teamCodeB": "CIV",
+    "scoreA": 2,
+    "scoreB": 1,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "R16-4",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "R32-9",
+    "round": "R32",
+    "date": "2026-06-30",
+    "venue": "Estadio Azteca, Mexico City",
+    "slotA": {
+      "type": "group",
+      "ref": "A1"
+    },
+    "slotB": {
+      "type": "best3",
+      "ref": "Best3-E"
+    },
+    "teamCodeA": "MEX",
+    "teamCodeB": "ECU",
+    "scoreA": 2,
+    "scoreB": 0,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "R16-5",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "R32-10",
+    "round": "R32",
+    "date": "2026-07-01",
+    "venue": "Mercedes-Benz Stadium, Atlanta",
+    "slotA": {
+      "type": "group",
+      "ref": "L1"
+    },
+    "slotB": {
+      "type": "best3",
+      "ref": "Best3-K"
+    },
+    "teamCodeA": "ENG",
+    "teamCodeB": "COD",
+    "scoreA": 2,
+    "scoreB": 1,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "R16-5",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "R32-11",
+    "round": "R32",
+    "date": "2026-07-01",
+    "venue": "Levi's Stadium, Santa Clara",
+    "slotA": {
+      "type": "group",
+      "ref": "D1"
+    },
+    "slotB": {
+      "type": "best3",
+      "ref": "Best3-B"
+    },
+    "teamCodeA": "USA",
+    "teamCodeB": "BIH",
+    "scoreA": 2,
+    "scoreB": 0,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "R16-6",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "R32-12",
+    "round": "R32",
+    "date": "2026-07-01",
+    "venue": "Lumen Field, Seattle",
+    "slotA": {
+      "type": "group",
+      "ref": "G1"
+    },
+    "slotB": {
+      "type": "best3",
+      "ref": "Best3-I"
+    },
+    "teamCodeA": "BEL",
+    "teamCodeB": "SEN",
+    "scoreA": 3,
+    "scoreB": 2,
+    "penaltyA": null,
+    "penaltyB": null,
+    "extraTime": true,
+    "feedsInto": {
+      "matchId": "R16-6",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "R32-13",
+    "round": "R32",
+    "date": "2026-07-03",
+    "venue": "Hard Rock Stadium, Miami Gardens",
+    "slotA": {
+      "type": "group",
+      "ref": "J1"
+    },
+    "slotB": {
+      "type": "group",
+      "ref": "H2"
+    },
+    "teamCodeA": "ARG",
+    "teamCodeB": "CPV",
+    "scoreA": 3,
+    "scoreB": 2,
+    "penaltyA": null,
+    "penaltyB": null,
+    "extraTime": true,
+    "feedsInto": {
+      "matchId": "R16-7",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "R32-14",
+    "round": "R32",
+    "date": "2026-07-03",
+    "venue": "AT&T Stadium, Arlington",
+    "slotA": {
+      "type": "group",
+      "ref": "G2"
+    },
+    "slotB": {
+      "type": "group",
+      "ref": "D2"
+    },
+    "teamCodeA": "EGY",
+    "teamCodeB": "AUS",
+    "scoreA": 1,
+    "scoreB": 1,
+    "penaltyA": 4,
+    "penaltyB": 2,
+    "feedsInto": {
+      "matchId": "R16-7",
+      "slot": "B"
+    },
+    "extraTime": true
+  },
+  {
+    "id": "R32-15",
+    "round": "R32",
+    "date": "2026-07-02",
+    "venue": "BC Place, Vancouver",
+    "slotA": {
+      "type": "group",
+      "ref": "B1"
+    },
+    "slotB": {
+      "type": "best3",
+      "ref": "Best3-J"
+    },
+    "teamCodeA": "SUI",
+    "teamCodeB": "ALG",
+    "scoreA": 2,
+    "scoreB": 0,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "R16-8",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "R32-16",
+    "round": "R32",
+    "date": "2026-07-03",
+    "venue": "Arrowhead Stadium, Kansas City",
+    "slotA": {
+      "type": "group",
+      "ref": "K1"
+    },
+    "slotB": {
+      "type": "best3",
+      "ref": "Best3-L"
+    },
+    "teamCodeA": "COL",
+    "teamCodeB": "GHA",
+    "scoreA": 1,
+    "scoreB": 0,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "R16-8",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "R16-1",
+    "round": "R16",
+    "date": "2026-07-04",
+    "venue": "NRG Stadium, Houston",
+    "slotA": {
+      "type": "winner",
+      "ref": "R32-1"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "R32-2"
+    },
+    "teamCodeA": "CAN",
+    "teamCodeB": "MAR",
+    "scoreA": 0,
+    "scoreB": 3,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "QF-1",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "R16-2",
+    "round": "R16",
+    "date": "2026-07-04",
+    "venue": "Lincoln Financial Field, Philadelphia",
+    "slotA": {
+      "type": "winner",
+      "ref": "R32-3"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "R32-4"
+    },
+    "teamCodeA": "PAR",
+    "teamCodeB": "FRA",
+    "scoreA": 0,
+    "scoreB": 1,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "QF-1",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "R16-3",
+    "round": "R16",
+    "date": "2026-07-06",
+    "venue": "AT&T Stadium, Arlington",
+    "slotA": {
+      "type": "winner",
+      "ref": "R32-5"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "R32-6"
+    },
+    "teamCodeA": "POR",
+    "teamCodeB": "ESP",
+    "scoreA": null,
+    "scoreB": null,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "QF-2",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "R16-4",
+    "round": "R16",
+    "date": "2026-07-05",
+    "venue": "MetLife Stadium, East Rutherford",
+    "slotA": {
+      "type": "winner",
+      "ref": "R32-7"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "R32-8"
+    },
+    "teamCodeA": "BRA",
+    "teamCodeB": "NOR",
+    "scoreA": 1,
+    "scoreB": 2,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "QF-2",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "R16-5",
+    "round": "R16",
+    "date": "2026-07-05",
+    "venue": "Estadio Azteca, Mexico City",
+    "slotA": {
+      "type": "winner",
+      "ref": "R32-9"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "R32-10"
+    },
+    "teamCodeA": "MEX",
+    "teamCodeB": "ENG",
+    "scoreA": 2,
+    "scoreB": 3,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "QF-3",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "R16-6",
+    "round": "R16",
+    "date": "2026-07-06",
+    "venue": "Lumen Field, Seattle",
+    "slotA": {
+      "type": "winner",
+      "ref": "R32-11"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "R32-12"
+    },
+    "teamCodeA": "USA",
+    "teamCodeB": "BEL",
+    "scoreA": null,
+    "scoreB": null,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "QF-3",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "R16-7",
+    "round": "R16",
+    "date": "2026-07-07",
+    "venue": "Mercedes-Benz Stadium, Atlanta",
+    "slotA": {
+      "type": "winner",
+      "ref": "R32-13"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "R32-14"
+    },
+    "teamCodeA": "ARG",
+    "teamCodeB": "EGY",
+    "scoreA": null,
+    "scoreB": null,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "QF-4",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "R16-8",
+    "round": "R16",
+    "date": "2026-07-07",
+    "venue": "BC Place, Vancouver",
+    "slotA": {
+      "type": "winner",
+      "ref": "R32-15"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "R32-16"
+    },
+    "teamCodeA": "SUI",
+    "teamCodeB": "COL",
+    "scoreA": null,
+    "scoreB": null,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "QF-4",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "QF-1",
+    "round": "QF",
+    "date": "2026-07-09",
+    "venue": "Gillette Stadium, Foxborough",
+    "slotA": {
+      "type": "winner",
+      "ref": "R16-1"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "R16-2"
+    },
+    "teamCodeA": "MAR",
+    "teamCodeB": "FRA",
+    "scoreA": null,
+    "scoreB": null,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "SF-1",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "QF-2",
+    "round": "QF",
+    "date": "2026-07-10",
+    "venue": "SoFi Stadium, Inglewood",
+    "slotA": {
+      "type": "winner",
+      "ref": "R16-3"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "R16-4"
+    },
+    "teamCodeA": null,
+    "teamCodeB": "NOR",
+    "scoreA": null,
+    "scoreB": null,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "SF-1",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "QF-3",
+    "round": "QF",
+    "date": "2026-07-11",
+    "venue": "Hard Rock Stadium, Miami Gardens",
+    "slotA": {
+      "type": "winner",
+      "ref": "R16-5"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "R16-6"
+    },
+    "teamCodeA": "ENG",
+    "teamCodeB": null,
+    "scoreA": null,
+    "scoreB": null,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "SF-2",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "QF-4",
+    "round": "QF",
+    "date": "2026-07-11",
+    "venue": "Arrowhead Stadium, Kansas City",
+    "slotA": {
+      "type": "winner",
+      "ref": "R16-7"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "R16-8"
+    },
+    "teamCodeA": null,
+    "teamCodeB": null,
+    "scoreA": null,
+    "scoreB": null,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "SF-2",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "SF-1",
+    "round": "SF",
+    "date": "2026-07-14",
+    "venue": "AT&T Stadium, Arlington",
+    "slotA": {
+      "type": "winner",
+      "ref": "QF-1"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "QF-2"
+    },
+    "teamCodeA": null,
+    "teamCodeB": null,
+    "scoreA": null,
+    "scoreB": null,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "F",
+      "slot": "A"
+    },
+    "losersFeedInto": {
+      "matchId": "3RD",
+      "slot": "A"
+    }
+  },
+  {
+    "id": "SF-2",
+    "round": "SF",
+    "date": "2026-07-15",
+    "venue": "Mercedes-Benz Stadium, Atlanta",
+    "slotA": {
+      "type": "winner",
+      "ref": "QF-3"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "QF-4"
+    },
+    "teamCodeA": null,
+    "teamCodeB": null,
+    "scoreA": null,
+    "scoreB": null,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": {
+      "matchId": "F",
+      "slot": "B"
+    },
+    "losersFeedInto": {
+      "matchId": "3RD",
+      "slot": "B"
+    }
+  },
+  {
+    "id": "3RD",
+    "round": "3RD",
+    "date": "2026-07-18",
+    "venue": "Hard Rock Stadium, Miami Gardens",
+    "slotA": {
+      "type": "loser",
+      "ref": "SF-1"
+    },
+    "slotB": {
+      "type": "loser",
+      "ref": "SF-2"
+    },
+    "teamCodeA": null,
+    "teamCodeB": null,
+    "scoreA": null,
+    "scoreB": null,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": null
+  },
+  {
+    "id": "F",
+    "round": "F",
+    "date": "2026-07-19",
+    "venue": "MetLife Stadium, East Rutherford",
+    "slotA": {
+      "type": "winner",
+      "ref": "SF-1"
+    },
+    "slotB": {
+      "type": "winner",
+      "ref": "SF-2"
+    },
+    "teamCodeA": null,
+    "teamCodeB": null,
+    "scoreA": null,
+    "scoreB": null,
+    "penaltyA": null,
+    "penaltyB": null,
+    "feedsInto": null
+  }
 ]

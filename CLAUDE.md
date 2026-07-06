@@ -59,7 +59,15 @@ src/
 
 ## Data snapshot
 
-Bracket/group data is a hand-curated snapshot as of **2026-07-06** (mid-Round of 16). If you touch this data, cross-check at least two sources (Wikipedia + FIFA official + ESPN/CBS).
+`src/data/{groups,bracket}.json` is refreshed on demand from football-data.org, not hand-edited:
+
+```bash
+node --env-file=.env scripts/refresh-live.mjs
+```
+
+The script uses 2 API requests, preserves fields the API doesn't return (venue, our slot structure, `feedsInto`), and skips the API's `date` field for scored matches (`utcDate` rolls into next-day UTC for evening US kickoffs; we want the local calendar date). For penalty-shootout matches it subtracts `penalties.home/away` from `fullTime` because football-data lumps shootout goals into the full-time score.
+
+Original snapshot was 2026-07-06 (mid-R16). Rerun the script to bring things current.
 
 ## Live data (football-data.org)
 

@@ -24,6 +24,7 @@ Living tracker. Move items between sections as they progress. Keep it terse; com
 - [x] **Radial bracket view** — concentric rings from R32 outer down to Final ring plus a centre trophy. 32 team flags around the outer ring with grayscale on R32 eliminations; winner flags placed on the inner rings for each played match. SVG connector tree, faint dashed guide circles. Third-place match rendered as a card below. Click any flag → journey modal.
 - [x] **Bracket view toggle** — pill toggle (Radial / Horizontal) on `/`, URL-synced via TanStack Router `?view=` search param (`radial` is the default). Shared links keep the view.
 - [x] **Live data — foundation (football-data.org)** — `.env` + `.env.example`, `X-Auth-Token` client with 429/`retry-after` handling, TanStack Query hooks for `/competitions/WC`, `/competitions/WC/matches`, `/competitions/WC/standings`. Aggressive caching (5-min staleTime, no retry on 429) to respect the 10 req/min free-tier limit. Sidebar `LiveStatus` shows connection state and current matchday.
+- [x] **`scripts/refresh-live.mjs`** — one-shot Node script that refreshes `src/data/{groups,bracket}.json` from the API. Handles the two quirks: `utcDate` drifts a day for US-evening kickoffs (so we preserve local dates), and `fullTime` on pen-shootout matches includes shootout goals (so we subtract `penalties` back out). Run with `node --env-file=.env scripts/refresh-live.mjs`.
 
 ---
 
