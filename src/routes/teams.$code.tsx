@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { JourneyModal } from "../features/teams/JourneyModal";
+import { teamByCode } from "../features/teams/data";
 
 export const Route = createFileRoute("/teams/$code")({
   component: TeamDetailPage,
@@ -7,17 +8,12 @@ export const Route = createFileRoute("/teams/$code")({
 
 function TeamDetailPage() {
   const { code } = Route.useParams();
-  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const team = teamByCode(code);
   return (
-    <section className="w-full max-w-3xl">
-      <header className="mb-4">
-        <h2 className="m-0 text-2xl font-semibold">
-          {t("team.journey")}: <span className="font-mono">{code}</span>
-        </h2>
-      </header>
-      <div className="rounded border border-dashed border-[var(--border)] p-8 text-sm text-[var(--text-muted)]">
-        Team journey table lands here.
-      </div>
-    </section>
+    <JourneyModal
+      code={team ? team.code : code}
+      onClose={() => void navigate({ to: "/teams" })}
+    />
   );
 }
