@@ -1,82 +1,80 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import type { ComponentType, SVGProps } from "react";
 import { useTranslation } from "react-i18next";
-import { HorizontalBracket } from "../features/bracket/horizontal/HorizontalBracket";
-import { RadialBracket } from "../features/bracket/radial/RadialBracket";
-
-type BracketView = "radial" | "horizontal";
+import { BracketIcon, GroupsIcon, TeamsIcon, TrophyIcon } from "../components/NavIcons";
+import { FavouriteTeamLink } from "../features/favourites/FavouriteTeamLink";
 
 export const Route = createFileRoute("/")({
-  validateSearch: (search: Record<string, unknown>): { view: BracketView } => ({
-    view: search.view === "horizontal" ? "horizontal" : "radial",
-  }),
-  component: BracketPage,
+  component: LandingPage,
 });
 
-function BracketPage() {
-  const { view } = Route.useSearch();
-  const navigate = Route.useNavigate();
+function LandingPage() {
   const { t } = useTranslation();
-
-  const setView = (v: BracketView) =>
-    void navigate({ search: { view: v }, replace: true });
-
   return (
-    <section className="mx-auto flex h-full min-h-0 w-full max-w-6xl flex-col">
-      <header className="mb-4 flex shrink-0 flex-wrap items-baseline justify-between gap-3">
-        <div>
-          <h2 className="m-0 text-2xl font-semibold">{t("bracket.title")}</h2>
-          <p className="mt-1 text-sm text-[var(--text-secondary)]">
-            Click any team to see their tournament journey.
-          </p>
+    <section className="mx-auto flex h-full min-h-0 w-full max-w-5xl flex-col justify-center gap-10 py-8">
+      <div className="text-center">
+        <div className="mx-auto mb-5 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--btn-bg)] text-[var(--btn-text)] shadow-sm">
+          <TrophyIcon width={32} height={32} />
         </div>
-        <ViewToggle value={view} onChange={setView} />
-      </header>
+        <h1 className="mb-3 text-4xl font-bold tracking-tight text-[var(--text)] sm:text-5xl">
+          {t("app.title")}
+        </h1>
+        <p className="mx-auto max-w-xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
+          {t("app.tagline")}
+        </p>
+      </div>
 
-      <div className="min-h-0 flex-1">
-        {view === "radial" ? <RadialBracket /> : <HorizontalBracket />}
+      <div className="mx-auto grid w-full max-w-4xl gap-4 sm:grid-cols-3">
+        <FeatureCard
+          to="/bracket"
+          Icon={BracketIcon}
+          title={t("nav.bracket")}
+          description={t("landing.bracketDesc")}
+        />
+        <FeatureCard
+          to="/teams"
+          Icon={TeamsIcon}
+          title={t("nav.teams")}
+          description={t("landing.teamsDesc")}
+        />
+        <FeatureCard
+          to="/groups"
+          Icon={GroupsIcon}
+          title={t("nav.groups")}
+          description={t("landing.groupsDesc")}
+        />
+      </div>
+
+      <div className="mx-auto w-full max-w-sm">
+        <FavouriteTeamLink />
       </div>
     </section>
   );
 }
 
-function ViewToggle({
-  value,
-  onChange,
+function FeatureCard({
+  to,
+  Icon,
+  title,
+  description,
 }: {
-  value: BracketView;
-  onChange: (v: BracketView) => void;
+  to: string;
+  Icon: ComponentType<SVGProps<SVGSVGElement>>;
+  title: string;
+  description: string;
 }) {
-  const { t } = useTranslation();
-  const options: { key: BracketView; label: string }[] = [
-    { key: "radial", label: t("bracket.viewRadial") },
-    { key: "horizontal", label: t("bracket.viewHorizontal") },
-  ];
   return (
-    <div
-      role="tablist"
-      aria-label={t("bracket.title")}
-      className="inline-flex rounded-full border border-[var(--border-subtle)] bg-[var(--surface)] p-0.5 text-xs"
+    <Link
+      to={to}
+      className="group flex flex-col items-start gap-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)] p-5 transition-colors hover:border-[var(--border-strong)] hover:bg-[var(--surface)]"
     >
-      {options.map((o) => {
-        const active = value === o.key;
-        return (
-          <button
-            key={o.key}
-            type="button"
-            role="tab"
-            aria-selected={active}
-            onClick={() => onChange(o.key)}
-            className={
-              "rounded-full px-3 py-1 transition-colors " +
-              (active
-                ? "bg-[var(--btn-bg)] text-[var(--btn-text)]"
-                : "text-[var(--text-secondary)] hover:text-[var(--text)]")
-            }
-          >
-            {o.label}
-          </button>
-        );
-      })}
-    </div>
+      <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--surface)] text-[var(--text)] transition-colors group-hover:bg-[var(--btn-bg)] group-hover:text-[var(--btn-text)]">
+        <Icon width={20} height={20} />
+      </span>
+      <div>
+        <h2 className="mb-1 text-base font-semibold text-[var(--text)]">{title}</h2>
+        <p className="text-sm text-[var(--text-secondary)]">{description}</p>
+      </div>
+    </Link>
   );
 }

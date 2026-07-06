@@ -8,6 +8,7 @@
     "primary": "Huvudnavigering",
     "openMenu": "Öppna meny",
     "closeMenu": "Stäng meny",
+    "home": "Hem",
     "bracket": "Slutspel",
     "teams": "Lag",
     "groups": "Grupper"
@@ -16,6 +17,11 @@
     "add": "Markera som favorit",
     "remove": "Ta bort favorit",
     "yourTeam": "Ditt lag"
+  },
+  "landing": {
+    "bracketDesc": "Cirkulär och horisontell slutspelsvy — klicka på ett lag för resan.",
+    "teamsDesc": "Alla 48 lag — filtrera på grupp/konfederation, sortera på ranking.",
+    "groupsDesc": "Grupptabeller och varje match med resultat och arena."
   },
   "language": { "label": "Språk" },
   "theme": {

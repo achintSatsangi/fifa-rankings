@@ -8,6 +8,7 @@
     "primary": "Navegación principal",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
+    "home": "Inicio",
     "bracket": "Eliminatorias",
     "teams": "Equipos",
     "groups": "Grupos"
@@ -16,6 +17,11 @@
     "add": "Marcar como favorito",
     "remove": "Quitar de favoritos",
     "yourTeam": "Tu equipo"
+  },
+  "landing": {
+    "bracketDesc": "Vistas radial y horizontal, haz clic en un equipo para ver su recorrido.",
+    "teamsDesc": "Los 48 equipos: filtra por grupo o confederación, ordena por ranking.",
+    "groupsDesc": "Clasificación de grupos y cada partido con marcador y sede."
   },
   "language": { "label": "Idioma" },
   "theme": {

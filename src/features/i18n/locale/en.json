@@ -8,6 +8,7 @@
     "primary": "Main navigation",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
+    "home": "Home",
     "bracket": "Bracket",
     "teams": "Teams",
     "groups": "Groups"
@@ -16,6 +17,11 @@
     "add": "Set as favourite",
     "remove": "Remove from favourites",
     "yourTeam": "Your team"
+  },
+  "landing": {
+    "bracketDesc": "Radial and horizontal knockout views, click any team to see their journey.",
+    "teamsDesc": "All 48 teams — filter by group or confederation, sort by rank.",
+    "groupsDesc": "Group standings and every match with score and venue."
   },
   "language": { "label": "Language" },
   "theme": {

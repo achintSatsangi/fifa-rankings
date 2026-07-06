@@ -8,6 +8,7 @@
     "primary": "Hovednavigation",
     "openMenu": "Åbn menu",
     "closeMenu": "Luk menu",
+    "home": "Hjem",
     "bracket": "Slutrunde",
     "teams": "Hold",
     "groups": "Grupper"
@@ -16,6 +17,11 @@
     "add": "Markér som favorit",
     "remove": "Fjern favorit",
     "yourTeam": "Dit hold"
+  },
+  "landing": {
+    "bracketDesc": "Cirkulær og horisontal slutrunde — klik et hold for at se rejsen.",
+    "teamsDesc": "Alle 48 hold — filtrér på gruppe/konføderation, sortér på rangering.",
+    "groupsDesc": "Gruppetabeller og hver kamp med resultat og arena."
   },
   "language": { "label": "Sprog" },
   "theme": {

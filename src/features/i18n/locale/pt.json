@@ -8,6 +8,7 @@
     "primary": "Navegação principal",
     "openMenu": "Abrir menu",
     "closeMenu": "Fechar menu",
+    "home": "Início",
     "bracket": "Chaveamento",
     "teams": "Seleções",
     "groups": "Grupos"
@@ -16,6 +17,11 @@
     "add": "Marcar como favorito",
     "remove": "Remover dos favoritos",
     "yourTeam": "Sua seleção"
+  },
+  "landing": {
+    "bracketDesc": "Vistas radial e horizontal, clique numa seleção para ver a trajetória.",
+    "teamsDesc": "As 48 seleções — filtre por grupo/confederação, ordene por ranking.",
+    "groupsDesc": "Classificações e cada jogo com placar e estádio."
   },
   "language": { "label": "Idioma" },
   "theme": {

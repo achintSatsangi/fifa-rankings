@@ -8,6 +8,7 @@
     "primary": "Navigation principale",
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu",
+    "home": "Accueil",
     "bracket": "Tableau",
     "teams": "Équipes",
     "groups": "Groupes"
@@ -16,6 +17,11 @@
     "add": "Ajouter aux favoris",
     "remove": "Retirer des favoris",
     "yourTeam": "Votre équipe"
+  },
+  "landing": {
+    "bracketDesc": "Vues radiale et horizontale, cliquez une équipe pour voir son parcours.",
+    "teamsDesc": "Les 48 équipes — filtres par groupe/confédération, tri par classement.",
+    "groupsDesc": "Classements de groupes et chaque match avec score et stade."
   },
   "language": { "label": "Langue" },
   "theme": {

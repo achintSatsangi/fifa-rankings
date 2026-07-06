@@ -8,6 +8,7 @@
     "primary": "Päänavigointi",
     "openMenu": "Avaa valikko",
     "closeMenu": "Sulje valikko",
+    "home": "Etusivu",
     "bracket": "Pudotuspelit",
     "teams": "Joukkueet",
     "groups": "Lohkot"
@@ -16,6 +17,11 @@
     "add": "Merkitse suosikiksi",
     "remove": "Poista suosikeista",
     "yourTeam": "Joukkueesi"
+  },
+  "landing": {
+    "bracketDesc": "Ympyrä- ja vaakanäkymä — klikkaa joukkuetta nähdäksesi reitin.",
+    "teamsDesc": "Kaikki 48 joukkuetta — suodata lohkolla/konfederaatiolla, järjestä sijoituksella.",
+    "groupsDesc": "Lohkotaulukot ja jokainen ottelu tuloksineen ja stadionineen."
   },
   "language": { "label": "Kieli" },
   "theme": {

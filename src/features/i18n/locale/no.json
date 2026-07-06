@@ -8,6 +8,7 @@
     "primary": "Hovednavigasjon",
     "openMenu": "Åpne meny",
     "closeMenu": "Lukk meny",
+    "home": "Hjem",
     "bracket": "Utslagsrunde",
     "teams": "Lag",
     "groups": "Grupper"
@@ -16,6 +17,11 @@
     "add": "Sett som favoritt",
     "remove": "Fjern favoritt",
     "yourTeam": "Ditt lag"
+  },
+  "landing": {
+    "bracketDesc": "Sirkulær og horisontal utslagsrunde — klikk et lag for reisen.",
+    "teamsDesc": "Alle 48 lag — filtrer på gruppe/konføderasjon, sorter på rangering.",
+    "groupsDesc": "Gruppetabeller og hver kamp med resultat og arena."
   },
   "language": { "label": "Språk" },
   "theme": {
