@@ -2,6 +2,7 @@ import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "../features/i18n/LanguageSwitcher";
+import { LiveStatus } from "../features/live/LiveStatus";
 import { ThemeToggle } from "../features/theme/ThemeToggle";
 
 export const Route = createRootRoute({
@@ -31,6 +32,7 @@ function RootLayout() {
         <div className="mt-auto flex flex-col gap-3 pt-6 text-sm">
           <LanguageSwitcher />
           <ThemeToggle />
+          <LiveStatus />
           <p className="text-xs text-[var(--text-muted)]">{t("app.footer")}</p>
         </div>
       </aside>

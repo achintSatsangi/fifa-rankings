@@ -61,9 +61,23 @@ src/
 
 Bracket/group data is a hand-curated snapshot as of **2026-07-06** (mid-Round of 16). If you touch this data, cross-check at least two sources (Wikipedia + FIFA official + ESPN/CBS).
 
-## Live-results API
+## Live data (football-data.org)
 
-Optional. `VITE_FOOTBALL_DATA_API_KEY` in `.env.local` enables the live overlay via football-data.org. App must work without the key.
+`.env` at the repo root holds `VITE_FOOTBALL_DATA_KEY` and `VITE_FOOTBALL_DATA_COMPETITION` (default `WC`). `.env` is gitignored; `.env.example` documents the shape and is committed.
+
+- Client: `src/features/live/client.ts` — thin fetch wrapper with `X-Auth-Token` header; parses 429 `retry-after`.
+- Types: `src/features/live/types.ts` — response shapes for competition, matches, standings.
+- Hooks: `src/features/live/hooks.ts` — `useCompetition`, `useCompetitionMatches`, `useCompetitionStandings`.
+- Sidebar indicator: `src/features/live/LiveStatus.tsx`.
+- Base URL: `https://api.football-data.org/v4`.
+
+**Rate limit: 10 requests / minute on the free tier.** Every hook sets `staleTime: 5 min` and `retry: false` on 429 so a single over-request page load doesn't destroy the whole minute's quota. Don't add short-interval refetches without a good reason.
+
+**FWC 2026 is on the free tier.** Competition code `WC` (id 2000), current season 2398 (2026-06-11 → 2026-07-19). Team `tla` codes returned by the API generally match our FIFA broadcast codes (BRA, ARG, GER, etc.) — that's the join key when overlaying live data onto the bundled JSON.
+
+**Security:** `VITE_*` env vars are baked into the client bundle. Fine for local dev. For a public deploy, move the key behind a proxy (Vercel serverless function, Cloudflare Worker) and drop the `VITE_` prefix.
+
+App must degrade gracefully — every consumer of `useCompetition*` needs a static-JSON fallback so the app is fully usable with no key.
 
 ## Gotchas / do-not-do
 

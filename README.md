@@ -43,15 +43,22 @@ pnpm lint       # oxlint
 
 **Node** ≥ 22.12 (or 20.19). Vite 7 will print a warning on lower versions.
 
-### Live-results API key
+### Live data (football-data.org)
 
-For the live-results overlay, sign up for a free key at [football-data.org](https://www.football-data.org/) and add it to `.env.local`:
+Copy `.env.example` to `.env` and set your football-data.org key:
 
 ```
-VITE_FOOTBALL_DATA_API_KEY=your_key_here
+VITE_FOOTBALL_DATA_KEY=your_key_here
+VITE_FOOTBALL_DATA_COMPETITION=WC
 ```
 
-The app still works without a key — it falls back to the bundled static results.
+Free key at [football-data.org/client/register](https://www.football-data.org/client/register). The free tier includes the FIFA World Cup (competition code `WC`, id 2000) and confirms the current 2026 season. A sidebar dot shows connection status and the current matchday.
+
+**Rate limit:** 10 requests/minute on the free tier. All hooks use a 5-minute `staleTime` and skip retries on 429 so a single busy page load doesn't blow the quota.
+
+The app still works fully without a key — it falls back to the bundled static snapshot.
+
+**Security caveat:** `VITE_`-prefixed env vars are bundled into the client and visible in production. Use this env var for **local dev only**. For a public deploy, put the key behind a proxy (Vercel serverless function, Cloudflare Worker, etc.) and drop the `VITE_` prefix.
 
 ## Project structure
 
@@ -62,7 +69,7 @@ src/
     bracket/               # radial + horizontal views, geometry, URL codec, keyboard nav
     groups/                # standings + simulator + best-third tiebreaker
     teams/                 # grid + journey modal
-    live/                  # TanStack Query hooks for football-data.org
+    live/                  # football-data.org client + TanStack Query hooks + LiveStatus
     highlights/            # curated map + search-URL fallback
     export/                # html-to-image wrappers
     i18n/                  # react-i18next + 8 locales
