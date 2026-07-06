@@ -33,6 +33,10 @@
   "matches": {
     "startsIn": "Startar om"
   },
+  "version": {
+    "updateAvailable": "Ny version tillgänglig",
+    "reload": "Ladda om"
+  },
   "language": { "label": "Språk" },
   "theme": {
     "label": "Tema",

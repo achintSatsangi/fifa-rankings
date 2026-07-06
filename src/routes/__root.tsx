@@ -4,6 +4,7 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { FocusTrap } from "focus-trap-react";
 import { Sidebar } from "../components/Sidebar";
 import { AppHeader } from "../components/MobileHeader";
+import { UpdateBanner } from "../features/version/UpdateBanner";
 
 export const Route = createRootRoute({
   component: RootLayout,
@@ -70,6 +71,8 @@ function RootLayout() {
       <main className="flex min-h-0 flex-1 flex-col overflow-auto p-4 sm:p-6">
         <Outlet />
       </main>
+
+      <UpdateBanner />
 
       {import.meta.env.DEV ? <TanStackRouterDevtools position="bottom-right" /> : null}
     </div>

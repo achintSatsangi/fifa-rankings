@@ -33,6 +33,10 @@
   "matches": {
     "startsIn": "Começa em"
   },
+  "version": {
+    "updateAvailable": "Nova versão disponível",
+    "reload": "Recarregar"
+  },
   "language": { "label": "Idioma" },
   "theme": {
     "label": "Tema",

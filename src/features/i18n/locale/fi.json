@@ -33,6 +33,10 @@
   "matches": {
     "startsIn": "Alkaa"
   },
+  "version": {
+    "updateAvailable": "Uusi versio saatavilla",
+    "reload": "Lataa uudelleen"
+  },
   "language": { "label": "Kieli" },
   "theme": {
     "label": "Teema",
