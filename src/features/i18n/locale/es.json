@@ -28,7 +28,12 @@
     "startOnBracket": "Iniciar en eliminatorias"
   },
   "meta": {
-    "dataUpdated": "Datos actualizados"
+    "dataUpdated": "Datos actualizados",
+    "nextRefresh": "Próxima actualización",
+    "justNow": "ahora mismo",
+    "minutesAgo": "hace {{count}}m",
+    "dueNow": "actualizando…",
+    "nextInMinutes": "próxima en {{count}}m"
   },
   "matches": {
     "startsIn": "Comienza en"

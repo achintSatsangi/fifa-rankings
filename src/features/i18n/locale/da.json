@@ -28,7 +28,12 @@
     "startOnBracket": "Start på slutrunden"
   },
   "meta": {
-    "dataUpdated": "Data opdateret"
+    "dataUpdated": "Data opdateret",
+    "nextRefresh": "Næste opdatering",
+    "justNow": "lige nu",
+    "minutesAgo": "for {{count}}m siden",
+    "dueNow": "opdaterer…",
+    "nextInMinutes": "næste om {{count}}m"
   },
   "matches": {
     "startsIn": "Starter om"

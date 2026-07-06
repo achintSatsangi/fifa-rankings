@@ -28,7 +28,12 @@
     "startOnBracket": "Starta på slutspelet"
   },
   "meta": {
-    "dataUpdated": "Data uppdaterad"
+    "dataUpdated": "Data uppdaterad",
+    "nextRefresh": "Nästa uppdatering",
+    "justNow": "just nu",
+    "minutesAgo": "för {{count}}m sedan",
+    "dueNow": "uppdaterar…",
+    "nextInMinutes": "nästa om {{count}}m"
   },
   "matches": {
     "startsIn": "Startar om"

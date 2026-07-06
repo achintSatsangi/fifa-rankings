@@ -28,7 +28,12 @@
     "startOnBracket": "Start på utslagsrunden"
   },
   "meta": {
-    "dataUpdated": "Data oppdatert"
+    "dataUpdated": "Data oppdatert",
+    "nextRefresh": "Neste oppdatering",
+    "justNow": "akkurat nå",
+    "minutesAgo": "for {{count}}m siden",
+    "dueNow": "oppdaterer…",
+    "nextInMinutes": "neste om {{count}}m"
   },
   "matches": {
     "startsIn": "Starter om"

@@ -28,7 +28,12 @@
     "startOnBracket": "Démarrer sur le tableau"
   },
   "meta": {
-    "dataUpdated": "Données mises à jour"
+    "dataUpdated": "Données mises à jour",
+    "nextRefresh": "Prochaine actualisation",
+    "justNow": "à l’instant",
+    "minutesAgo": "il y a {{count}} min",
+    "dueNow": "actualisation…",
+    "nextInMinutes": "prochaine dans {{count}} min"
   },
   "matches": {
     "startsIn": "Commence dans"

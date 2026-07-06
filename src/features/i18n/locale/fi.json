@@ -28,7 +28,12 @@
     "startOnBracket": "Aloita pudotuspeleistä"
   },
   "meta": {
-    "dataUpdated": "Tiedot päivitetty"
+    "dataUpdated": "Tiedot päivitetty",
+    "nextRefresh": "Seuraava päivitys",
+    "justNow": "juuri nyt",
+    "minutesAgo": "{{count}}m sitten",
+    "dueNow": "päivittää…",
+    "nextInMinutes": "seuraava {{count}}m kuluttua"
   },
   "matches": {
     "startsIn": "Alkaa"

@@ -28,7 +28,12 @@
     "startOnBracket": "Start on bracket"
   },
   "meta": {
-    "dataUpdated": "Data updated"
+    "dataUpdated": "Data updated",
+    "nextRefresh": "Next refresh",
+    "justNow": "just now",
+    "minutesAgo": "{{count}}m ago",
+    "dueNow": "refreshing…",
+    "nextInMinutes": "next in {{count}}m"
   },
   "matches": {
     "startsIn": "Starts in"

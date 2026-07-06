@@ -28,7 +28,12 @@
     "startOnBracket": "Iniciar no chaveamento"
   },
   "meta": {
-    "dataUpdated": "Dados atualizados"
+    "dataUpdated": "Dados atualizados",
+    "nextRefresh": "Próxima atualização",
+    "justNow": "agora mesmo",
+    "minutesAgo": "há {{count}}m",
+    "dueNow": "atualizando…",
+    "nextInMinutes": "próxima em {{count}}m"
   },
   "matches": {
     "startsIn": "Começa em"
