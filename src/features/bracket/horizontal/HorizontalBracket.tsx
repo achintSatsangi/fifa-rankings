@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { BracketRound } from "../../../data/types";
-import { matchesByRound, matchesByRoundInTreeOrder } from "../data";
+import { matchesByRoundInTreeOrder } from "../data";
 import { JourneyModal } from "../../teams/JourneyModal";
 import { MatchCard } from "./MatchCard";
 
@@ -16,7 +16,6 @@ const KNOCKOUT_ROUNDS: { round: BracketRound; label: string }[] = [
 export function HorizontalBracket() {
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
   const { t } = useTranslation();
-  const thirdPlace = matchesByRound("3RD")[0];
 
   return (
     <>
@@ -39,15 +38,6 @@ export function HorizontalBracket() {
           })}
         </div>
       </div>
-
-      {thirdPlace ? (
-        <div className="mt-8 flex flex-col items-start">
-          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">
-            Third-place match
-          </h3>
-          <MatchCard match={thirdPlace} onTeamClick={setSelectedCode} />
-        </div>
-      ) : null}
 
       <p className="mt-6 text-xs text-[var(--text-muted)]">{t("shortcuts.hint")}</p>
 

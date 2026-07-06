@@ -1,9 +1,8 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { BRACKET, matchesByRound } from "../data";
+import { BRACKET } from "../data";
 import { winnerCode } from "../resolver";
 import { JourneyModal } from "../../teams/JourneyModal";
-import { MatchCard } from "../horizontal/MatchCard";
 import { Connectors } from "./Connectors";
 import { TeamPoint } from "./TeamPoint";
 import { Trophy } from "./Trophy";
@@ -35,8 +34,6 @@ export function RadialBracket() {
       .filter((x) => x.code !== null);
   }, []);
 
-  const thirdPlace = matchesByRound("3RD")[0];
-
   return (
     <>
       <div className="relative mx-auto aspect-square w-full max-w-[min(720px,calc(100vh-14rem))]">
@@ -67,15 +64,6 @@ export function RadialBracket() {
 
         <Trophy />
       </div>
-
-      {thirdPlace ? (
-        <div className="mx-auto mt-8 flex max-w-[420px] flex-col items-center gap-2">
-          <span className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">
-            Third-place match
-          </span>
-          <MatchCard match={thirdPlace} onTeamClick={setSelectedCode} />
-        </div>
-      ) : null}
 
       <p className="mt-4 text-center text-xs text-[var(--text-muted)]">{t("shortcuts.hint")}</p>
 
