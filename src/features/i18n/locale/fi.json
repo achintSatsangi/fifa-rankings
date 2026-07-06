@@ -19,10 +19,15 @@
     "yourTeam": "Joukkueesi"
   },
   "landing": {
-    "bracketDesc": "Ympyrä- ja vaakanäkymä — klikkaa joukkuetta nähdäksesi reitin.",
-    "teamsDesc": "Kaikki 48 joukkuetta — suodata lohkolla/konfederaatiolla, järjestä sijoituksella.",
-    "groupsDesc": "Lohkotaulukot ja jokainen ottelu tuloksineen ja stadionineen.",
-    "skipNextTime": "Ohita tämä sivu ensi kerralla →"
+    "bracketSection": "Pudotuspelit",
+    "groupsSection": "Lohkot",
+    "horizontalLink": "Klassinen näkymä? →",
+    "scrollHint": "Vieritä tutkiaksesi",
+    "storyline": {
+      "creditPrefix": "Idean takana ",
+      "creditName": "Paul Noble",
+      "creditSuffix": ". Muu tapahtuu kentällä."
+    }
   },
   "settings": {
     "startOnBracket": "Aloita pudotuspeleistä"

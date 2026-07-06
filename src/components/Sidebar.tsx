@@ -4,9 +4,8 @@ import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "../features/i18n/LanguageSwitcher";
 import { ThemeToggle } from "../features/theme/ThemeToggle";
 import { FavouriteTeamLink } from "../features/favourites/FavouriteTeamLink";
-import { requestLandingBypass, useSkipLanding } from "../features/preferences/preferences";
 import { BUILD_TIMESTAMP, formatAbsolute, formatRelative } from "../lib/buildInfo";
-import { BracketIcon, CloseIcon, GroupsIcon, HomeIcon, TeamsIcon, TrophyIcon } from "./NavIcons";
+import { CloseIcon, GroupsIcon, HomeIcon, TeamsIcon, TrophyIcon } from "./NavIcons";
 
 type Props = {
   onNavClick?: () => void;
@@ -49,13 +48,15 @@ export function Sidebar({ onNavClick, onClose }: Props) {
 
       <Divider />
 
-      {/* Primary nav */}
+      {/* Primary nav. Bracket has been folded into the home one-pager
+          (radial + interactive live there); the horizontal /bracket
+          route is intentionally hidden from the sidebar and reachable
+          only from the home footer. */}
       <nav
         aria-label={t("nav.primary")}
         className="flex flex-col gap-1 px-3 py-3"
       >
         <HomeNavItem label={t("nav.home")} onNavigate={onNavClick} />
-        <NavItem to="/bracket" label={t("nav.bracket")} Icon={BracketIcon} onNavigate={onNavClick} />
         <NavItem to="/teams" label={t("nav.teams")} Icon={TeamsIcon} onNavigate={onNavClick} />
         <NavItem to="/groups" label={t("nav.groups")} Icon={GroupsIcon} onNavigate={onNavClick} />
       </nav>
@@ -72,7 +73,6 @@ export function Sidebar({ onNavClick, onClose }: Props) {
         <Divider className="-mx-6 mb-1" />
         <LanguageSwitcher />
         <ThemeToggle />
-        <SkipLandingToggle />
         {BUILD_TIMESTAMP ? (
           <p
             className="text-[11px] leading-snug text-[var(--text-muted)]"
@@ -91,22 +91,6 @@ function Divider({ className = "" }: { className?: string }) {
   return <div className={`border-t border-[var(--border-subtle)] ${className}`} aria-hidden="true" />;
 }
 
-function SkipLandingToggle() {
-  const [skip, setSkip] = useSkipLanding();
-  const { t } = useTranslation();
-  return (
-    <label className="flex items-center justify-between gap-3 text-sm text-[var(--text-secondary)]">
-      <span>{t("settings.startOnBracket")}</span>
-      <input
-        type="checkbox"
-        checked={skip}
-        onChange={(e) => setSkip(e.target.checked)}
-        className="h-4 w-4 cursor-pointer accent-[var(--btn-bg)]"
-      />
-    </label>
-  );
-}
-
 const NAV_CLASS =
   "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium " +
   "text-[var(--text-secondary)] transition-colors " +
@@ -123,7 +107,7 @@ function NavItem({
   Icon,
   onNavigate,
 }: {
-  to: "/bracket" | "/teams" | "/groups";
+  to: "/teams" | "/groups";
   label: string;
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
   onNavigate?: () => void;
@@ -141,22 +125,12 @@ function NavItem({
   );
 }
 
-/**
- * Home flips a session-scoped bypass flag before navigating so the
- * landing route's beforeLoad lets the render through even when the
- * "Start on bracket" pref would otherwise redirect. Uses Link (not a
- * button) so the active-page pill still lights up on `/`.
- */
 function HomeNavItem({ label, onNavigate }: { label: string; onNavigate?: () => void }) {
-  const handleClick = () => {
-    requestLandingBypass();
-    onNavigate?.();
-  };
   return (
     <Link
       to="/"
       activeOptions={{ exact: true }}
-      onClick={handleClick}
+      onClick={onNavigate}
       className={NAV_CLASS}
       activeProps={NAV_ACTIVE}
     >

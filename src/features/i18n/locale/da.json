@@ -19,10 +19,15 @@
     "yourTeam": "Dit hold"
   },
   "landing": {
-    "bracketDesc": "Cirkulær og horisontal slutrunde — klik et hold for at se rejsen.",
-    "teamsDesc": "Alle 48 hold — filtrér på gruppe/konføderation, sortér på rangering.",
-    "groupsDesc": "Gruppetabeller og hver kamp med resultat og arena.",
-    "skipNextTime": "Spring denne side over næste gang →"
+    "bracketSection": "Slutrunden",
+    "groupsSection": "Grupperne",
+    "horizontalLink": "Foretrækker du det klassiske layout? →",
+    "scrollHint": "Rul for at udforske",
+    "storyline": {
+      "creditPrefix": "Koncept af ",
+      "creditName": "Paul Noble",
+      "creditSuffix": ". Resten sker på banen."
+    }
   },
   "settings": {
     "startOnBracket": "Start på slutrunden"

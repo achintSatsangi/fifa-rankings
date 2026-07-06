@@ -19,10 +19,15 @@
     "yourTeam": "Votre équipe"
   },
   "landing": {
-    "bracketDesc": "Vues radiale et horizontale, cliquez une équipe pour voir son parcours.",
-    "teamsDesc": "Les 48 équipes — filtres par groupe/confédération, tri par classement.",
-    "groupsDesc": "Classements de groupes et chaque match avec score et stade.",
-    "skipNextTime": "Ignorer cette page la prochaine fois →"
+    "bracketSection": "Le tableau",
+    "groupsSection": "Les groupes",
+    "horizontalLink": "Vous préférez la mise en page classique ? →",
+    "scrollHint": "Faites défiler pour explorer",
+    "storyline": {
+      "creditPrefix": "Concept de ",
+      "creditName": "Paul Noble",
+      "creditSuffix": ". Le reste, c'est sur le terrain."
+    }
   },
   "settings": {
     "startOnBracket": "Démarrer sur le tableau"

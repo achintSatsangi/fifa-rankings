@@ -19,13 +19,22 @@
     "yourTeam": "Your team"
   },
   "landing": {
-    "bracketDesc": "Radial and horizontal knockout views, click any team to see their journey.",
-    "teamsDesc": "All 48 teams — filter by group or confederation, sort by rank.",
-    "groupsDesc": "Group standings and every match with score and venue.",
-    "skipNextTime": "Skip this page next time →"
-  },
-  "settings": {
-    "startOnBracket": "Start on bracket"
+    "bracketSection": "The bracket",
+    "groupsSection": "The groups",
+    "horizontalLink": "Prefer the classic layout? →",
+    "scrollHint": "Scroll to explore",
+    "storyline": {
+      "beat1": "The knockout, redrawn as a circle.",
+      "beat2": "32 nations around the edge. The trophy at the center.",
+      "beat3": "Every team, exactly the same distance from glory.",
+      "beat4": "A left-to-right bracket tells a story before kickoff — favorites on one side, underdogs on the other, an unspoken order.",
+      "beat5": "The circle refuses that story.",
+      "beat6": "Because when the whistle blows, none of it matters. Anyone can beat anyone.",
+      "beat7": "The bracket only writes itself in retrospect.",
+      "creditPrefix": "Concept by ",
+      "creditName": "Paul Noble",
+      "creditSuffix": ". The pitch does the rest."
+    }
   },
   "meta": {
     "dataUpdated": "Data updated",
@@ -96,6 +105,7 @@
   },
   "groups": {
     "title": "Group Stage",
+    "subtitle": "12 groups × 4 teams. Top 2 and the 8 best third-placed teams advanced to the Round of 32.",
     "played": "P",
     "won": "W",
     "drawn": "D",

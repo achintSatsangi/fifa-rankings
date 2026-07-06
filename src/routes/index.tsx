@@ -1,113 +1,26 @@
-import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
-import type { ComponentType, SVGProps } from "react";
-import { useTranslation } from "react-i18next";
-import { BracketIcon, GroupsIcon, TeamsIcon, TrophyIcon } from "../components/NavIcons";
-import { FavouriteTeamLink } from "../features/favourites/FavouriteTeamLink";
-import {
-  consumeLandingBypass,
-  persistSkipLanding,
-  readBracketView,
-  readSkipLanding,
-} from "../features/preferences/preferences";
+import { createFileRoute } from "@tanstack/react-router";
+import { BracketSection } from "../features/landing/BracketSection";
+import { GroupsSection } from "../features/landing/GroupsSection";
+import { HomeFooter } from "../features/landing/HomeFooter";
+import { Storyline } from "../features/landing/Storyline";
 
 export const Route = createFileRoute("/")({
-  beforeLoad: () => {
-    // Sidebar Home sets a session flag before navigating here, so a
-    // manual click ALWAYS reaches the landing even if the "Start on
-    // bracket" pref is on. A plain `/` visit (refresh / external link)
-    // still honours the pref.
-    if (consumeLandingBypass()) return;
-    if (readSkipLanding()) {
-      throw redirect({ to: "/bracket", search: { view: readBracketView() } });
-    }
-  },
-  component: LandingPage,
+  component: HomePage,
 });
 
-function LandingPage() {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-
-  const skipNextTime = () => {
-    persistSkipLanding(true);
-    void navigate({ to: "/bracket", search: { view: readBracketView() } });
-  };
-
+/**
+ * One-pager: storyline hero → circular bracket (radial/interactive
+ * toggle) → group standings → footer. The root layout's <main> is
+ * already `overflow-auto`, so this component just stacks children
+ * top-to-bottom and lets the browser handle scrolling.
+ */
+function HomePage() {
   return (
-    <section className="mx-auto flex h-full min-h-0 w-full max-w-5xl flex-col justify-center gap-10 py-8">
-      <div className="text-center">
-        <div className="mx-auto mb-5 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--btn-bg)] text-[var(--btn-text)] shadow-sm">
-          <TrophyIcon width={32} height={32} />
-        </div>
-        <h1 className="mb-3 text-4xl font-bold tracking-tight text-[var(--text)] sm:text-5xl">
-          {t("app.title")}
-        </h1>
-        <p className="mx-auto max-w-xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">
-          {t("app.tagline")}
-        </p>
-      </div>
-
-      <div className="mx-auto grid w-full max-w-4xl gap-4 sm:grid-cols-3">
-        <FeatureCard
-          to="/bracket"
-          Icon={BracketIcon}
-          title={t("nav.bracket")}
-          description={t("landing.bracketDesc")}
-        />
-        <FeatureCard
-          to="/teams"
-          Icon={TeamsIcon}
-          title={t("nav.teams")}
-          description={t("landing.teamsDesc")}
-        />
-        <FeatureCard
-          to="/groups"
-          Icon={GroupsIcon}
-          title={t("nav.groups")}
-          description={t("landing.groupsDesc")}
-        />
-      </div>
-
-      <div className="mx-auto w-full max-w-sm">
-        <FavouriteTeamLink />
-      </div>
-
-      <div className="text-center">
-        <button
-          type="button"
-          onClick={skipNextTime}
-          className="text-sm text-[var(--text-muted)] underline decoration-dotted underline-offset-2 hover:text-[var(--text-secondary)]"
-        >
-          {t("landing.skipNextTime")}
-        </button>
-      </div>
-    </section>
-  );
-}
-
-function FeatureCard({
-  to,
-  Icon,
-  title,
-  description,
-}: {
-  to: string;
-  Icon: ComponentType<SVGProps<SVGSVGElement>>;
-  title: string;
-  description: string;
-}) {
-  return (
-    <Link
-      to={to}
-      className="group flex flex-col items-start gap-3 rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-elevated)] p-5 transition-colors hover:border-[var(--border-strong)] hover:bg-[var(--surface)]"
-    >
-      <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--surface)] text-[var(--text)] transition-colors group-hover:bg-[var(--btn-bg)] group-hover:text-[var(--btn-text)]">
-        <Icon width={20} height={20} />
-      </span>
-      <div>
-        <h2 className="mb-1 text-base font-semibold text-[var(--text)]">{title}</h2>
-        <p className="text-sm text-[var(--text-secondary)]">{description}</p>
-      </div>
-    </Link>
+    <div className="flex w-full flex-col">
+      <Storyline />
+      <BracketSection />
+      <GroupsSection />
+      <HomeFooter />
+    </div>
   );
 }

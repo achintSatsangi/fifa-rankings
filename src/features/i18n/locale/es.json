@@ -19,10 +19,15 @@
     "yourTeam": "Tu equipo"
   },
   "landing": {
-    "bracketDesc": "Vistas radial y horizontal, haz clic en un equipo para ver su recorrido.",
-    "teamsDesc": "Los 48 equipos: filtra por grupo o confederación, ordena por ranking.",
-    "groupsDesc": "Clasificación de grupos y cada partido con marcador y sede.",
-    "skipNextTime": "Omitir esta página la próxima vez →"
+    "bracketSection": "El cuadro",
+    "groupsSection": "Los grupos",
+    "horizontalLink": "¿Prefieres el diseño clásico? →",
+    "scrollHint": "Desliza para explorar",
+    "storyline": {
+      "creditPrefix": "Concepto de ",
+      "creditName": "Paul Noble",
+      "creditSuffix": ". Lo demás lo decide la cancha."
+    }
   },
   "settings": {
     "startOnBracket": "Iniciar en eliminatorias"

@@ -19,10 +19,15 @@
     "yourTeam": "Sua seleção"
   },
   "landing": {
-    "bracketDesc": "Vistas radial e horizontal, clique numa seleção para ver a trajetória.",
-    "teamsDesc": "As 48 seleções — filtre por grupo/confederação, ordene por ranking.",
-    "groupsDesc": "Classificações e cada jogo com placar e estádio.",
-    "skipNextTime": "Pular esta página da próxima vez →"
+    "bracketSection": "O chaveamento",
+    "groupsSection": "Os grupos",
+    "horizontalLink": "Prefere o layout clássico? →",
+    "scrollHint": "Role para explorar",
+    "storyline": {
+      "creditPrefix": "Conceito por ",
+      "creditName": "Paul Noble",
+      "creditSuffix": ". O resto é com o campo."
+    }
   },
   "settings": {
     "startOnBracket": "Iniciar no chaveamento"
