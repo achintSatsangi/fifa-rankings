@@ -13,6 +13,9 @@ export type Team = {
 export type GroupMatch = {
   matchDay: 1 | 2 | 3;
   date: string;
+  /** Full kickoff timestamp (ISO 8601 UTC) when known. `date` is the local
+   *  calendar date at the venue; `utcDate` also carries the time. */
+  utcDate?: string;
   homeCode: string;
   awayCode: string;
   homeScore: number | null;
@@ -54,6 +57,8 @@ export type BracketMatch = {
   id: string;
   round: BracketRound;
   date: string;
+  /** Full kickoff timestamp (ISO 8601 UTC) when known. */
+  utcDate?: string;
   venue: string;
   slotA: SlotSource;
   slotB: SlotSource;

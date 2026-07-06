@@ -15,7 +15,8 @@
         "awayCode": "RSA",
         "homeScore": 2,
         "awayScore": 0,
-        "venue": "Estadio Azteca, Mexico City"
+        "venue": "Estadio Azteca, Mexico City",
+        "utcDate": "2026-06-11T19:00:00Z"
       },
       {
         "matchDay": 1,
@@ -24,7 +25,8 @@
         "awayCode": "CZE",
         "homeScore": 2,
         "awayScore": 1,
-        "venue": "Estadio Akron, Zapopan"
+        "venue": "Estadio Akron, Zapopan",
+        "utcDate": "2026-06-12T02:00:00Z"
       },
       {
         "matchDay": 2,
@@ -33,7 +35,8 @@
         "awayCode": "RSA",
         "homeScore": 1,
         "awayScore": 1,
-        "venue": "Mercedes-Benz Stadium, Atlanta"
+        "venue": "Mercedes-Benz Stadium, Atlanta",
+        "utcDate": "2026-06-18T16:00:00Z"
       },
       {
         "matchDay": 2,
@@ -42,7 +45,8 @@
         "awayCode": "KOR",
         "homeScore": 1,
         "awayScore": 0,
-        "venue": "Estadio Akron, Zapopan"
+        "venue": "Estadio Akron, Zapopan",
+        "utcDate": "2026-06-19T01:00:00Z"
       },
       {
         "matchDay": 3,
@@ -51,7 +55,8 @@
         "awayCode": "MEX",
         "homeScore": 0,
         "awayScore": 3,
-        "venue": "Estadio Azteca, Mexico City"
+        "venue": "Estadio Azteca, Mexico City",
+        "utcDate": "2026-06-25T01:00:00Z"
       },
       {
         "matchDay": 3,
@@ -60,7 +65,8 @@
         "awayCode": "KOR",
         "homeScore": 1,
         "awayScore": 0,
-        "venue": "Estadio BBVA, Guadalupe"
+        "venue": "Estadio BBVA, Guadalupe",
+        "utcDate": "2026-06-25T01:00:00Z"
       }
     ],
     "standings": [
@@ -130,7 +136,8 @@
         "awayCode": "BIH",
         "homeScore": 1,
         "awayScore": 1,
-        "venue": "BMO Field, Toronto"
+        "venue": "BMO Field, Toronto",
+        "utcDate": "2026-06-12T19:00:00Z"
       },
       {
         "matchDay": 1,
@@ -139,7 +146,8 @@
         "awayCode": "SUI",
         "homeScore": 1,
         "awayScore": 1,
-        "venue": "Levi's Stadium, Santa Clara"
+        "venue": "Levi's Stadium, Santa Clara",
+        "utcDate": "2026-06-13T19:00:00Z"
       },
       {
         "matchDay": 2,
@@ -148,7 +156,8 @@
         "awayCode": "BIH",
         "homeScore": 4,
         "awayScore": 1,
-        "venue": "SoFi Stadium, Inglewood"
+        "venue": "SoFi Stadium, Inglewood",
+        "utcDate": "2026-06-18T19:00:00Z"
       },
       {
         "matchDay": 2,
@@ -157,7 +166,8 @@
         "awayCode": "QAT",
         "homeScore": 6,
         "awayScore": 0,
-        "venue": "BC Place, Vancouver"
+        "venue": "BC Place, Vancouver",
+        "utcDate": "2026-06-18T22:00:00Z"
       },
       {
         "matchDay": 3,
@@ -166,7 +176,8 @@
         "awayCode": "CAN",
         "homeScore": 2,
         "awayScore": 1,
-        "venue": "BC Place, Vancouver"
+        "venue": "BC Place, Vancouver",
+        "utcDate": "2026-06-24T19:00:00Z"
       },
       {
         "matchDay": 3,
@@ -175,7 +186,8 @@
         "awayCode": "QAT",
         "homeScore": 3,
         "awayScore": 1,
-        "venue": "Lumen Field, Seattle"
+        "venue": "Lumen Field, Seattle",
+        "utcDate": "2026-06-24T19:00:00Z"
       }
     ],
     "standings": [
@@ -245,7 +257,8 @@
         "awayCode": "MAR",
         "homeScore": 1,
         "awayScore": 1,
-        "venue": "MetLife Stadium, East Rutherford"
+        "venue": "MetLife Stadium, East Rutherford",
+        "utcDate": "2026-06-13T22:00:00Z"
       },
       {
         "matchDay": 1,
@@ -254,7 +267,8 @@
         "awayCode": "SCO",
         "homeScore": 0,
         "awayScore": 1,
-        "venue": "Gillette Stadium, Foxborough"
+        "venue": "Gillette Stadium, Foxborough",
+        "utcDate": "2026-06-14T01:00:00Z"
       },
       {
         "matchDay": 2,
@@ -263,7 +277,8 @@
         "awayCode": "MAR",
         "homeScore": 0,
         "awayScore": 1,
-        "venue": "Gillette Stadium, Foxborough"
+        "venue": "Gillette Stadium, Foxborough",
+        "utcDate": "2026-06-19T22:00:00Z"
       },
       {
         "matchDay": 2,
@@ -272,7 +287,8 @@
         "awayCode": "HAI",
         "homeScore": 3,
         "awayScore": 0,
-        "venue": "Lincoln Financial Field, Philadelphia"
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "utcDate": "2026-06-20T00:30:00Z"
       },
       {
         "matchDay": 3,
@@ -281,7 +297,8 @@
         "awayCode": "BRA",
         "homeScore": 0,
         "awayScore": 3,
-        "venue": "Hard Rock Stadium, Miami Gardens"
+        "venue": "Hard Rock Stadium, Miami Gardens",
+        "utcDate": "2026-06-24T22:00:00Z"
       },
       {
         "matchDay": 3,
@@ -290,7 +307,8 @@
         "awayCode": "HAI",
         "homeScore": 4,
         "awayScore": 2,
-        "venue": "Mercedes-Benz Stadium, Atlanta"
+        "venue": "Mercedes-Benz Stadium, Atlanta",
+        "utcDate": "2026-06-24T22:00:00Z"
       }
     ],
     "standings": [
@@ -360,7 +378,8 @@
         "awayCode": "PAR",
         "homeScore": 4,
         "awayScore": 1,
-        "venue": "SoFi Stadium, Inglewood"
+        "venue": "SoFi Stadium, Inglewood",
+        "utcDate": "2026-06-13T01:00:00Z"
       },
       {
         "matchDay": 1,
@@ -369,7 +388,8 @@
         "awayCode": "TUR",
         "homeScore": 2,
         "awayScore": 0,
-        "venue": "BC Place, Vancouver"
+        "venue": "BC Place, Vancouver",
+        "utcDate": "2026-06-14T04:00:00Z"
       },
       {
         "matchDay": 2,
@@ -378,7 +398,8 @@
         "awayCode": "AUS",
         "homeScore": 2,
         "awayScore": 0,
-        "venue": "Lumen Field, Seattle"
+        "venue": "Lumen Field, Seattle",
+        "utcDate": "2026-06-19T19:00:00Z"
       },
       {
         "matchDay": 2,
@@ -387,7 +408,8 @@
         "awayCode": "PAR",
         "homeScore": 0,
         "awayScore": 1,
-        "venue": "Levi's Stadium, Santa Clara"
+        "venue": "Levi's Stadium, Santa Clara",
+        "utcDate": "2026-06-20T03:00:00Z"
       },
       {
         "matchDay": 3,
@@ -396,7 +418,8 @@
         "awayCode": "USA",
         "homeScore": 3,
         "awayScore": 2,
-        "venue": "SoFi Stadium, Inglewood"
+        "venue": "SoFi Stadium, Inglewood",
+        "utcDate": "2026-06-26T02:00:00Z"
       },
       {
         "matchDay": 3,
@@ -405,7 +428,8 @@
         "awayCode": "AUS",
         "homeScore": 0,
         "awayScore": 0,
-        "venue": "Levi's Stadium, Santa Clara"
+        "venue": "Levi's Stadium, Santa Clara",
+        "utcDate": "2026-06-26T02:00:00Z"
       }
     ],
     "standings": [
@@ -475,7 +499,8 @@
         "awayCode": "CUW",
         "homeScore": 7,
         "awayScore": 1,
-        "venue": "NRG Stadium, Houston"
+        "venue": "NRG Stadium, Houston",
+        "utcDate": "2026-06-14T17:00:00Z"
       },
       {
         "matchDay": 1,
@@ -484,7 +509,8 @@
         "awayCode": "ECU",
         "homeScore": 1,
         "awayScore": 0,
-        "venue": "Lincoln Financial Field, Philadelphia"
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "utcDate": "2026-06-14T23:00:00Z"
       },
       {
         "matchDay": 2,
@@ -493,7 +519,8 @@
         "awayCode": "CIV",
         "homeScore": 2,
         "awayScore": 1,
-        "venue": "BMO Field, Toronto"
+        "venue": "BMO Field, Toronto",
+        "utcDate": "2026-06-20T20:00:00Z"
       },
       {
         "matchDay": 2,
@@ -502,7 +529,8 @@
         "awayCode": "CUW",
         "homeScore": 0,
         "awayScore": 0,
-        "venue": "Arrowhead Stadium, Kansas City"
+        "venue": "Arrowhead Stadium, Kansas City",
+        "utcDate": "2026-06-21T00:00:00Z"
       },
       {
         "matchDay": 3,
@@ -511,7 +539,8 @@
         "awayCode": "CIV",
         "homeScore": 0,
         "awayScore": 2,
-        "venue": "Lincoln Financial Field, Philadelphia"
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "utcDate": "2026-06-25T20:00:00Z"
       },
       {
         "matchDay": 3,
@@ -520,7 +549,8 @@
         "awayCode": "GER",
         "homeScore": 2,
         "awayScore": 1,
-        "venue": "MetLife Stadium, East Rutherford"
+        "venue": "MetLife Stadium, East Rutherford",
+        "utcDate": "2026-06-25T20:00:00Z"
       }
     ],
     "standings": [
@@ -590,7 +620,8 @@
         "awayCode": "JPN",
         "homeScore": 2,
         "awayScore": 2,
-        "venue": "AT&T Stadium, Arlington"
+        "venue": "AT&T Stadium, Arlington",
+        "utcDate": "2026-06-14T20:00:00Z"
       },
       {
         "matchDay": 1,
@@ -599,7 +630,8 @@
         "awayCode": "TUN",
         "homeScore": 5,
         "awayScore": 1,
-        "venue": "Estadio BBVA, Guadalupe"
+        "venue": "Estadio BBVA, Guadalupe",
+        "utcDate": "2026-06-15T02:00:00Z"
       },
       {
         "matchDay": 2,
@@ -608,7 +640,8 @@
         "awayCode": "SWE",
         "homeScore": 5,
         "awayScore": 1,
-        "venue": "NRG Stadium, Houston"
+        "venue": "NRG Stadium, Houston",
+        "utcDate": "2026-06-20T17:00:00Z"
       },
       {
         "matchDay": 2,
@@ -617,7 +650,8 @@
         "awayCode": "JPN",
         "homeScore": 0,
         "awayScore": 4,
-        "venue": "Estadio BBVA, Guadalupe"
+        "venue": "Estadio BBVA, Guadalupe",
+        "utcDate": "2026-06-21T04:00:00Z"
       },
       {
         "matchDay": 3,
@@ -626,7 +660,8 @@
         "awayCode": "SWE",
         "homeScore": 1,
         "awayScore": 1,
-        "venue": "AT&T Stadium, Arlington"
+        "venue": "AT&T Stadium, Arlington",
+        "utcDate": "2026-06-25T23:00:00Z"
       },
       {
         "matchDay": 3,
@@ -635,7 +670,8 @@
         "awayCode": "NED",
         "homeScore": 1,
         "awayScore": 3,
-        "venue": "Arrowhead Stadium, Kansas City"
+        "venue": "Arrowhead Stadium, Kansas City",
+        "utcDate": "2026-06-25T23:00:00Z"
       }
     ],
     "standings": [
@@ -705,7 +741,8 @@
         "awayCode": "EGY",
         "homeScore": 1,
         "awayScore": 1,
-        "venue": "Lumen Field, Seattle"
+        "venue": "Lumen Field, Seattle",
+        "utcDate": "2026-06-15T19:00:00Z"
       },
       {
         "matchDay": 1,
@@ -714,7 +751,8 @@
         "awayCode": "NZL",
         "homeScore": 2,
         "awayScore": 2,
-        "venue": "SoFi Stadium, Inglewood"
+        "venue": "SoFi Stadium, Inglewood",
+        "utcDate": "2026-06-16T01:00:00Z"
       },
       {
         "matchDay": 2,
@@ -723,7 +761,8 @@
         "awayCode": "IRN",
         "homeScore": 0,
         "awayScore": 0,
-        "venue": "SoFi Stadium, Inglewood"
+        "venue": "SoFi Stadium, Inglewood",
+        "utcDate": "2026-06-21T19:00:00Z"
       },
       {
         "matchDay": 2,
@@ -732,7 +771,8 @@
         "awayCode": "EGY",
         "homeScore": 1,
         "awayScore": 3,
-        "venue": "BC Place, Vancouver"
+        "venue": "BC Place, Vancouver",
+        "utcDate": "2026-06-22T01:00:00Z"
       },
       {
         "matchDay": 3,
@@ -741,7 +781,8 @@
         "awayCode": "IRN",
         "homeScore": 1,
         "awayScore": 1,
-        "venue": "Lumen Field, Seattle"
+        "venue": "Lumen Field, Seattle",
+        "utcDate": "2026-06-27T03:00:00Z"
       },
       {
         "matchDay": 3,
@@ -750,7 +791,8 @@
         "awayCode": "BEL",
         "homeScore": 1,
         "awayScore": 5,
-        "venue": "BC Place, Vancouver"
+        "venue": "BC Place, Vancouver",
+        "utcDate": "2026-06-27T03:00:00Z"
       }
     ],
     "standings": [
@@ -820,7 +862,8 @@
         "awayCode": "CPV",
         "homeScore": 0,
         "awayScore": 0,
-        "venue": "Mercedes-Benz Stadium, Atlanta"
+        "venue": "Mercedes-Benz Stadium, Atlanta",
+        "utcDate": "2026-06-15T16:00:00Z"
       },
       {
         "matchDay": 1,
@@ -829,7 +872,8 @@
         "awayCode": "URU",
         "homeScore": 1,
         "awayScore": 1,
-        "venue": "Hard Rock Stadium, Miami Gardens"
+        "venue": "Hard Rock Stadium, Miami Gardens",
+        "utcDate": "2026-06-15T22:00:00Z"
       },
       {
         "matchDay": 2,
@@ -838,7 +882,8 @@
         "awayCode": "KSA",
         "homeScore": 4,
         "awayScore": 0,
-        "venue": "Mercedes-Benz Stadium, Atlanta"
+        "venue": "Mercedes-Benz Stadium, Atlanta",
+        "utcDate": "2026-06-21T16:00:00Z"
       },
       {
         "matchDay": 2,
@@ -847,7 +892,8 @@
         "awayCode": "CPV",
         "homeScore": 2,
         "awayScore": 2,
-        "venue": "Hard Rock Stadium, Miami Gardens"
+        "venue": "Hard Rock Stadium, Miami Gardens",
+        "utcDate": "2026-06-21T22:00:00Z"
       },
       {
         "matchDay": 3,
@@ -856,7 +902,8 @@
         "awayCode": "KSA",
         "homeScore": 0,
         "awayScore": 0,
-        "venue": "NRG Stadium, Houston"
+        "venue": "NRG Stadium, Houston",
+        "utcDate": "2026-06-27T00:00:00Z"
       },
       {
         "matchDay": 3,
@@ -865,7 +912,8 @@
         "awayCode": "ESP",
         "homeScore": 0,
         "awayScore": 1,
-        "venue": "Estadio Akron, Zapopan"
+        "venue": "Estadio Akron, Zapopan",
+        "utcDate": "2026-06-27T00:00:00Z"
       }
     ],
     "standings": [
@@ -935,7 +983,8 @@
         "awayCode": "SEN",
         "homeScore": 3,
         "awayScore": 1,
-        "venue": "MetLife Stadium, East Rutherford"
+        "venue": "MetLife Stadium, East Rutherford",
+        "utcDate": "2026-06-16T19:00:00Z"
       },
       {
         "matchDay": 1,
@@ -944,7 +993,8 @@
         "awayCode": "NOR",
         "homeScore": 1,
         "awayScore": 4,
-        "venue": "Gillette Stadium, Foxborough"
+        "venue": "Gillette Stadium, Foxborough",
+        "utcDate": "2026-06-16T22:00:00Z"
       },
       {
         "matchDay": 2,
@@ -953,7 +1003,8 @@
         "awayCode": "IRQ",
         "homeScore": 3,
         "awayScore": 0,
-        "venue": "Lincoln Financial Field, Philadelphia"
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "utcDate": "2026-06-22T21:00:00Z"
       },
       {
         "matchDay": 2,
@@ -962,7 +1013,8 @@
         "awayCode": "SEN",
         "homeScore": 3,
         "awayScore": 2,
-        "venue": "MetLife Stadium, East Rutherford"
+        "venue": "MetLife Stadium, East Rutherford",
+        "utcDate": "2026-06-23T00:00:00Z"
       },
       {
         "matchDay": 3,
@@ -971,7 +1023,8 @@
         "awayCode": "FRA",
         "homeScore": 1,
         "awayScore": 4,
-        "venue": "Gillette Stadium, Foxborough"
+        "venue": "Gillette Stadium, Foxborough",
+        "utcDate": "2026-06-26T19:00:00Z"
       },
       {
         "matchDay": 3,
@@ -980,7 +1033,8 @@
         "awayCode": "IRQ",
         "homeScore": 5,
         "awayScore": 0,
-        "venue": "BMO Field, Toronto"
+        "venue": "BMO Field, Toronto",
+        "utcDate": "2026-06-26T19:00:00Z"
       }
     ],
     "standings": [
@@ -1050,7 +1104,8 @@
         "awayCode": "ALG",
         "homeScore": 3,
         "awayScore": 0,
-        "venue": "Arrowhead Stadium, Kansas City"
+        "venue": "Arrowhead Stadium, Kansas City",
+        "utcDate": "2026-06-17T01:00:00Z"
       },
       {
         "matchDay": 1,
@@ -1059,7 +1114,8 @@
         "awayCode": "JOR",
         "homeScore": 3,
         "awayScore": 1,
-        "venue": "Levi's Stadium, Santa Clara"
+        "venue": "Levi's Stadium, Santa Clara",
+        "utcDate": "2026-06-17T04:00:00Z"
       },
       {
         "matchDay": 2,
@@ -1068,7 +1124,8 @@
         "awayCode": "AUT",
         "homeScore": 2,
         "awayScore": 0,
-        "venue": "AT&T Stadium, Arlington"
+        "venue": "AT&T Stadium, Arlington",
+        "utcDate": "2026-06-22T17:00:00Z"
       },
       {
         "matchDay": 2,
@@ -1077,7 +1134,8 @@
         "awayCode": "ALG",
         "homeScore": 1,
         "awayScore": 2,
-        "venue": "Levi's Stadium, Santa Clara"
+        "venue": "Levi's Stadium, Santa Clara",
+        "utcDate": "2026-06-23T03:00:00Z"
       },
       {
         "matchDay": 3,
@@ -1086,7 +1144,8 @@
         "awayCode": "AUT",
         "homeScore": 3,
         "awayScore": 3,
-        "venue": "Arrowhead Stadium, Kansas City"
+        "venue": "Arrowhead Stadium, Kansas City",
+        "utcDate": "2026-06-28T02:00:00Z"
       },
       {
         "matchDay": 3,
@@ -1095,7 +1154,8 @@
         "awayCode": "ARG",
         "homeScore": 1,
         "awayScore": 3,
-        "venue": "AT&T Stadium, Arlington"
+        "venue": "AT&T Stadium, Arlington",
+        "utcDate": "2026-06-28T02:00:00Z"
       }
     ],
     "standings": [
@@ -1165,7 +1225,8 @@
         "awayCode": "COD",
         "homeScore": 1,
         "awayScore": 1,
-        "venue": "NRG Stadium, Houston"
+        "venue": "NRG Stadium, Houston",
+        "utcDate": "2026-06-17T17:00:00Z"
       },
       {
         "matchDay": 1,
@@ -1174,7 +1235,8 @@
         "awayCode": "COL",
         "homeScore": 1,
         "awayScore": 3,
-        "venue": "Estadio Azteca, Mexico City"
+        "venue": "Estadio Azteca, Mexico City",
+        "utcDate": "2026-06-18T02:00:00Z"
       },
       {
         "matchDay": 2,
@@ -1183,7 +1245,8 @@
         "awayCode": "UZB",
         "homeScore": 5,
         "awayScore": 0,
-        "venue": "NRG Stadium, Houston"
+        "venue": "NRG Stadium, Houston",
+        "utcDate": "2026-06-23T17:00:00Z"
       },
       {
         "matchDay": 2,
@@ -1192,7 +1255,8 @@
         "awayCode": "COD",
         "homeScore": 1,
         "awayScore": 0,
-        "venue": "Estadio Akron, Zapopan"
+        "venue": "Estadio Akron, Zapopan",
+        "utcDate": "2026-06-24T02:00:00Z"
       },
       {
         "matchDay": 3,
@@ -1201,7 +1265,8 @@
         "awayCode": "POR",
         "homeScore": 0,
         "awayScore": 0,
-        "venue": "Hard Rock Stadium, Miami Gardens"
+        "venue": "Hard Rock Stadium, Miami Gardens",
+        "utcDate": "2026-06-27T23:30:00Z"
       },
       {
         "matchDay": 3,
@@ -1210,7 +1275,8 @@
         "awayCode": "UZB",
         "homeScore": 3,
         "awayScore": 1,
-        "venue": "Mercedes-Benz Stadium, Atlanta"
+        "venue": "Mercedes-Benz Stadium, Atlanta",
+        "utcDate": "2026-06-27T23:30:00Z"
       }
     ],
     "standings": [
@@ -1280,7 +1346,8 @@
         "awayCode": "CRO",
         "homeScore": 4,
         "awayScore": 2,
-        "venue": "AT&T Stadium, Arlington"
+        "venue": "AT&T Stadium, Arlington",
+        "utcDate": "2026-06-17T20:00:00Z"
       },
       {
         "matchDay": 1,
@@ -1289,7 +1356,8 @@
         "awayCode": "PAN",
         "homeScore": 1,
         "awayScore": 0,
-        "venue": "BMO Field, Toronto"
+        "venue": "BMO Field, Toronto",
+        "utcDate": "2026-06-17T23:00:00Z"
       },
       {
         "matchDay": 2,
@@ -1298,7 +1366,8 @@
         "awayCode": "GHA",
         "homeScore": 0,
         "awayScore": 0,
-        "venue": "Gillette Stadium, Foxborough"
+        "venue": "Gillette Stadium, Foxborough",
+        "utcDate": "2026-06-23T20:00:00Z"
       },
       {
         "matchDay": 2,
@@ -1307,7 +1376,8 @@
         "awayCode": "CRO",
         "homeScore": 0,
         "awayScore": 1,
-        "venue": "BMO Field, Toronto"
+        "venue": "BMO Field, Toronto",
+        "utcDate": "2026-06-23T23:00:00Z"
       },
       {
         "matchDay": 3,
@@ -1316,7 +1386,8 @@
         "awayCode": "ENG",
         "homeScore": 0,
         "awayScore": 2,
-        "venue": "MetLife Stadium, East Rutherford"
+        "venue": "MetLife Stadium, East Rutherford",
+        "utcDate": "2026-06-27T21:00:00Z"
       },
       {
         "matchDay": 3,
@@ -1325,7 +1396,8 @@
         "awayCode": "GHA",
         "homeScore": 2,
         "awayScore": 1,
-        "venue": "Lincoln Financial Field, Philadelphia"
+        "venue": "Lincoln Financial Field, Philadelphia",
+        "utcDate": "2026-06-27T21:00:00Z"
       }
     ],
     "standings": [

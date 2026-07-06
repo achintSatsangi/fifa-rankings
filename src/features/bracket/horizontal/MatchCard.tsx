@@ -1,6 +1,8 @@
 import type { BracketMatch } from "../../../data/types";
 import { Flag } from "../../flags/Flag";
 import { teamByCode } from "../../teams/data";
+import { MatchTooltip } from "../MatchTooltip";
+import { isMatchPlayed } from "../matchTime";
 import { isWinner, resolveSlotCode, slotLabel } from "../resolver";
 
 const dateFmt = new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric" });
@@ -13,9 +15,10 @@ type Props = {
 export function MatchCard({ match, onTeamClick }: Props) {
   const codeA = resolveSlotCode(match.slotA, match.teamCodeA);
   const codeB = resolveSlotCode(match.slotB, match.teamCodeB);
+  const upcoming = !isMatchPlayed(match);
   return (
     <article
-      className="flex w-56 flex-col rounded-md border border-[var(--border-subtle)] bg-[var(--surface-elevated)] shadow-sm"
+      className="group relative flex w-56 flex-col rounded-md border border-[var(--border-subtle)] bg-[var(--surface-elevated)] shadow-sm"
       aria-label={`${match.id} ${dateFmt.format(new Date(match.date))}`}
     >
       <header className="flex items-center justify-between border-b border-[var(--border-subtle)] px-2 py-1 text-[10px] uppercase tracking-wide text-[var(--text-muted)]">
@@ -45,6 +48,7 @@ export function MatchCard({ match, onTeamClick }: Props) {
             : "a.e.t."}
         </footer>
       ) : null}
+      {upcoming ? <MatchTooltip match={match} /> : null}
     </article>
   );
 }

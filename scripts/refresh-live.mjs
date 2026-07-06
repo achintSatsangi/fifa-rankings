@@ -81,9 +81,10 @@ for (const api of matchesResp.matches) {
   const before = `${local.homeScore}-${local.awayScore}`;
   local.homeScore = api.score.fullTime.home;
   local.awayScore = api.score.fullTime.away;
-  // Deliberately do NOT overwrite `local.date` — the API returns UTC start
-  // time, which rolls into next-day for US-hosted evening kickoffs. Our
-  // JSON tracks the local calendar date at the venue.
+  // Store the full UTC kickoff so the client can render local time,
+  // but keep the venue-local `date` — utcDate drifts a day forward
+  // for late US-evening kickoffs.
+  local.utcDate = api.utcDate;
   const after = `${local.homeScore}-${local.awayScore}`;
   if (before !== after) {
     groupMatchUpdates++;
@@ -153,8 +154,10 @@ for (const api of matchesResp.matches) {
   } else if ("extraTime" in target) {
     delete target.extraTime;
   }
-  // Preserve local `target.date` — API's utcDate drifts by a day for
-  // late-evening US kickoffs.
+  // Store the full UTC kickoff for client-side local-time formatting.
+  // Keep `target.date` untouched — utcDate drifts a day for late US
+  // evening kickoffs and we want the venue's calendar date to display.
+  target.utcDate = api.utcDate;
   const after = `${target.scoreA}-${target.scoreB}`;
   if (before !== after) {
     bracketUpdates++;

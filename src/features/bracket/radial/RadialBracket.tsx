@@ -1,8 +1,10 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { BRACKET } from "../data";
+import { isMatchPlayed } from "../matchTime";
 import { winnerCode } from "../resolver";
 import { JourneyModal } from "../../teams/JourneyModal";
 import { Connectors } from "./Connectors";
+import { MatchMarker } from "./MatchMarker";
 import { TeamPoint } from "./TeamPoint";
 import { Trophy } from "./Trophy";
 import {
@@ -49,6 +51,13 @@ export function RadialBracket() {
       .filter((x) => x.code !== null);
   }, []);
 
+  const unplayedMarkers = useMemo(() => {
+    return BRACKET.filter((m) => m.round !== "3RD" && !isMatchPlayed(m)).map((m) => ({
+      match: m,
+      point: matchCenterPoint(m),
+    }));
+  }, []);
+
   return (
     <div className="flex h-full w-full flex-col">
       <div
@@ -78,6 +87,9 @@ export function RadialBracket() {
                 onClick={w.code ? setSelectedCode : undefined}
                 layer="winner"
               />
+            ))}
+            {unplayedMarkers.map((m) => (
+              <MatchMarker key={`u-${m.match.id}`} match={m.match} point={m.point} />
             ))}
             <Trophy />
           </div>
