@@ -1,0 +1,82 @@
+name: Hourly refresh + Pages deploy
+
+# Runs every hour at :17 to spread load off :00, on any push to main,
+# and on manual dispatch. The scheduled job pulls fresh scores from
+# football-data.org, commits the updated JSON if anything moved, then
+# builds and deploys to GitHub Pages.
+on:
+  schedule:
+    - cron: "17 * * * *"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# `contents: write` so the auto-refresh commit can push back to main.
+# `pages: write` + `id-token: write` are what actions/deploy-pages needs.
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Only one deploy at a time; queue further runs.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Refresh live data
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        env:
+          FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
+        run: node scripts/refresh-live.mjs
+
+      - name: Commit refreshed data (if changed)
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        run: |
+          if [[ -n "$(git status --porcelain src/data)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/data
+            git commit -m "chore(data): hourly refresh from football-data.org"
+            git push
+          else
+            echo "No data changes."
+          fi
+
+      - name: Build
+        env:
+          PUBLIC_BASE: /fifa-rankings/
+        run: pnpm build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

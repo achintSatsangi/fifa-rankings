@@ -31,16 +31,16 @@ pnpm preview   # preview production build
 src/
   routes/                  # TanStack Router — file-based (__root, index, teams, teams.$code, groups)
   features/
-    bracket/               # radial + horizontal views (TBD)
-    groups/                # standings + simulator (TBD)
-    teams/                 # grid + journey modal (TBD)
-    live/                  # TanStack Query hooks (TBD)
-    highlights/            # curated map + FIFA YouTube search-URL fallback (TBD)
+    bracket/               # radial + horizontal views
+    groups/                # standings + simulator (simulator TBD)
+    teams/                 # grid + journey modal
+    favourites/            # star toggle + persisted favourite team
+    highlights/            # curated map + FIFA YouTube search-URL fallback
     export/                # html-to-image (TBD)
     i18n/                  # react-i18next + locale/{en,es,fr,pt,no,sv,da,fi}.json
     theme/                 # ThemeProvider + ThemeToggle
     share/                 # share modal + URL codec (TBD)
-    query/                 # QueryClient config
+    query/                 # QueryClient config (kept for future async needs)
   data/                    # teams.json, groups.json, bracket.json, highlights.json, types.ts
   lib/                     # tiebreakers, geometry, formatters (TBD)
   ui/                      # generic components (TBD)
@@ -57,35 +57,28 @@ src/
 - **Comments:** default to none. Only add a comment when the *why* isn't obvious — a workaround, a subtle invariant, a hidden constraint. Never restate what the code already says.
 - **Commits:** small, focused. Each feature slice from FEATURES.md is roughly one commit.
 
-## Data snapshot
+## Data pipeline (build-time only)
 
-`src/data/{groups,bracket}.json` is refreshed on demand from football-data.org, not hand-edited:
+The app has **no client-side API integration**. Everything at runtime reads from the bundled `src/data/{teams,groups,bracket,highlights}.json`. Those files get refreshed at build time by CI (hourly) from football-data.org.
 
-```bash
-node --env-file=.env scripts/refresh-live.mjs
-```
+**Refresh script:** `scripts/refresh-live.mjs`
+- 2 API requests per run against the free tier's 10 req/min budget.
+- Preserves fields the API doesn't return (venue, our slot structure, `feedsInto`).
+- Preserves local `date` because `utcDate` rolls into next-day UTC for evening US kickoffs.
+- Subtracts `penalties.home/away` from `fullTime` on shootout matches (football-data lumps shootout goals into full-time score).
+- Reads `FOOTBALL_DATA_KEY` and optional `FOOTBALL_DATA_COMPETITION` (default `WC`) from env. Backward-compat: also accepts the old `VITE_*` names.
 
-The script uses 2 API requests, preserves fields the API doesn't return (venue, our slot structure, `feedsInto`), and skips the API's `date` field for scored matches (`utcDate` rolls into next-day UTC for evening US kickoffs; we want the local calendar date). For penalty-shootout matches it subtracts `penalties.home/away` from `fullTime` because football-data lumps shootout goals into the full-time score.
+**Local:** `node --env-file=.env scripts/refresh-live.mjs`. Requires a personal key in `.env` (gitignored; template in `.env.example`).
 
-Original snapshot was 2026-07-06 (mid-R16). Rerun the script to bring things current.
+**CI:** `.github/workflows/refresh-and-deploy.yml` runs `:17` past every hour, on push to `main`, and on manual dispatch. It refreshes → commits changes (if any) as `github-actions[bot]` → builds → deploys to GitHub Pages. Key is stored as the `FOOTBALL_DATA_KEY` repo secret. The auto-commit uses `GITHUB_TOKEN`, so it doesn't retrigger the workflow.
 
-## Live data (football-data.org)
+## Deploy (GitHub Pages)
 
-`.env` at the repo root holds `VITE_FOOTBALL_DATA_KEY` and `VITE_FOOTBALL_DATA_COMPETITION` (default `WC`). `.env` is gitignored; `.env.example` documents the shape and is committed.
-
-- Client: `src/features/live/client.ts` — thin fetch wrapper with `X-Auth-Token` header; parses 429 `retry-after`.
-- Types: `src/features/live/types.ts` — response shapes for competition, matches, standings.
-- Hooks: `src/features/live/hooks.ts` — `useCompetition`, `useCompetitionMatches`, `useCompetitionStandings`.
-- Sidebar indicator: `src/features/live/LiveStatus.tsx`.
-- Base URL: `https://api.football-data.org/v4`.
-
-**Rate limit: 10 requests / minute on the free tier.** Every hook sets `staleTime: 5 min` and `retry: false` on 429 so a single over-request page load doesn't destroy the whole minute's quota. Don't add short-interval refetches without a good reason.
-
-**FWC 2026 is on the free tier.** Competition code `WC` (id 2000), current season 2398 (2026-06-11 → 2026-07-19). Team `tla` codes returned by the API generally match our FIFA broadcast codes (BRA, ARG, GER, etc.) — that's the join key when overlaying live data onto the bundled JSON.
-
-**Security:** `VITE_*` env vars are baked into the client bundle. Fine for local dev. For a public deploy, move the key behind a proxy (Vercel serverless function, Cloudflare Worker) and drop the `VITE_` prefix.
-
-App must degrade gracefully — every consumer of `useCompetition*` needs a static-JSON fallback so the app is fully usable with no key.
+- Site is served at `https://achintsatsangi.github.io/fifa-rankings/`.
+- Vite's `base` is set via `PUBLIC_BASE` env var (`/fifa-rankings/` in CI, `/` locally).
+- Router `basepath` reads `import.meta.env.BASE_URL` so links match.
+- `public/.nojekyll` ships in the artifact so Pages doesn't strip `_underscore` filenames.
+- The Pages source must be set to "GitHub Actions" in repo Settings > Pages (one-time manual step).
 
 ## Gotchas / do-not-do
 

@@ -10,8 +10,11 @@ import { queryClient } from "./features/query/client";
 import { ThemeProvider } from "./features/theme/ThemeProvider";
 import { routeTree } from "./routeTree.gen";
 
+// `import.meta.env.BASE_URL` mirrors vite.config's `base` (with trailing
+// slash), so router paths line up with the deployed sub-path on GitHub Pages.
 const router = createRouter({
   routeTree,
+  basepath: import.meta.env.BASE_URL,
   defaultPreload: "intent",
   scrollRestoration: true,
 });

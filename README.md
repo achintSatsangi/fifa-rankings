@@ -43,42 +43,42 @@ pnpm lint       # oxlint
 
 **Node** ≥ 22.12 (or 20.19). Vite 7 will print a warning on lower versions.
 
-### Live data (football-data.org)
+### Data pipeline
 
-Copy `.env.example` to `.env` and set your football-data.org key:
+The app has no client-side API integration — everything at runtime reads from bundled JSON. Those files are refreshed by a script that hits [football-data.org](https://www.football-data.org/) (free tier, 10 req/min).
 
+**Locally:** copy `.env.example` to `.env`, set `FOOTBALL_DATA_KEY`, then:
+
+```bash
+node --env-file=.env scripts/refresh-live.mjs
 ```
-VITE_FOOTBALL_DATA_KEY=your_key_here
-VITE_FOOTBALL_DATA_COMPETITION=WC
-```
 
-Free key at [football-data.org/client/register](https://www.football-data.org/client/register). The free tier includes the FIFA World Cup (competition code `WC`, id 2000) and confirms the current 2026 season. A sidebar dot shows connection status and the current matchday.
+**In CI:** `.github/workflows/refresh-and-deploy.yml` runs every hour at :17, refreshes the JSON, commits any changes back to `main` as `github-actions[bot]`, builds, and deploys to GitHub Pages. Store your key as the `FOOTBALL_DATA_KEY` repo secret.
 
-**Rate limit:** 10 requests/minute on the free tier. All hooks use a 5-minute `staleTime` and skip retries on 429 so a single busy page load doesn't blow the quota.
-
-The app still works fully without a key — it falls back to the bundled static snapshot.
-
-**Security caveat:** `VITE_`-prefixed env vars are bundled into the client and visible in production. Use this env var for **local dev only**. For a public deploy, put the key behind a proxy (Vercel serverless function, Cloudflare Worker, etc.) and drop the `VITE_` prefix.
+Free key at [football-data.org/client/register](https://www.football-data.org/client/register). Their free tier includes the FIFA World Cup (competition code `WC`, id 2000) — 2026 season is accessible.
 
 ## Project structure
 
 ```
 src/
   routes/                  # __root, index (bracket), teams, teams.$code, groups
+  components/              # Sidebar, MobileHeader, NavIcons
   features/
-    bracket/               # radial + horizontal views, geometry, URL codec, keyboard nav
-    groups/                # standings + simulator + best-third tiebreaker
+    bracket/               # radial + horizontal views + tree-order helpers
+    groups/                # standings + matches
     teams/                 # grid + journey modal
-    live/                  # football-data.org client + TanStack Query hooks + LiveStatus
-    highlights/            # curated map + search-URL fallback
-    export/                # html-to-image wrappers
+    favourites/            # star toggle + persisted favourite team
+    highlights/            # curated map + FIFA YouTube search-URL fallback
     i18n/                  # react-i18next + 8 locales
     theme/                 # provider + toggle
-    share/                 # share modal + URL codec
-    query/                 # QueryClient
+    query/                 # QueryClient (kept for future async needs)
   data/                    # teams.json, groups.json, bracket.json, highlights.json, types.ts
-  lib/                     # tiebreakers, geometry, formatters
-  ui/                      # generic components
+  lib/                     # storage (localStorage helpers), team-code map
+  ui/                      # Modal, Table, Badge
+scripts/
+  refresh-live.mjs         # pulls football-data.org → src/data/*.json
+.github/workflows/
+  refresh-and-deploy.yml   # hourly cron: refresh → build → deploy
 ```
 
 ## Data notes
@@ -89,10 +89,18 @@ src/
 
 ## Deploy
 
-Static site — Vercel or any static host.
+Deploys automatically to **GitHub Pages** from `main` via `.github/workflows/refresh-and-deploy.yml` — see the Data pipeline section above.
+
+Live at [https://achintsatsangi.github.io/fifa-rankings/](https://achintsatsangi.github.io/fifa-rankings/).
+
+**First-time repo setup:**
+1. Add `FOOTBALL_DATA_KEY` to Settings > Secrets and variables > Actions.
+2. Set Settings > Pages > Source to "GitHub Actions".
+
+To preview the production build locally with the CI base path:
 
 ```bash
-pnpm build && pnpm preview
+PUBLIC_BASE=/fifa-rankings/ pnpm build && pnpm preview --base /fifa-rankings/
 ```
 
 ## Roadmap (post-v1)

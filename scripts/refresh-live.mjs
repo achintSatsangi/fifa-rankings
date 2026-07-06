@@ -15,10 +15,11 @@ import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
-const KEY = process.env.VITE_FOOTBALL_DATA_KEY;
-const COMP = process.env.VITE_FOOTBALL_DATA_COMPETITION ?? "WC";
+// Accept both names for backward compat with the old client-side integration.
+const KEY = process.env.FOOTBALL_DATA_KEY ?? process.env.VITE_FOOTBALL_DATA_KEY;
+const COMP = process.env.FOOTBALL_DATA_COMPETITION ?? process.env.VITE_FOOTBALL_DATA_COMPETITION ?? "WC";
 if (!KEY) {
-  console.error("Missing VITE_FOOTBALL_DATA_KEY. Run: node --env-file=.env scripts/refresh-live.mjs");
+  console.error("Missing FOOTBALL_DATA_KEY. Locally: node --env-file=.env scripts/refresh-live.mjs. CI: set the FOOTBALL_DATA_KEY repo secret.");
   process.exit(1);
 }
 
