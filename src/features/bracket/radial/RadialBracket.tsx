@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { BRACKET } from "../data";
 import { winnerCode } from "../resolver";
 import { JourneyModal } from "../../teams/JourneyModal";
@@ -14,6 +14,23 @@ import {
 
 export function RadialBracket() {
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
+  const outerRef = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState(0);
+
+  // Measure the available slot and size the (square) ring to the smaller of
+  // width/height. ResizeObserver is more reliable than `container-type: size`
+  // container queries — the latter needs a definite parent height, which our
+  // flex-column chain doesn't always give (min-h-svh is not `height`).
+  useLayoutEffect(() => {
+    const el = outerRef.current;
+    if (!el) return;
+    const observer = new ResizeObserver(([entry]) => {
+      const { width, height } = entry.contentRect;
+      setSize(Math.floor(Math.min(width, height)));
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const outer = useMemo(outerSlots, []);
   const eliminationCache = useMemo(() => {
@@ -34,45 +51,37 @@ export function RadialBracket() {
 
   return (
     <div className="flex h-full w-full flex-col">
-      {/*
-       * `containerType: size` establishes an inline-and-block sized query
-       * container so we can size the aspect-square inner div to the
-       * smaller of the container's width/height using `min(100cqi, 100cqb)`.
-       * Result: the ring uses as much space as the layout offers without
-       * ever overflowing.
-       */}
       <div
-        style={{ containerType: "size" }}
+        ref={outerRef}
         className="relative flex min-h-0 flex-1 items-center justify-center"
       >
-        <div
-          className="relative aspect-square"
-          style={{ width: "min(100cqi, 100cqb)" }}
-        >
-          <Connectors />
-          {outer.map((s) => (
-            <TeamPoint
-              key={`o-${s.slot}`}
-              code={s.teamCode}
-              point={s.point}
-              size={FLAG_SIZE.OUTER}
-              faded={s.teamCode ? eliminationCache.get(s.teamCode) !== null : false}
-              onClick={s.teamCode ? setSelectedCode : undefined}
-              layer="outer"
-            />
-          ))}
-          {winners.map((w) => (
-            <TeamPoint
-              key={`w-${w.match.id}`}
-              code={w.code}
-              point={w.point}
-              size={FLAG_SIZE[w.match.round]}
-              onClick={w.code ? setSelectedCode : undefined}
-              layer="winner"
-            />
-          ))}
-          <Trophy />
-        </div>
+        {size > 0 ? (
+          <div className="relative" style={{ width: size, height: size }}>
+            <Connectors />
+            {outer.map((s) => (
+              <TeamPoint
+                key={`o-${s.slot}`}
+                code={s.teamCode}
+                point={s.point}
+                size={FLAG_SIZE.OUTER}
+                faded={s.teamCode ? eliminationCache.get(s.teamCode) !== null : false}
+                onClick={s.teamCode ? setSelectedCode : undefined}
+                layer="outer"
+              />
+            ))}
+            {winners.map((w) => (
+              <TeamPoint
+                key={`w-${w.match.id}`}
+                code={w.code}
+                point={w.point}
+                size={FLAG_SIZE[w.match.round]}
+                onClick={w.code ? setSelectedCode : undefined}
+                layer="winner"
+              />
+            ))}
+            <Trophy />
+          </div>
+        ) : null}
       </div>
 
       <JourneyModal code={selectedCode} onClose={() => setSelectedCode(null)} />
