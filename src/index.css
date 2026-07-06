@@ -131,12 +131,14 @@ body {
 }
 
 /* Pick pop: brief scale bounce when the user advances a team in the
-   interactive bracket. Applied via a keyed React remount so it fires
-   every time (a CSS animation without a key would only run once). */
+   interactive bracket. Applied on the inner (flag) wrapper — NOT the
+   absolute-positioned outer container, because that container is
+   transitioning left/top/width/height for the slide-to-next-node
+   effect and we don't want the two to fight for the transform prop. */
 @keyframes pick-pop {
-  0%   { transform: translate(-50%, -50%) scale(1); }
-  40%  { transform: translate(-50%, -50%) scale(1.35); filter: drop-shadow(0 0 12px var(--accent-glow)); }
-  100% { transform: translate(-50%, -50%) scale(1); }
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.35); filter: drop-shadow(0 0 12px var(--accent-glow)); }
+  100% { transform: scale(1); }
 }
 .animate-pick-pop {
   animation: pick-pop 520ms cubic-bezier(0.2, 0.9, 0.3, 1.3);

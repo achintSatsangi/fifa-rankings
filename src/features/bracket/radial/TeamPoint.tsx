@@ -16,11 +16,23 @@ type Props = {
    *  this team. Suppresses Flag's built-in name tooltip so they don't
    *  overlap. */
   match?: BracketMatch;
-  /** Monotonic counter used to trigger the scale-pop animation. When
-   *  this changes, the wrapper remounts and the pop plays fresh. Used
-   *  by InteractiveRadial to celebrate the picked team. */
+  /** Monotonic counter used to trigger the scale-pop animation on the
+   *  inner flag wrapper. When this changes, the inner wrapper remounts
+   *  and the pop plays fresh. */
   pulseKey?: number;
 };
+
+/**
+ * Position transition tuning. Runs on left/top/width/height so a team
+ * advancing to their next node slides across the ring instead of
+ * teleporting. cubic-bezier(0.4, 0, 0.2, 1) is the Material "standard"
+ * curve — gentle start, snap into place at the end.
+ */
+const SLIDE_TRANSITION =
+  "left 550ms cubic-bezier(0.4, 0, 0.2, 1), " +
+  "top 550ms cubic-bezier(0.4, 0, 0.2, 1), " +
+  "width 550ms cubic-bezier(0.4, 0, 0.2, 1), " +
+  "height 550ms cubic-bezier(0.4, 0, 0.2, 1)";
 
 export function TeamPoint({
   code,
@@ -40,6 +52,7 @@ export function TeamPoint({
     width: size,
     height: size,
     transform: "translate(-50%, -50%)",
+    transition: SLIDE_TRANSITION,
   };
 
   if (!team) {
@@ -77,6 +90,15 @@ export function TeamPoint({
     <MatchTooltip match={match} visible={hovered} focusTeam={team.code} />
   ) : null;
 
+  // Inner wrapper carries both the hover-scale and the pick-pop
+  // animation. Keyed by pulseKey so the pop replays on every pick
+  // without unmounting the outer container (which would kill the
+  // left/top slide transition).
+  const innerClass =
+    "h-full w-full transition-transform duration-200 " +
+    "hover:scale-110 focus-visible:scale-110 " +
+    (pulseKey !== undefined ? "motion-safe:animate-pick-pop" : "");
+
   if (!onClick) {
     return (
       <span
@@ -85,28 +107,27 @@ export function TeamPoint({
         title={showTooltip ? undefined : team.name}
         {...hoverProps}
       >
-        {flagEl}
+        <span key={pulseKey} className={innerClass}>
+          {flagEl}
+        </span>
         {tooltipEl}
       </span>
     );
   }
 
-  // When pulseKey changes, remount the button so the CSS pick-pop
-  // animation replays (motion-safe respects prefers-reduced-motion).
-  const popClass = pulseKey !== undefined ? "motion-safe:animate-pick-pop" : "";
-
   return (
     <button
-      key={pulseKey}
       type="button"
       onClick={() => onClick(team.code)}
-      className={`absolute rounded-full ring-0 transition-transform hover:z-10 hover:scale-110 focus-visible:z-10 focus-visible:scale-110 ${popClass}`}
+      className="absolute rounded-full ring-0 hover:z-10 focus-visible:z-10"
       style={style}
       aria-label={team.name}
       title={showTooltip ? undefined : team.name}
       {...hoverProps}
     >
-      {flagEl}
+      <span key={pulseKey} className={innerClass}>
+        {flagEl}
+      </span>
       {tooltipEl}
     </button>
   );
