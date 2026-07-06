@@ -1,4 +1,5 @@
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import type { BracketMatch, BracketRound } from "../../../data/types";
 import { BRACKET } from "../data";
 import { isMatchPlayed } from "../matchTime";
 import { winnerCode } from "../resolver";
@@ -61,6 +62,22 @@ export function RadialBracket() {
     }));
   }, []);
 
+  // For each team, find their most recent played match — that's what we
+  // want the hover tooltip on their flag to describe.
+  const mostRecent = useMemo<Map<string, BracketMatch>>(() => {
+    const map = new Map<string, BracketMatch>();
+    // Iterate from later rounds back to R32 so the first hit is "most recent".
+    const orderedRounds: BracketRound[] = ["F", "3RD", "SF", "QF", "R16", "R32"];
+    for (const round of orderedRounds) {
+      for (const m of BRACKET) {
+        if (m.round !== round || !isMatchPlayed(m)) continue;
+        if (m.teamCodeA && !map.has(m.teamCodeA)) map.set(m.teamCodeA, m);
+        if (m.teamCodeB && !map.has(m.teamCodeB)) map.set(m.teamCodeB, m);
+      }
+    }
+    return map;
+  }, []);
+
   return (
     <div className="flex h-full w-full flex-col">
       <div
@@ -74,6 +91,7 @@ export function RadialBracket() {
             eliminationCache={eliminationCache}
             winners={winners}
             unplayedMarkers={unplayedMarkers}
+            mostRecent={mostRecent}
             onTeamClick={setSelectedCode}
           />
         ) : null}
@@ -94,6 +112,7 @@ function RingContent({
   eliminationCache,
   winners,
   unplayedMarkers,
+  mostRecent,
   onTeamClick,
 }: {
   size: number;
@@ -101,6 +120,7 @@ function RingContent({
   eliminationCache: Map<string, ReturnType<typeof eliminationRound>>;
   winners: Winner[];
   unplayedMarkers: Marker[];
+  mostRecent: Map<string, BracketMatch>;
   onTeamClick: (code: string) => void;
 }) {
   // Scale flag / marker / trophy sizes with the measured ring so mobile
@@ -121,6 +141,7 @@ function RingContent({
           faded={s.teamCode ? eliminationCache.get(s.teamCode) !== null : false}
           onClick={s.teamCode ? onTeamClick : undefined}
           layer="outer"
+          match={s.teamCode ? mostRecent.get(s.teamCode) : undefined}
         />
       ))}
       {winners.map((w) => (
@@ -131,6 +152,7 @@ function RingContent({
           size={sizes[w.match.round]}
           onClick={w.code ? onTeamClick : undefined}
           layer="winner"
+          match={w.code ? mostRecent.get(w.code) : undefined}
         />
       ))}
       {unplayedMarkers.map((m) => (

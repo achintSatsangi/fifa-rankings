@@ -58,6 +58,28 @@ export function isMatchPlayed(
 }
 
 /**
+ * Score string in `goal(penalty) – goal(penalty)` format. If `focusTeam`
+ * is passed, the focus team's numbers go first; otherwise the bracket
+ * data's A/B order is used. Extra-time-only matches (no shootout) get
+ * a trailing `(a.e.t.)` marker.
+ */
+export function formatScore(match: BracketMatch, focusTeam?: string): string {
+  if (!isMatchPlayed(match)) return "";
+  const focusIsA = focusTeam ? match.teamCodeA === focusTeam : true;
+
+  const leftScore = focusIsA ? match.scoreA : match.scoreB;
+  const rightScore = focusIsA ? match.scoreB : match.scoreA;
+  const leftPen = focusIsA ? (match.penaltyA ?? null) : (match.penaltyB ?? null);
+  const rightPen = focusIsA ? (match.penaltyB ?? null) : (match.penaltyA ?? null);
+
+  const leftStr = `${leftScore}${leftPen !== null ? `(${leftPen})` : ""}`;
+  const rightStr = `${rightScore}${rightPen !== null ? `(${rightPen})` : ""}`;
+  const base = `${leftStr} – ${rightStr}`;
+  if (match.extraTime && leftPen === null) return `${base} (a.e.t.)`;
+  return base;
+}
+
+/**
  * Days / hours / minutes / seconds until kickoff. Returns null if the
  * match is already past, or if the timestamp isn't parseable. Meant to
  * be recomputed once per second by callers so the value ticks live.
