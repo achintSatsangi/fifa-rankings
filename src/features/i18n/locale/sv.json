@@ -21,7 +21,14 @@
   "landing": {
     "bracketDesc": "Cirkulär och horisontell slutspelsvy — klicka på ett lag för resan.",
     "teamsDesc": "Alla 48 lag — filtrera på grupp/konfederation, sortera på ranking.",
-    "groupsDesc": "Grupptabeller och varje match med resultat och arena."
+    "groupsDesc": "Grupptabeller och varje match med resultat och arena.",
+    "skipNextTime": "Hoppa över denna sida nästa gång →"
+  },
+  "settings": {
+    "startOnBracket": "Starta på slutspelet"
+  },
+  "meta": {
+    "dataUpdated": "Data uppdaterad"
   },
   "language": { "label": "Språk" },
   "theme": {

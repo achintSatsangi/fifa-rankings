@@ -21,7 +21,14 @@
   "landing": {
     "bracketDesc": "Sirkulær og horisontal utslagsrunde — klikk et lag for reisen.",
     "teamsDesc": "Alle 48 lag — filtrer på gruppe/konføderasjon, sorter på rangering.",
-    "groupsDesc": "Gruppetabeller og hver kamp med resultat og arena."
+    "groupsDesc": "Gruppetabeller og hver kamp med resultat og arena.",
+    "skipNextTime": "Hopp over denne siden neste gang →"
+  },
+  "settings": {
+    "startOnBracket": "Start på utslagsrunden"
+  },
+  "meta": {
+    "dataUpdated": "Data oppdatert"
   },
   "language": { "label": "Språk" },
   "theme": {

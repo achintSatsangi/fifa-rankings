@@ -21,7 +21,14 @@
   "landing": {
     "bracketDesc": "Vues radiale et horizontale, cliquez une équipe pour voir son parcours.",
     "teamsDesc": "Les 48 équipes — filtres par groupe/confédération, tri par classement.",
-    "groupsDesc": "Classements de groupes et chaque match avec score et stade."
+    "groupsDesc": "Classements de groupes et chaque match avec score et stade.",
+    "skipNextTime": "Ignorer cette page la prochaine fois →"
+  },
+  "settings": {
+    "startOnBracket": "Démarrer sur le tableau"
+  },
+  "meta": {
+    "dataUpdated": "Données mises à jour"
   },
   "language": { "label": "Langue" },
   "theme": {

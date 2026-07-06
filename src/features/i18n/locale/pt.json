@@ -21,7 +21,14 @@
   "landing": {
     "bracketDesc": "Vistas radial e horizontal, clique numa seleção para ver a trajetória.",
     "teamsDesc": "As 48 seleções — filtre por grupo/confederação, ordene por ranking.",
-    "groupsDesc": "Classificações e cada jogo com placar e estádio."
+    "groupsDesc": "Classificações e cada jogo com placar e estádio.",
+    "skipNextTime": "Pular esta página da próxima vez →"
+  },
+  "settings": {
+    "startOnBracket": "Iniciar no chaveamento"
+  },
+  "meta": {
+    "dataUpdated": "Dados atualizados"
   },
   "language": { "label": "Idioma" },
   "theme": {

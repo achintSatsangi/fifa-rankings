@@ -1,14 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { HorizontalBracket } from "../features/bracket/horizontal/HorizontalBracket";
 import { RadialBracket } from "../features/bracket/radial/RadialBracket";
-
-type BracketView = "radial" | "horizontal";
+import {
+  persistBracketView,
+  readBracketView,
+  type BracketView,
+} from "../features/preferences/preferences";
 
 export const Route = createFileRoute("/bracket")({
-  validateSearch: (search: Record<string, unknown>): { view: BracketView } => ({
-    view: search.view === "horizontal" ? "horizontal" : "radial",
-  }),
+  // URL takes precedence (shareable links keep their `?view=`); if the
+  // URL has no view param, fall back to the user's stored preference.
+  validateSearch: (search: Record<string, unknown>): { view: BracketView } => {
+    if (search.view === "horizontal" || search.view === "radial") {
+      return { view: search.view };
+    }
+    return { view: readBracketView() };
+  },
   component: BracketPage,
 });
 
@@ -16,6 +25,12 @@ function BracketPage() {
   const { view } = Route.useSearch();
   const navigate = Route.useNavigate();
   const { t } = useTranslation();
+
+  // Persist any change (URL-driven or user-driven) so a fresh visit to
+  // /bracket without a query string comes back to the same view.
+  useEffect(() => {
+    persistBracketView(view);
+  }, [view]);
 
   const setView = (v: BracketView) =>
     void navigate({ search: { view: v }, replace: true });

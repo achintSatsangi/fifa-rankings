@@ -1,15 +1,34 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useNavigate } from "@tanstack/react-router";
 import type { ComponentType, SVGProps } from "react";
 import { useTranslation } from "react-i18next";
 import { BracketIcon, GroupsIcon, TeamsIcon, TrophyIcon } from "../components/NavIcons";
 import { FavouriteTeamLink } from "../features/favourites/FavouriteTeamLink";
+import {
+  persistSkipLanding,
+  readBracketView,
+  readSkipLanding,
+} from "../features/preferences/preferences";
 
 export const Route = createFileRoute("/")({
+  // If the user has ticked "Start on bracket", short-circuit to it
+  // before this page renders.
+  beforeLoad: () => {
+    if (readSkipLanding()) {
+      throw redirect({ to: "/bracket", search: { view: readBracketView() } });
+    }
+  },
   component: LandingPage,
 });
 
 function LandingPage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const skipNextTime = () => {
+    persistSkipLanding(true);
+    void navigate({ to: "/bracket", search: { view: readBracketView() } });
+  };
+
   return (
     <section className="mx-auto flex h-full min-h-0 w-full max-w-5xl flex-col justify-center gap-10 py-8">
       <div className="text-center">
@@ -47,6 +66,16 @@ function LandingPage() {
 
       <div className="mx-auto w-full max-w-sm">
         <FavouriteTeamLink />
+      </div>
+
+      <div className="text-center">
+        <button
+          type="button"
+          onClick={skipNextTime}
+          className="text-sm text-[var(--text-muted)] underline decoration-dotted underline-offset-2 hover:text-[var(--text-secondary)]"
+        >
+          {t("landing.skipNextTime")}
+        </button>
       </div>
     </section>
   );

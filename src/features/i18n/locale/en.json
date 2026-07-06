@@ -21,7 +21,14 @@
   "landing": {
     "bracketDesc": "Radial and horizontal knockout views, click any team to see their journey.",
     "teamsDesc": "All 48 teams — filter by group or confederation, sort by rank.",
-    "groupsDesc": "Group standings and every match with score and venue."
+    "groupsDesc": "Group standings and every match with score and venue.",
+    "skipNextTime": "Skip this page next time →"
+  },
+  "settings": {
+    "startOnBracket": "Start on bracket"
+  },
+  "meta": {
+    "dataUpdated": "Data updated"
   },
   "language": { "label": "Language" },
   "theme": {

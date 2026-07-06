@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "../features/i18n/LanguageSwitcher";
 import { ThemeToggle } from "../features/theme/ThemeToggle";
 import { FavouriteTeamLink } from "../features/favourites/FavouriteTeamLink";
+import { useSkipLanding } from "../features/preferences/preferences";
+import { BUILD_TIMESTAMP, formatAbsolute, formatRelative } from "../lib/buildInfo";
 import { BracketIcon, CloseIcon, GroupsIcon, HomeIcon, TeamsIcon, TrophyIcon } from "./NavIcons";
 
 type Props = {
@@ -70,6 +72,15 @@ export function Sidebar({ onNavClick, onClose }: Props) {
         <Divider className="-mx-6 mb-1" />
         <LanguageSwitcher />
         <ThemeToggle />
+        <SkipLandingToggle />
+        {BUILD_TIMESTAMP ? (
+          <p
+            className="text-[11px] leading-snug text-[var(--text-muted)]"
+            title={formatAbsolute(BUILD_TIMESTAMP)}
+          >
+            {t("meta.dataUpdated")} {formatRelative(BUILD_TIMESTAMP)}
+          </p>
+        ) : null}
         <p className="text-[11px] leading-snug text-[var(--text-muted)]">{t("app.footer")}</p>
       </div>
     </div>
@@ -78,6 +89,22 @@ export function Sidebar({ onNavClick, onClose }: Props) {
 
 function Divider({ className = "" }: { className?: string }) {
   return <div className={`border-t border-[var(--border-subtle)] ${className}`} aria-hidden="true" />;
+}
+
+function SkipLandingToggle() {
+  const [skip, setSkip] = useSkipLanding();
+  const { t } = useTranslation();
+  return (
+    <label className="flex items-center justify-between gap-3 text-sm text-[var(--text-secondary)]">
+      <span>{t("settings.startOnBracket")}</span>
+      <input
+        type="checkbox"
+        checked={skip}
+        onChange={(e) => setSkip(e.target.checked)}
+        className="h-4 w-4 cursor-pointer accent-[var(--btn-bg)]"
+      />
+    </label>
+  );
 }
 
 function NavItem({

@@ -21,7 +21,14 @@
   "landing": {
     "bracketDesc": "Vistas radial y horizontal, haz clic en un equipo para ver su recorrido.",
     "teamsDesc": "Los 48 equipos: filtra por grupo o confederación, ordena por ranking.",
-    "groupsDesc": "Clasificación de grupos y cada partido con marcador y sede."
+    "groupsDesc": "Clasificación de grupos y cada partido con marcador y sede.",
+    "skipNextTime": "Omitir esta página la próxima vez →"
+  },
+  "settings": {
+    "startOnBracket": "Iniciar en eliminatorias"
+  },
+  "meta": {
+    "dataUpdated": "Datos actualizados"
   },
   "language": { "label": "Idioma" },
   "theme": {

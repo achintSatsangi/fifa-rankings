@@ -21,7 +21,14 @@
   "landing": {
     "bracketDesc": "Ympyrä- ja vaakanäkymä — klikkaa joukkuetta nähdäksesi reitin.",
     "teamsDesc": "Kaikki 48 joukkuetta — suodata lohkolla/konfederaatiolla, järjestä sijoituksella.",
-    "groupsDesc": "Lohkotaulukot ja jokainen ottelu tuloksineen ja stadionineen."
+    "groupsDesc": "Lohkotaulukot ja jokainen ottelu tuloksineen ja stadionineen.",
+    "skipNextTime": "Ohita tämä sivu ensi kerralla →"
+  },
+  "settings": {
+    "startOnBracket": "Aloita pudotuspeleistä"
+  },
+  "meta": {
+    "dataUpdated": "Tiedot päivitetty"
   },
   "language": { "label": "Kieli" },
   "theme": {

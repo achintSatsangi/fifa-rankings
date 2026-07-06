@@ -64,6 +64,11 @@ jobs:
       - name: Build
         env:
           PUBLIC_BASE: /fifa-rankings/
+          # github.run_started_at is ISO 8601 UTC — used by the app to
+          # show "Data updated Nm ago" in the sidebar. Close enough to
+          # the refresh timestamp since refresh runs seconds earlier in
+          # the same job.
+          VITE_BUILD_TIMESTAMP: ${{ github.run_started_at }}
         run: pnpm build
 
       - name: Upload Pages artifact

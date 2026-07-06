@@ -21,7 +21,14 @@
   "landing": {
     "bracketDesc": "Cirkulær og horisontal slutrunde — klik et hold for at se rejsen.",
     "teamsDesc": "Alle 48 hold — filtrér på gruppe/konføderation, sortér på rangering.",
-    "groupsDesc": "Gruppetabeller og hver kamp med resultat og arena."
+    "groupsDesc": "Gruppetabeller og hver kamp med resultat og arena.",
+    "skipNextTime": "Spring denne side over næste gang →"
+  },
+  "settings": {
+    "startOnBracket": "Start på slutrunden"
+  },
+  "meta": {
+    "dataUpdated": "Data opdateret"
   },
   "language": { "label": "Sprog" },
   "theme": {
