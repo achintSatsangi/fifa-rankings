@@ -36,16 +36,54 @@ export const WINNER_RING_RADIUS: Record<BracketRound, number> = {
   "3RD": 0,
 };
 
-/** Flag sizes per ring. Winners get smaller flags on inner rings. */
+/**
+ * Flag sizes per ring at the design container width (720 px). Values
+ * scale down linearly on smaller viewports via `flagSizesFor()` so
+ * outer flags never overlap on mobile.
+ *
+ * The `F` and `3RD` entries are 0 — a marker that we render no winner
+ * flag for those rounds (Final champion shares the trophy centre).
+ */
 export const FLAG_SIZE: Record<BracketRound | "OUTER", number> = {
   OUTER: 52,
   R32: 42,
   R16: 36,
   QF:  32,
   SF:  28,
-  F:   0,      // Champion overlaps the trophy — omit its own flag for now
+  F:   0,
   "3RD": 0,
 };
+
+/** Container size the FLAG_SIZE values were tuned for. */
+const DESIGN_SIZE = 720;
+
+const MARKER_BASE = 18;   // unplayed-match dashed circle
+const TROPHY_BASE = 40;   // centre trophy icon
+
+function scale(v: number, containerSize: number): number {
+  return Math.round(v * Math.min(1, Math.max(0, containerSize) / DESIGN_SIZE));
+}
+
+/** Flag sizes scaled to the actual container. Returns 0-entries unchanged. */
+export function flagSizesFor(containerSize: number): Record<BracketRound | "OUTER", number> {
+  return {
+    OUTER: scale(FLAG_SIZE.OUTER, containerSize),
+    R32:   scale(FLAG_SIZE.R32,   containerSize),
+    R16:   scale(FLAG_SIZE.R16,   containerSize),
+    QF:    scale(FLAG_SIZE.QF,    containerSize),
+    SF:    scale(FLAG_SIZE.SF,    containerSize),
+    F:     0,
+    "3RD": 0,
+  };
+}
+
+export function markerSizeFor(containerSize: number): number {
+  return scale(MARKER_BASE, containerSize);
+}
+
+export function trophySizeFor(containerSize: number): number {
+  return scale(TROPHY_BASE, containerSize);
+}
 
 /** Radial distance of the connector stub from source position inward. */
 const STUB_LENGTH = 0.02;

@@ -10,8 +10,11 @@ import { Trophy } from "./Trophy";
 import {
   FLAG_SIZE,
   eliminationRound,
+  flagSizesFor,
+  markerSizeFor,
   matchCenterPoint,
   outerSlots,
+  trophySizeFor,
 } from "./layout";
 
 export function RadialBracket() {
@@ -65,38 +68,75 @@ export function RadialBracket() {
         className="relative flex min-h-0 flex-1 items-center justify-center"
       >
         {size > 0 ? (
-          <div className="relative" style={{ width: size, height: size }}>
-            <Connectors />
-            {outer.map((s) => (
-              <TeamPoint
-                key={`o-${s.slot}`}
-                code={s.teamCode}
-                point={s.point}
-                size={FLAG_SIZE.OUTER}
-                faded={s.teamCode ? eliminationCache.get(s.teamCode) !== null : false}
-                onClick={s.teamCode ? setSelectedCode : undefined}
-                layer="outer"
-              />
-            ))}
-            {winners.map((w) => (
-              <TeamPoint
-                key={`w-${w.match.id}`}
-                code={w.code}
-                point={w.point}
-                size={FLAG_SIZE[w.match.round]}
-                onClick={w.code ? setSelectedCode : undefined}
-                layer="winner"
-              />
-            ))}
-            {unplayedMarkers.map((m) => (
-              <MatchMarker key={`u-${m.match.id}`} match={m.match} point={m.point} />
-            ))}
-            <Trophy />
-          </div>
+          <RingContent
+            size={size}
+            outer={outer}
+            eliminationCache={eliminationCache}
+            winners={winners}
+            unplayedMarkers={unplayedMarkers}
+            onTeamClick={setSelectedCode}
+          />
         ) : null}
       </div>
 
       <JourneyModal code={selectedCode} onClose={() => setSelectedCode(null)} />
+    </div>
+  );
+}
+
+type OuterSlot = ReturnType<typeof outerSlots>[number];
+type Winner = { match: (typeof BRACKET)[number]; code: string | null; point: ReturnType<typeof matchCenterPoint> };
+type Marker = { match: (typeof BRACKET)[number]; point: ReturnType<typeof matchCenterPoint> };
+
+function RingContent({
+  size,
+  outer,
+  eliminationCache,
+  winners,
+  unplayedMarkers,
+  onTeamClick,
+}: {
+  size: number;
+  outer: OuterSlot[];
+  eliminationCache: Map<string, ReturnType<typeof eliminationRound>>;
+  winners: Winner[];
+  unplayedMarkers: Marker[];
+  onTeamClick: (code: string) => void;
+}) {
+  // Scale flag / marker / trophy sizes with the measured ring so mobile
+  // viewports don't get overlapping flags on the outer ring.
+  const sizes = useMemo(() => flagSizesFor(size), [size]);
+  const markerSize = useMemo(() => markerSizeFor(size), [size]);
+  const trophySize = useMemo(() => trophySizeFor(size), [size]);
+
+  return (
+    <div className="relative" style={{ width: size, height: size }}>
+      <Connectors />
+      {outer.map((s) => (
+        <TeamPoint
+          key={`o-${s.slot}`}
+          code={s.teamCode}
+          point={s.point}
+          size={sizes.OUTER}
+          faded={s.teamCode ? eliminationCache.get(s.teamCode) !== null : false}
+          onClick={s.teamCode ? onTeamClick : undefined}
+          layer="outer"
+        />
+      ))}
+      {winners.map((w) => (
+        <TeamPoint
+          key={`w-${w.match.id}`}
+          code={w.code}
+          point={w.point}
+          size={sizes[w.match.round]}
+          onClick={w.code ? onTeamClick : undefined}
+          layer="winner"
+        />
+      ))}
+      {unplayedMarkers.map((m) => (
+        <MatchMarker key={`u-${m.match.id}`} match={m.match} point={m.point} size={markerSize} />
+      ))}
+      <Trophy size={trophySize} />
     </div>
   );
 }
