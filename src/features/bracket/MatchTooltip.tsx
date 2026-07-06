@@ -7,18 +7,18 @@ import { formatCountdown, formatKickoff, formatScore, isMatchPlayed } from "./ma
 type Props = {
   match: BracketMatch;
   visible: boolean;
-  /** When provided, the score line renders from this team's perspective
-   *  and includes team names on either side. Radial passes the flag's
-   *  team here; horizontal leaves it unset (the card already shows both
-   *  team names + score, so we only add date + venue). */
+  /** When provided, the middle line shows this team's name first with
+   *  either the score (played) or "vs opponent" (upcoming). */
   focusTeam?: string;
   className?: string;
 };
 
 /**
- * Floating tooltip with kickoff, live countdown (upcoming) or a
- * result line (played), and venue. Positioned absolutely below its
- * parent, visibility is controlled by the caller.
+ * Floating tooltip. Contents depend on the match state:
+ *   played  + focusTeam → date, team-perspective result, venue
+ *   played  + no focus  → date, venue
+ *   upcoming + focusTeam → date, "focus vs opponent", live countdown, venue
+ *   upcoming + no focus  → date, live countdown, venue
  */
 export function MatchTooltip({ match, visible, focusTeam, className = "" }: Props) {
   const { t } = useTranslation();
@@ -40,26 +40,28 @@ export function MatchTooltip({ match, visible, focusTeam, className = "" }: Prop
       onClick={(e) => e.stopPropagation()}
     >
       <div className="font-semibold">{formatKickoff(match)}</div>
-      {played ? (
-        focusTeam ? <ResultLine match={match} focusTeam={focusTeam} /> : null
-      ) : (
-        <CountdownLine match={match} label={t("matches.startsIn")} />
-      )}
+      {focusTeam ? <MatchupLine match={match} focusTeam={focusTeam} /> : null}
+      {!played ? <CountdownLine match={match} label={t("matches.startsIn")} /> : null}
       <div className="mt-0.5 opacity-80">{match.venue}</div>
     </div>
   );
 }
 
-function ResultLine({ match, focusTeam }: { match: BracketMatch; focusTeam: string }) {
+function MatchupLine({ match, focusTeam }: { match: BracketMatch; focusTeam: string }) {
   const focusIsA = match.teamCodeA === focusTeam;
   const leftCode = focusIsA ? match.teamCodeA : match.teamCodeB;
   const rightCode = focusIsA ? match.teamCodeB : match.teamCodeA;
   const leftName = teamByCode(leftCode)?.name ?? leftCode ?? "?";
   const rightName = teamByCode(rightCode)?.name ?? rightCode ?? "?";
+  const played = isMatchPlayed(match);
   return (
     <div className="mt-0.5">
       <span className="font-medium">{leftName}</span>{" "}
-      <span className="font-mono tabular-nums">{formatScore(match, focusTeam)}</span>{" "}
+      {played ? (
+        <span className="font-mono tabular-nums">{formatScore(match, focusTeam)}</span>
+      ) : (
+        <span className="opacity-80">vs</span>
+      )}{" "}
       <span className="font-medium">{rightName}</span>
     </div>
   );

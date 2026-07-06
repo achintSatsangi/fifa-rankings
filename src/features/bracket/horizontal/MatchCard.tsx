@@ -4,7 +4,7 @@ import { useHoverTapToggle } from "../../../lib/hoverTapToggle";
 import { Flag } from "../../flags/Flag";
 import { teamByCode } from "../../teams/data";
 import { MatchTooltip } from "../MatchTooltip";
-import { formatMatchDate, isMatchPlayed } from "../matchTime";
+import { formatMatchDate } from "../matchTime";
 import { isWinner, resolveSlotCode, slotLabel } from "../resolver";
 
 type Props = {
@@ -15,11 +15,9 @@ type Props = {
 export function MatchCard({ match, onTeamClick }: Props) {
   const codeA = resolveSlotCode(match.slotA, match.teamCodeA);
   const codeB = resolveSlotCode(match.slotB, match.teamCodeB);
-  const played = isMatchPlayed(match);
   const { visible, triggerProps, containerRef } = useHoverTapToggle();
 
   const handleCardClick = (e: MouseEvent) => {
-    if (!played) return;
     // Team-row buttons open the journey modal — don't hijack them.
     const target = e.target as HTMLElement;
     if (target.closest("button")) return;
@@ -28,15 +26,11 @@ export function MatchCard({ match, onTeamClick }: Props) {
 
   return (
     <article
-      ref={played ? (containerRef as React.RefObject<HTMLElement>) : undefined}
-      onMouseEnter={played ? triggerProps.onMouseEnter : undefined}
-      onMouseLeave={played ? triggerProps.onMouseLeave : undefined}
+      ref={containerRef as React.RefObject<HTMLElement>}
+      onMouseEnter={triggerProps.onMouseEnter}
+      onMouseLeave={triggerProps.onMouseLeave}
       onClick={handleCardClick}
-      className={
-        "group relative flex w-56 flex-col rounded-md border border-[var(--border-subtle)] " +
-        "bg-[var(--surface-elevated)] shadow-sm " +
-        (played ? "cursor-pointer" : "")
-      }
+      className="group relative flex w-56 cursor-pointer flex-col rounded-md border border-[var(--border-subtle)] bg-[var(--surface-elevated)] shadow-sm"
       aria-label={`${match.id} ${formatMatchDate(match.date)}`}
     >
       <header className="flex items-center justify-between border-b border-[var(--border-subtle)] px-2 py-1 text-[10px] uppercase tracking-wide text-[var(--text-muted)]">
@@ -66,7 +60,7 @@ export function MatchCard({ match, onTeamClick }: Props) {
             : "a.e.t."}
         </footer>
       ) : null}
-      {played ? <MatchTooltip match={match} visible={visible} /> : null}
+      <MatchTooltip match={match} visible={visible} />
     </article>
   );
 }
