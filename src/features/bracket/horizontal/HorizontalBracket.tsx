@@ -18,7 +18,7 @@ export function HorizontalBracket() {
   return (
     <div className="flex h-full w-full flex-col">
       <div className="min-h-0 flex-1 overflow-auto">
-        <div className="flex min-w-max gap-6 pb-2">
+        <div className="mx-auto flex min-w-max gap-6 pb-2">
           {KNOCKOUT_ROUNDS.map(({ round, label }) => {
             const matches = matchesByRoundInTreeOrder(round);
             return (

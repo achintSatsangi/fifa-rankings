@@ -1,14 +1,14 @@
 import type { HTMLAttributes, TableHTMLAttributes, ThHTMLAttributes, TdHTMLAttributes } from "react";
 
 export function Table({ className = "", ...props }: TableHTMLAttributes<HTMLTableElement>) {
-  return <table {...props} className={`w-full border-collapse text-sm ${className}`} />;
+  return <table {...props} className={`w-full border-collapse text-base ${className}`} />;
 }
 
 export function THead({ className = "", ...props }: HTMLAttributes<HTMLTableSectionElement>) {
   return (
     <thead
       {...props}
-      className={`text-xs uppercase tracking-wide text-[var(--text-muted)] ${className}`}
+      className={`text-[11px] uppercase tracking-wide text-[var(--text-muted)] ${className}`}
     />
   );
 }
@@ -30,7 +30,7 @@ export function TH({ className = "", align = "left", ...props }: ThHTMLAttribute
   return (
     <th
       {...props}
-      className={`px-2 py-2 font-medium text-${align} ${className}`}
+      className={`px-2 py-2.5 font-medium text-${align} ${className}`}
     />
   );
 }
@@ -39,7 +39,7 @@ export function TD({ className = "", align = "left", ...props }: TdHTMLAttribute
   return (
     <td
       {...props}
-      className={`px-2 py-2 text-${align} ${className}`}
+      className={`px-2 py-2.5 text-${align} ${className}`}
     />
   );
 }

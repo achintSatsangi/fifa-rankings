@@ -50,7 +50,7 @@ export function Sidebar({ onNavClick, onClose }: Props) {
       {/* Primary nav */}
       <nav
         aria-label={t("nav.primary")}
-        className="flex flex-col gap-0.5 px-3 py-3"
+        className="flex flex-col gap-1 px-3 py-3"
       >
         <NavItem to="/" label={t("nav.home")} Icon={HomeIcon} onNavigate={onNavClick} />
         <NavItem to="/bracket" label={t("nav.bracket")} Icon={BracketIcon} onNavigate={onNavClick} />
@@ -97,7 +97,7 @@ function NavItem({
       activeOptions={{ exact: to === "/" }}
       onClick={onNavigate}
       className={
-        "group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium " +
+        "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-base font-medium " +
         "text-[var(--text-secondary)] transition-colors " +
         "hover:bg-[var(--surface-muted)] hover:text-[var(--text)]"
       }
@@ -106,7 +106,7 @@ function NavItem({
           "!bg-[var(--btn-bg)] !text-[var(--btn-text)] hover:!bg-[var(--btn-bg-hover)]",
       }}
     >
-      <Icon />
+      <Icon width={20} height={20} />
       <span>{label}</span>
     </Link>
   );

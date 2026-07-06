@@ -34,17 +34,17 @@ export function JourneyModal({ code, onClose }: Props) {
     <Modal open={open} onClose={onClose} title={team?.name ?? code ?? ""} size="xl">
       {team ? (
         <>
-          <header className="mb-4 flex flex-wrap items-center gap-4">
-            <Flag code={team.code} size={56} />
+          <header className="mb-6 flex flex-wrap items-center gap-4">
+            <Flag code={team.code} size={64} />
             <div className="flex flex-1 flex-col gap-1">
-              <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
+              <div className="flex items-center gap-2 text-base text-[var(--text-secondary)]">
                 <span>{t("team.group")} {team.groupId}</span>
                 <span>·</span>
                 <span>{team.confederation}</span>
                 <span>·</span>
                 <span>{t("team.rank")} #{team.fifaRank}</span>
               </div>
-              <div className="text-sm text-[var(--text)]">{stageLabel}</div>
+              <div className="text-base text-[var(--text)]">{stageLabel}</div>
             </div>
             <FavouriteButton code={team.code} size="md" />
           </header>

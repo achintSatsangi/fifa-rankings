@@ -10,7 +10,7 @@ export const Route = createFileRoute("/groups")({
 function GroupsPage() {
   const { t } = useTranslation();
   return (
-    <section className="w-full max-w-6xl">
+    <section className="mx-auto w-full max-w-6xl">
       <header className="mb-6">
         <h2 className="m-0 text-2xl font-semibold">{t("groups.title")}</h2>
         <p className="mt-1 text-sm text-[var(--text-secondary)]">
