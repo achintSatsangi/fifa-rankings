@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { BracketRound } from "../../../data/types";
-import { matchesByRound } from "../data";
+import { matchesByRound, matchesByRoundInTreeOrder } from "../data";
 import { JourneyModal } from "../../teams/JourneyModal";
 import { MatchCard } from "./MatchCard";
 
@@ -23,7 +23,7 @@ export function HorizontalBracket() {
       <div className="overflow-x-auto">
         <div className="flex min-w-max gap-6 pb-4">
           {KNOCKOUT_ROUNDS.map(({ round, label }) => {
-            const matches = matchesByRound(round);
+            const matches = matchesByRoundInTreeOrder(round);
             return (
               <div key={round} className="flex flex-col">
                 <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)]">
