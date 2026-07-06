@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "../features/i18n/LanguageSwitcher";
 import { ThemeToggle } from "../features/theme/ThemeToggle";
 import { FavouriteTeamLink } from "../features/favourites/FavouriteTeamLink";
-import { BracketIcon, CloseIcon, GroupsIcon, TeamsIcon, TrophyIcon } from "./NavIcons";
+import { BracketIcon, CloseIcon, GroupsIcon, HomeIcon, TeamsIcon, TrophyIcon } from "./NavIcons";
 
 type Props = {
   onNavClick?: () => void;
@@ -38,7 +38,7 @@ export function Sidebar({ onNavClick, onClose }: Props) {
             type="button"
             onClick={onClose}
             aria-label={t("nav.closeMenu")}
-            className="-mt-1 -mr-1 rounded-md p-1.5 text-[var(--text-secondary)] hover:bg-[var(--surface-muted)] lg:hidden"
+            className="-mt-1 -mr-1 rounded-md p-1.5 text-[var(--text-secondary)] hover:bg-[var(--surface-muted)]"
           >
             <CloseIcon />
           </button>
@@ -52,7 +52,8 @@ export function Sidebar({ onNavClick, onClose }: Props) {
         aria-label={t("nav.primary")}
         className="flex flex-col gap-0.5 px-3 py-3"
       >
-        <NavItem to="/" label={t("nav.bracket")} Icon={BracketIcon} onNavigate={onNavClick} />
+        <NavItem to="/" label={t("nav.home")} Icon={HomeIcon} onNavigate={onNavClick} />
+        <NavItem to="/bracket" label={t("nav.bracket")} Icon={BracketIcon} onNavigate={onNavClick} />
         <NavItem to="/teams" label={t("nav.teams")} Icon={TeamsIcon} onNavigate={onNavClick} />
         <NavItem to="/groups" label={t("nav.groups")} Icon={GroupsIcon} onNavigate={onNavClick} />
       </nav>

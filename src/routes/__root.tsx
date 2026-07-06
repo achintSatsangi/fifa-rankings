@@ -3,7 +3,7 @@ import { createRootRoute, Outlet, useRouterState } from "@tanstack/react-router"
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { FocusTrap } from "focus-trap-react";
 import { Sidebar } from "../components/Sidebar";
-import { MobileHeader } from "../components/MobileHeader";
+import { AppHeader } from "../components/MobileHeader";
 
 export const Route = createRootRoute({
   component: RootLayout,
@@ -30,15 +30,15 @@ function RootLayout() {
   }, [drawerOpen]);
 
   return (
-    <div className="min-h-svh lg:flex">
-      <MobileHeader onOpenMenu={() => setDrawerOpen(true)} />
+    <div className="flex min-h-svh flex-col">
+      <AppHeader onOpenMenu={() => setDrawerOpen(true)} />
 
       {drawerOpen ? (
         <button
           type="button"
           aria-label="Close menu"
           onClick={() => setDrawerOpen(false)}
-          className="fixed inset-0 z-40 bg-[var(--modal-overlay)] lg:hidden"
+          className="fixed inset-0 z-40 bg-[var(--modal-overlay)]"
         />
       ) : null}
 
@@ -57,8 +57,7 @@ function RootLayout() {
             "fixed inset-y-0 left-0 z-50 flex w-80 max-w-[85vw] flex-col " +
             "border-r border-[var(--border-subtle)] bg-[var(--surface)] " +
             "transition-transform duration-200 ease-out " +
-            "lg:sticky lg:top-0 lg:h-svh lg:w-72 lg:max-w-none lg:translate-x-0 lg:transition-none " +
-            (drawerOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0")
+            (drawerOpen ? "translate-x-0" : "-translate-x-full")
           }
         >
           <Sidebar
