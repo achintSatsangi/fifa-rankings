@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { BRACKET } from "../data";
 import { winnerCode } from "../resolver";
 import { JourneyModal } from "../../teams/JourneyModal";
@@ -15,7 +14,6 @@ import {
 
 export function RadialBracket() {
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
-  const { t } = useTranslation();
 
   const outer = useMemo(outerSlots, []);
   const eliminationCache = useMemo(() => {
@@ -76,8 +74,6 @@ export function RadialBracket() {
           <Trophy />
         </div>
       </div>
-
-      <p className="mt-2 text-center text-xs text-[var(--text-muted)]">{t("shortcuts.hint")}</p>
 
       <JourneyModal code={selectedCode} onClose={() => setSelectedCode(null)} />
     </div>

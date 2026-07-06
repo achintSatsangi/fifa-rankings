@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import type { BracketRound } from "../../../data/types";
 import { matchesByRoundInTreeOrder } from "../data";
 import { JourneyModal } from "../../teams/JourneyModal";
@@ -15,7 +14,6 @@ const KNOCKOUT_ROUNDS: { round: BracketRound; label: string }[] = [
 
 export function HorizontalBracket() {
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
-  const { t } = useTranslation();
 
   return (
     <div className="flex h-full w-full flex-col">
@@ -38,8 +36,6 @@ export function HorizontalBracket() {
           })}
         </div>
       </div>
-
-      <p className="mt-2 text-center text-xs text-[var(--text-muted)]">{t("shortcuts.hint")}</p>
 
       <JourneyModal code={selectedCode} onClose={() => setSelectedCode(null)} />
     </div>

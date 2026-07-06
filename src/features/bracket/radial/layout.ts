@@ -38,11 +38,11 @@ export const WINNER_RING_RADIUS: Record<BracketRound, number> = {
 
 /** Flag sizes per ring. Winners get smaller flags on inner rings. */
 export const FLAG_SIZE: Record<BracketRound | "OUTER", number> = {
-  OUTER: 44,
-  R32: 34,
-  R16: 30,
-  QF:  26,
-  SF:  22,
+  OUTER: 52,
+  R32: 42,
+  R16: 36,
+  QF:  32,
+  SF:  28,
   F:   0,      // Champion overlaps the trophy — omit its own flag for now
   "3RD": 0,
 };

@@ -72,9 +72,9 @@ function TeamRow({
   const inner = (
     <>
       {team ? (
-        <Flag code={team.code} size={18} />
+        <Flag code={team.code} size={22} />
       ) : (
-        <span className="inline-block h-[18px] w-[18px] rounded-full border border-dashed border-[var(--border)]" />
+        <span className="inline-block h-[22px] w-[22px] rounded-full border border-dashed border-[var(--border)]" />
       )}
       <span className={`min-w-0 flex-1 truncate ${isPlaceholder ? "italic text-[var(--text-muted)]" : ""}`}>
         {team?.name ?? placeholder}
