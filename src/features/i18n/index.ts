@@ -42,13 +42,10 @@ i18n
     supportedLngs: SUPPORTED_LANGUAGES.map((l) => l.code),
     interpolation: { escapeValue: false },
     detection: {
-      order: ["querystring", "cookie", "localStorage", "navigator"],
+      order: ["querystring", "localStorage", "navigator"],
       lookupQuerystring: "lang",
-      lookupCookie: "fifa-ranking:lang",
       lookupLocalStorage: "fifa-ranking:lang",
-      caches: ["cookie", "localStorage"],
-      cookieMinutes: 365 * 24 * 60,
-      cookieOptions: { path: "/", sameSite: "lax" },
+      caches: ["localStorage"],
     },
   });
 

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { getCookie, setCookie } from "../../lib/cookies";
+import { getStorageItem, setStorageItem } from "../../lib/storage";
 
 type ThemeChoice = "light" | "dark" | "system";
 
@@ -10,7 +10,7 @@ type ThemeContextValue = {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-const COOKIE = "fifa-ranking:theme";
+const STORAGE_KEY = "fifa-ranking:theme";
 
 function applyChoice(choice: ThemeChoice) {
   const root = document.documentElement;
@@ -22,7 +22,7 @@ function applyChoice(choice: ThemeChoice) {
 }
 
 function readInitial(): ThemeChoice {
-  const stored = getCookie(COOKIE);
+  const stored = getStorageItem(STORAGE_KEY);
   if (stored === "light" || stored === "dark" || stored === "system") return stored;
   return "system";
 }
@@ -32,7 +32,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     applyChoice(choice);
-    setCookie(COOKIE, choice);
+    setStorageItem(STORAGE_KEY, choice);
   }, [choice]);
 
   const value = useMemo<ThemeContextValue>(() => ({ choice, setChoice }), [choice]);
