@@ -73,4 +73,13 @@ export type BracketMatch = {
   losersFeedInto?: FeedTarget;
 };
 
-export type HighlightsMap = Record<string, string>;
+export type HighlightEntry = {
+  /** Direct YouTube URL to the primary FIFA-channel highlights video. */
+  youtube?: string;
+  /** ISO timestamp of when scripts/resolve-highlights.mjs found it. */
+  resolvedAt?: string;
+};
+
+/** highlights.json shape. `__note` is a free-form doc string; every other
+ *  key is a bracket match id (e.g. "R32-7"). */
+export type HighlightsMap = Record<string, HighlightEntry | string | undefined>;

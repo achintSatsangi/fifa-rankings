@@ -70,7 +70,16 @@ The app has **no client-side API integration**. Everything at runtime reads from
 
 **Local:** `node --env-file=.env scripts/refresh-live.mjs`. Requires a personal key in `.env` (gitignored; template in `.env.example`).
 
-**CI:** `.github/workflows/refresh-and-deploy.yml` runs at `:02/:17/:32/:47` past every hour (offset from `:00` because GH Actions is congested there), on push to `main`, and on manual dispatch. It refreshes → commits changes (if any) as `github-actions[bot]` → builds → deploys to GitHub Pages. Key is stored as the `FOOTBALL_DATA_KEY` repo secret. The auto-commit uses `GITHUB_TOKEN`, so it doesn't retrigger the workflow.
+**Highlights resolver:** `scripts/resolve-highlights.mjs`
+- Queries YouTube Data API v3 scoped to the FIFA channel (`UCpcTrCXblq78GZrTUTLWeBw`) for each played match without a cached video, caches result in `src/data/highlights.json`.
+- Only accepts the canonical FIFA main-highlights title pattern: `"Highlights | <TeamA> <X-Y> <TeamB> | FIFA World Cup 2026™"`. The `🆚 #FIFAWorldCupOnYT` Shorts/reels, Alt Cast broadcast feeds, pressers, training clips, and single-goal edits are all filtered out via `NEGATIVE_MARKERS` — otherwise a user clicking "Highlights" gets the wrong video.
+- Handles FIFA's alternate country spellings (`Cote d'Ivoire`, `Cabo Verde`, `USA`, `Congo DR`) via `NAME_ALIASES`.
+- Reads `YOUTUBE_API_KEY` from env. One search costs 100 units against the 10,000/day free-tier quota — every match resolves in one call so a full backfill is ~50 calls per day of the tournament, well under quota.
+- Search errors don't crash the run; unresolved matches are retried by the next scheduled workflow.
+- Flags: `--match=<id>` restricts to a single match; `--force` re-resolves even if cached.
+- Client fallback: if a match has no cached video, `resolveHighlight` returns a FIFA-channel search URL and the JourneyModal renders a muted play button instead of the red YouTube one.
+
+**CI:** `.github/workflows/refresh-and-deploy.yml` runs at `:02/:17/:32/:47` past every hour (offset from `:00` because GH Actions is congested there), on push to `main`, and on manual dispatch. It refreshes scores → resolves any new highlights → commits changes (if any) as `github-actions[bot]` → builds → deploys to GitHub Pages. Secrets: `FOOTBALL_DATA_KEY` and `YOUTUBE_API_KEY` (the highlights step is skipped if the latter is unset). The auto-commit uses `GITHUB_TOKEN`, so it doesn't retrigger the workflow.
 
 ## Deploy (GitHub Pages)
 

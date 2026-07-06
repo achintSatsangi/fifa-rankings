@@ -6,7 +6,8 @@ import { Badge } from "../../ui/Badge";
 import { formatMatchDate } from "../bracket/matchTime";
 import { Flag } from "../flags/Flag";
 import { FavouriteButton } from "../favourites/FavouriteButton";
-import { highlightUrl } from "../highlights/resolver";
+import { HighlightButton } from "../highlights/HighlightButton";
+import { resolveHighlight } from "../highlights/resolver";
 import { teamByCode } from "./data";
 import { buildJourney, currentStageLabel, type JourneyResult } from "./journey";
 
@@ -102,18 +103,10 @@ export function JourneyModal({ code, onClose }: Props) {
                     <TD className="hidden text-[var(--text-secondary)] md:table-cell">{r.venue}</TD>
                     <TD align="center">
                       {r.played ? (
-                        <a
-                          href={highlightUrl(r.matchId, team.code, r.opponentCode)}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[var(--text-secondary)] underline decoration-dotted underline-offset-2 hover:text-[var(--text)]"
-                          aria-label={t("team.watchHighlights")}
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                          </svg>
-                          <span className="sr-only">{t("team.watchHighlights")}</span>
-                        </a>
+                        <HighlightButton
+                          {...resolveHighlight(r.matchId, team.code, r.opponentCode)}
+                          label={t("team.watchHighlights")}
+                        />
                       ) : (
                         <span className="text-[var(--text-muted)]">—</span>
                       )}

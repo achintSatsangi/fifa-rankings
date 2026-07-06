@@ -48,6 +48,15 @@ jobs:
           FOOTBALL_DATA_KEY: ${{ secrets.FOOTBALL_DATA_KEY }}
         run: node scripts/refresh-live.mjs
 
+      # After scores refresh, look up any newly-played matches on the
+      # FIFA YouTube channel. Skipped when the secret is unset so the
+      # workflow keeps working without the key.
+      - name: Resolve match highlights
+        if: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && env.YOUTUBE_API_KEY != '' }}
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: node scripts/resolve-highlights.mjs
+
       - name: Commit refreshed data (if changed)
         if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
         run: |
@@ -55,7 +64,7 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add src/data
-            git commit -m "chore(data): hourly refresh from football-data.org"
+            git commit -m "chore(data): scheduled refresh (scores + highlights)"
             git push
           else
             echo "No data changes."

@@ -1,5 +1,75 @@
 {
-  "__note": "Match id -> YouTube URL. Missing entries fall back to a YouTube search on the FIFA channel. Add more as they get published.",
-  "R32-7": "https://www.youtube.com/watch?v=dWUEaoMdc20",
-  "R16-4": "https://www.youtube.com/watch?v=0wPkptiNROM"
+  "__note": "Match id -> { youtube: url, resolvedAt: iso }. Auto-populated by scripts/resolve-highlights.mjs querying the FIFA channel via YouTube Data API. Missing entries fall back to a FIFA-channel search URL.",
+  "R32-7": {
+    "youtube": "https://www.youtube.com/watch?v=Fd_KYjbmws4",
+    "resolvedAt": "2026-07-06T18:47:38.864Z"
+  },
+  "R32-1": {
+    "youtube": "https://www.youtube.com/watch?v=uv-FSqzHXAo",
+    "resolvedAt": "2026-07-06T18:53:37.034Z"
+  },
+  "R32-2": {
+    "youtube": "https://www.youtube.com/watch?v=vdnhUnGHwco",
+    "resolvedAt": "2026-07-06T18:53:38.947Z"
+  },
+  "R32-3": {
+    "youtube": "https://www.youtube.com/watch?v=Gw6vNwAvkTs",
+    "resolvedAt": "2026-07-06T18:53:40.827Z"
+  },
+  "R32-4": {
+    "youtube": "https://www.youtube.com/watch?v=A7pgChEIFTg",
+    "resolvedAt": "2026-07-06T18:53:42.731Z"
+  },
+  "R32-5": {
+    "youtube": "https://www.youtube.com/watch?v=jxU1VT5YXXE",
+    "resolvedAt": "2026-07-06T18:53:44.564Z"
+  },
+  "R32-6": {
+    "youtube": "https://www.youtube.com/watch?v=p_j4aMfNQyI",
+    "resolvedAt": "2026-07-06T18:53:46.692Z"
+  },
+  "R32-9": {
+    "youtube": "https://www.youtube.com/watch?v=t-miz8tN7Qw",
+    "resolvedAt": "2026-07-06T18:53:50.400Z"
+  },
+  "R32-12": {
+    "youtube": "https://www.youtube.com/watch?v=PsPQkfngzV8",
+    "resolvedAt": "2026-07-06T18:53:56.662Z"
+  },
+  "R32-14": {
+    "youtube": "https://www.youtube.com/watch?v=olBx2GK7kZI",
+    "resolvedAt": "2026-07-06T18:54:00.457Z"
+  },
+  "R32-15": {
+    "youtube": "https://www.youtube.com/watch?v=-q-nO0sz18s",
+    "resolvedAt": "2026-07-06T18:54:02.303Z"
+  },
+  "R32-16": {
+    "youtube": "https://www.youtube.com/watch?v=I43WUQJFfCw",
+    "resolvedAt": "2026-07-06T18:54:04.236Z"
+  },
+  "R16-1": {
+    "youtube": "https://www.youtube.com/watch?v=sAYjtcpoaf0",
+    "resolvedAt": "2026-07-06T18:54:06.166Z"
+  },
+  "R16-2": {
+    "youtube": "https://www.youtube.com/watch?v=4HZCeb88uSI",
+    "resolvedAt": "2026-07-06T18:54:08.087Z"
+  },
+  "R32-13": {
+    "youtube": "https://www.youtube.com/watch?v=hzvEZ2Vxb94",
+    "resolvedAt": "2026-07-06T18:54:54.196Z"
+  },
+  "R32-8": {
+    "youtube": "https://www.youtube.com/watch?v=ATzmoebQMj0",
+    "resolvedAt": "2026-07-06T18:55:18.725Z"
+  },
+  "R32-10": {
+    "youtube": "https://www.youtube.com/watch?v=T6MYUQgpCv8",
+    "resolvedAt": "2026-07-06T18:55:20.525Z"
+  },
+  "R32-11": {
+    "youtube": "https://www.youtube.com/watch?v=SGQpzA9qcwk",
+    "resolvedAt": "2026-07-06T18:55:22.438Z"
+  }
 }
