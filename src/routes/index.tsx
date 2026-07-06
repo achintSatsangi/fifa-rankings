@@ -21,18 +21,20 @@ function BracketPage() {
     void navigate({ search: { view: v }, replace: true });
 
   return (
-    <section className="w-full max-w-6xl">
-      <header className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
+    <section className="mx-auto flex h-full min-h-0 w-full max-w-6xl flex-col">
+      <header className="mb-4 flex shrink-0 flex-wrap items-baseline justify-between gap-3">
         <div>
           <h2 className="m-0 text-2xl font-semibold">{t("bracket.title")}</h2>
           <p className="mt-1 text-sm text-[var(--text-secondary)]">
-            Click any team to see their tournament journey.
+            Click any team to see their tournament journey. Scroll or pinch to zoom, drag to pan.
           </p>
         </div>
         <ViewToggle value={view} onChange={setView} />
       </header>
 
-      {view === "radial" ? <RadialBracket /> : <HorizontalBracket />}
+      <div className="min-h-0 flex-1">
+        {view === "radial" ? <RadialBracket /> : <HorizontalBracket />}
+      </div>
     </section>
   );
 }

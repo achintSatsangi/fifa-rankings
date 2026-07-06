@@ -68,7 +68,7 @@ function RootLayout() {
         </aside>
       </FocusTrap>
 
-      <main className="flex flex-1 items-start justify-center overflow-x-auto p-4 sm:p-6">
+      <main className="flex min-h-0 flex-1 flex-col p-4 sm:p-6">
         <Outlet />
       </main>
 
