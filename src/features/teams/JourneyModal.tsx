@@ -4,6 +4,7 @@ import { Modal } from "../../ui/Modal";
 import { Table, THead, TBody, TR, TH, TD } from "../../ui/Table";
 import { Badge } from "../../ui/Badge";
 import { Flag } from "../flags/Flag";
+import { FavouriteButton } from "../favourites/FavouriteButton";
 import { highlightUrl } from "../highlights/resolver";
 import { teamByCode } from "./data";
 import { buildJourney, currentStageLabel, type JourneyResult } from "./journey";
@@ -45,6 +46,7 @@ export function JourneyModal({ code, onClose }: Props) {
               </div>
               <div className="text-sm text-[var(--text)]">{stageLabel}</div>
             </div>
+            <FavouriteButton code={team.code} size="md" />
           </header>
 
           <Table>
