@@ -79,5 +79,5 @@ export function formatCountdown(iso: string, now: number = Date.now()): string |
   if (days > 0 || hours > 0) parts.push(`${hours}h`);
   if (days > 0 || hours > 0 || minutes > 0) parts.push(`${minutes}m`);
   parts.push(`${seconds}s`);
-  return parts.join(" ");
+  return parts.join(":");
 }

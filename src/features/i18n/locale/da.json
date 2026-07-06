@@ -44,10 +44,16 @@
     "title": "Slutrunde",
     "viewRadial": "Cirkulær",
     "viewHorizontal": "Horisontal",
+    "viewInteractive": "Interaktiv",
     "reset": "Nulstil",
     "undo": "Fortryd",
     "share": "Del",
     "download": "Hent PNG"
+  },
+  "interactive": {
+    "tagline": "Vælg vinderne — klik på et hold for at avancere.",
+    "picks": "valg",
+    "hint": "Tryk eller klik på et hold for at avancere. Ændrer du et valg nulstilles de senere."
   },
   "teams": {
     "title": "Hold",

@@ -44,10 +44,16 @@
     "title": "Utslagsrunde",
     "viewRadial": "Sirkulær",
     "viewHorizontal": "Horisontal",
+    "viewInteractive": "Interaktiv",
     "reset": "Nullstill",
     "undo": "Angre",
     "share": "Del",
     "download": "Last ned PNG"
+  },
+  "interactive": {
+    "tagline": "Velg vinnerne — klikk et lag for å ta det videre.",
+    "picks": "valg",
+    "hint": "Trykk eller klikk et lag for å ta det videre. Endrer du et valg nullstilles de senere."
   },
   "teams": {
     "title": "Lag",

@@ -8,12 +8,14 @@ const LANDING_BYPASS_KEY = "fifa-ranking:landing-bypass";
 const BRACKET_VIEW_EVENT = "fifa-ranking:bracket-view-change";
 const SKIP_LANDING_EVENT = "fifa-ranking:skip-landing-change";
 
-export type BracketView = "radial" | "horizontal";
+export type BracketView = "radial" | "horizontal" | "interactive";
 
 /** Read outside of React (used by TanStack Router's validateSearch). */
 export function readBracketView(): BracketView {
   const stored = getStorageItem(BRACKET_VIEW_KEY);
-  return stored === "horizontal" ? "horizontal" : "radial";
+  if (stored === "horizontal") return "horizontal";
+  if (stored === "interactive") return "interactive";
+  return "radial";
 }
 
 /** Write without going through React (validateSearch + navigate paths). */

@@ -44,10 +44,16 @@
     "title": "Cuadro eliminatorio",
     "viewRadial": "Radial",
     "viewHorizontal": "Horizontal",
+    "viewInteractive": "Interactivo",
     "reset": "Reiniciar",
     "undo": "Deshacer",
     "share": "Compartir",
     "download": "Descargar PNG"
+  },
+  "interactive": {
+    "tagline": "Elige a los ganadores — haz clic en un equipo para avanzarlo.",
+    "picks": "elecciones",
+    "hint": "Toca o haz clic en un equipo para avanzarlo. Cambiar una elección reinicia las posteriores."
   },
   "teams": {
     "title": "Equipos",

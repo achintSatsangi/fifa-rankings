@@ -42,12 +42,19 @@
   },
   "bracket": {
     "title": "Knockout Bracket",
+    "tagline": "Click any team to see their tournament journey.",
     "viewRadial": "Radial",
     "viewHorizontal": "Horizontal",
+    "viewInteractive": "Interactive",
     "reset": "Reset",
     "undo": "Undo",
     "share": "Share",
     "download": "Download PNG"
+  },
+  "interactive": {
+    "tagline": "Pick your winners — click a team to advance them.",
+    "picks": "picks",
+    "hint": "Tap or click a team to advance them. Change a pick and downstream ones reset."
   },
   "teams": {
     "title": "Teams",

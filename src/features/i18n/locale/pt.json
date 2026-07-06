@@ -44,10 +44,16 @@
     "title": "Mata-mata",
     "viewRadial": "Radial",
     "viewHorizontal": "Horizontal",
+    "viewInteractive": "Interativo",
     "reset": "Redefinir",
     "undo": "Desfazer",
     "share": "Compartilhar",
     "download": "Baixar PNG"
+  },
+  "interactive": {
+    "tagline": "Escolha os vencedores — clique numa seleção para avançá-la.",
+    "picks": "escolhas",
+    "hint": "Toque ou clique numa seleção para avançar. Mudar uma escolha reinicia as seguintes."
   },
   "teams": {
     "title": "Seleções",

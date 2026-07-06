@@ -44,10 +44,16 @@
     "title": "Tableau à élimination directe",
     "viewRadial": "Radial",
     "viewHorizontal": "Horizontal",
+    "viewInteractive": "Interactif",
     "reset": "Réinitialiser",
     "undo": "Annuler",
     "share": "Partager",
     "download": "Télécharger PNG"
+  },
+  "interactive": {
+    "tagline": "Choisissez vos vainqueurs — cliquez sur une équipe pour la faire avancer.",
+    "picks": "choix",
+    "hint": "Touchez ou cliquez une équipe pour l'avancer. Modifier un choix remet à zéro les suivants."
   },
   "teams": {
     "title": "Équipes",

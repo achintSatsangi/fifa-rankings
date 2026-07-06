@@ -44,10 +44,16 @@
     "title": "Pudotuspelit",
     "viewRadial": "Ympyrä",
     "viewHorizontal": "Vaaka",
+    "viewInteractive": "Interaktiivinen",
     "reset": "Nollaa",
     "undo": "Kumoa",
     "share": "Jaa",
     "download": "Lataa PNG"
+  },
+  "interactive": {
+    "tagline": "Valitse voittajat — klikkaa joukkuetta viedäksesi eteenpäin.",
+    "picks": "valintaa",
+    "hint": "Napauta tai klikkaa joukkuetta viedäksesi eteenpäin. Valinnan muuttaminen nollaa myöhemmät."
   },
   "teams": {
     "title": "Joukkueet",
