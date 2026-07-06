@@ -110,3 +110,9 @@ PUBLIC_BASE=/fifa-rankings/ pnpm build && pnpm preview --base /fifa-rankings/
 - Prediction leaderboard (backend needed — Supabase)
 - Historical winners archive
 - More languages
+
+## License
+
+[MIT](./LICENSE) © 2026 Achint Satsangi.
+
+Fan-made, not affiliated with FIFA. "FIFA" and "FIFA World Cup" are trademarks of FIFA and are used here in a purely descriptive, non-commercial context. Match data is sourced from [football-data.org](https://www.football-data.org/) under their terms; flag images are served by [flagcdn.com](https://flagcdn.com/).
