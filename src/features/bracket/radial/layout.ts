@@ -5,35 +5,49 @@ import { winnerCode } from "../resolver";
 /**
  * Radial bracket layout math.
  *
- * The 32 outer team slots are evenly distributed around a circle.
- * Each match center is the angular midpoint of its two source positions
- * (for R32: the two outer team slots; for later rounds: the two source
- * matches' centers). Radii shrink round-by-round toward the trophy.
+ * The 32 outer team slots are evenly distributed around a circle
+ * (OUTER_FLAG_RADIUS). Each round's winners live one ring further in:
+ * R32 winners on the R32 ring (0.34), R16 winners on the R16 ring
+ * (0.24), and so on toward the trophy at the centre.
+ *
+ * Each match position is at the angular midpoint of its two source
+ * positions. Connectors follow a "bracket" pattern — a short radial
+ * stub inward from each source, a tangent arc joining the pair on the
+ * shoulder ring, then a single radial stem from the arc's midpoint to
+ * the match centre. Same math applies at every ring.
  *
  * All positions are normalised to [0, 1] with (0.5, 0.5) as the centre.
- * Multiply by container size (or 100 for SVG viewBox=0..100) to render.
+ * `svgPoint` multiplies by 100 for use with SVG viewBox="0 0 100 100".
  */
 
 export type Point = { x: number; y: number };
 
-export const RING_RADIUS: Record<BracketRound, number> = {
-  R32: 0.44,
-  R16: 0.34,
-  QF:  0.24,
-  SF:  0.15,
-  F:   0.075,
+/** Where the 32 team flags sit (outermost ring). */
+export const OUTER_FLAG_RADIUS = 0.44;
+
+/** Where winners of each round appear and where connectors converge. */
+export const WINNER_RING_RADIUS: Record<BracketRound, number> = {
+  R32: 0.34,
+  R16: 0.24,
+  QF:  0.15,
+  SF:  0.075,
+  F:   0,      // Champion = trophy at centre
   "3RD": 0,
 };
 
+/** Flag sizes per ring. Winners get smaller flags on inner rings. */
 export const FLAG_SIZE: Record<BracketRound | "OUTER", number> = {
   OUTER: 44,
-  R32: 44,
-  R16: 34,
-  QF:  30,
-  SF:  26,
-  F:   24,
+  R32: 34,
+  R16: 30,
+  QF:  26,
+  SF:  22,
+  F:   0,      // Champion overlaps the trophy — omit its own flag for now
   "3RD": 0,
 };
+
+/** Radial distance of the connector stub from source position inward. */
+const STUB_LENGTH = 0.02;
 
 const TWO_PI = Math.PI * 2;
 
@@ -42,6 +56,12 @@ function pointAt(angleRad: number, radius: number): Point {
     x: 0.5 + radius * Math.sin(angleRad),
     y: 0.5 - radius * Math.cos(angleRad),
   };
+}
+
+/** Same as pointAt but scaled to SVG viewBox 0..100. */
+export function svgPoint(angleRad: number, radius: number): Point {
+  const p = pointAt(angleRad, radius);
+  return { x: p.x * 100, y: p.y * 100 };
 }
 
 function slotAngle(slotUnits: number): number {
@@ -62,29 +82,32 @@ function matchSlotUnits(match: BracketMatch): number {
   }
 }
 
+function matchAngle(match: BracketMatch): number {
+  return slotAngle(matchSlotUnits(match));
+}
+
 /** Outer ring slot i (0..31) — where a specific R32 team's flag sits. */
 export function outerSlotPoint(i: number): Point {
-  return pointAt(slotAngle(i + 0.5), RING_RADIUS.R32);
+  return pointAt(slotAngle(i + 0.5), OUTER_FLAG_RADIUS);
 }
 
 export function outerSlotIndex(r32MatchIndex: number, ab: "A" | "B"): number {
   return 2 * (r32MatchIndex - 1) + (ab === "A" ? 0 : 1);
 }
 
-/** Match-centre point on its own ring. */
+/** Position where the match's winner appears (and where connectors converge). */
 export function matchCenterPoint(match: BracketMatch): Point {
-  return pointAt(slotAngle(matchSlotUnits(match)), RING_RADIUS[match.round]);
+  return pointAt(matchAngle(match), WINNER_RING_RADIUS[match.round]);
 }
 
 export type OuterSlot = {
   slot: number;              // 0..31
-  matchId: string;           // R32 match this slot belongs to
+  matchId: string;
   ab: "A" | "B";
   teamCode: string | null;
   point: Point;
 };
 
-/** All 32 outer team slots, in order 0..31. */
 export function outerSlots(): OuterSlot[] {
   const out: OuterSlot[] = [];
   const r32 = BRACKET.filter((m) => m.round === "R32");
@@ -106,9 +129,7 @@ export function outerSlots(): OuterSlot[] {
 
 /**
  * The round at which a team was eliminated, or null if still alive.
- * A team is "eliminated" if they lost their most recent played match
- * (unless that match is the Final and they won, in which case they're
- * the champion — return null).
+ * A team is "eliminated" if they lost their most recent played match.
  */
 export function eliminationRound(teamCode: string): BracketRound | null {
   for (const round of ROUNDS) {
@@ -123,28 +144,56 @@ export function eliminationRound(teamCode: string): BracketRound | null {
   return null;
 }
 
-export type BracketEdge = { from: Point; to: Point; round: BracketRound };
+/**
+ * Per-match geometry for the bracket-style connectors. `null` if the
+ * match isn't connected in the standard tree (e.g. 3rd-place playoff,
+ * or an R16+ slot that doesn't reference a winner match).
+ */
+export type MatchGeometry = {
+  matchId: string;
+  round: BracketRound;
+  sourceRadius: number;
+  matchRadius: number;
+  shoulderRadius: number;
+  angleA: number;
+  angleB: number;
+  angleMid: number;
+};
 
-/** All edges in the bracket tree (each match connects to its two source positions). */
-export function bracketEdges(): BracketEdge[] {
-  const edges: BracketEdge[] = [];
-  for (const match of BRACKET) {
-    if (match.round === "3RD") continue;
-    const self = matchCenterPoint(match);
+function computeGeometry(match: BracketMatch): MatchGeometry | null {
+  const matchRadius = WINNER_RING_RADIUS[match.round];
+  const angleMid = matchAngle(match);
 
-    if (match.round === "R32") {
-      const idx = Number(match.id.split("-")[1]);
-      edges.push({ from: outerSlotPoint(outerSlotIndex(idx, "A")), to: self, round: match.round });
-      edges.push({ from: outerSlotPoint(outerSlotIndex(idx, "B")), to: self, round: match.round });
-    } else {
-      const sources = [match.slotA, match.slotB];
-      for (const src of sources) {
-        if (src.type !== "winner") continue;
-        const dep = BRACKET.find((m) => m.id === src.ref);
-        if (!dep) continue;
-        edges.push({ from: matchCenterPoint(dep), to: self, round: match.round });
-      }
-    }
+  let angleA: number, angleB: number, sourceRadius: number;
+  if (match.round === "R32") {
+    const idx = Number(match.id.split("-")[1]);
+    angleA = slotAngle(outerSlotIndex(idx, "A") + 0.5);
+    angleB = slotAngle(outerSlotIndex(idx, "B") + 0.5);
+    sourceRadius = OUTER_FLAG_RADIUS;
+  } else {
+    if (match.slotA.type !== "winner" || match.slotB.type !== "winner") return null;
+    const depA = BRACKET.find((m) => m.id === (match.slotA as { ref: string }).ref);
+    const depB = BRACKET.find((m) => m.id === (match.slotB as { ref: string }).ref);
+    if (!depA || !depB) return null;
+    angleA = matchAngle(depA);
+    angleB = matchAngle(depB);
+    sourceRadius = WINNER_RING_RADIUS[depA.round];
   }
-  return edges;
+
+  return {
+    matchId: match.id,
+    round: match.round,
+    sourceRadius,
+    matchRadius,
+    shoulderRadius: Math.max(sourceRadius - STUB_LENGTH, matchRadius + 0.005),
+    angleA,
+    angleB,
+    angleMid,
+  };
+}
+
+export function bracketGeometry(): MatchGeometry[] {
+  return BRACKET.filter((m) => m.round !== "3RD")
+    .map(computeGeometry)
+    .filter((x): x is MatchGeometry => x !== null);
 }

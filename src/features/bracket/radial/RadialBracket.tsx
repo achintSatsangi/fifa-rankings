@@ -26,7 +26,7 @@ export function RadialBracket() {
   }, [outer]);
 
   const winners = useMemo(() => {
-    return BRACKET.filter((m) => m.round !== "3RD" && m.round !== "R32")
+    return BRACKET.filter((m) => m.round !== "3RD" && FLAG_SIZE[m.round] > 0)
       .map((m) => ({
         match: m,
         code: winnerCode(m),
@@ -48,7 +48,7 @@ export function RadialBracket() {
             code={s.teamCode}
             point={s.point}
             size={FLAG_SIZE.OUTER}
-            faded={s.teamCode ? eliminationCache.get(s.teamCode) === "R32" : false}
+            faded={s.teamCode ? eliminationCache.get(s.teamCode) !== null : false}
             onClick={s.teamCode ? setSelectedCode : undefined}
             layer="outer"
           />
