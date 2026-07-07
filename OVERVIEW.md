@@ -67,6 +67,20 @@ Google Analytics 4 tag `G-HHK7D4H2J2` in `index.html` with `send_page_view: fals
 
 ---
 
+## Demo videos
+
+Short scripted walkthroughs live under `docs/` — regenerated any time features change:
+
+- **`docs/radial-demo.webm`** — read-only tour: freshness chip, Final trophy tooltip, played-team score tooltip, Journey Modal open + close.
+- **`docs/interactive-demo.webm`** — picks flow: advance 5 teams (each shows the slide + pop + gamified toast), then reset.
+
+Both are recorded with Playwright + a red fake-cursor overlay, against the deployed site by default (override with `TARGET=http://localhost:5173`). Regenerate:
+
+```bash
+node scripts/record-radial-demo.mjs
+node scripts/record-interactive-demo.mjs
+```
+
 ## Stack
 
 - React 19 + TypeScript + Vite 7 (do NOT upgrade to 8 — Rolldown native binding fails under pnpm 10)
