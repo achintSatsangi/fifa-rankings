@@ -202,6 +202,18 @@ function RingContent({
     return ringSpecificMatch;
   };
 
+  // Only a team's current innermost flag stays in colour. Any flag on
+  // an outer ring (their past position, kept for the "how did they get
+  // here" trail) is grayed out. Eliminated teams are always grayed —
+  // that includes their outer slot AND any winner-ring flags they
+  // earned before losing.
+  const isFaded = (teamCode: string, thisRingRadius: number): boolean => {
+    if (eliminationCache.get(teamCode)) return true;
+    const innermost = innermostByTeam.get(teamCode);
+    if (innermost === undefined) return false;
+    return thisRingRadius > innermost;
+  };
+
   return (
     <div className="relative" style={{ width: size, height: size }}>
       <Connectors />
@@ -211,7 +223,7 @@ function RingContent({
           code={s.teamCode}
           point={s.point}
           size={sizes.OUTER}
-          faded={s.teamCode ? eliminationCache.get(s.teamCode) !== null : false}
+          faded={s.teamCode ? isFaded(s.teamCode, OUTER_FLAG_RADIUS) : false}
           onClick={s.teamCode ? onTeamClick : undefined}
           layer="outer"
           match={
@@ -227,6 +239,7 @@ function RingContent({
           code={w.code}
           point={w.point}
           size={sizes[w.match.round]}
+          faded={w.code ? isFaded(w.code, WINNER_RING_RADIUS[w.match.round]) : false}
           onClick={w.code ? onTeamClick : undefined}
           layer="winner"
           match={
