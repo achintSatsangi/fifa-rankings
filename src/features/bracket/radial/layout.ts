@@ -41,15 +41,22 @@ export const WINNER_RING_RADIUS: Record<BracketRound, number> = {
  * scale down linearly on smaller viewports via `flagSizesFor()` so
  * outer flags never overlap on mobile.
  *
+ * The winners of deeper rounds are the whole point of the bracket —
+ * they should stay visually prominent, not shrink into oblivion. Inner
+ * rings therefore stay close to outer size instead of the old
+ * 52→28 taper. Numbers are capped by the geometry of the innermost
+ * ring pair (SF at r=0.075 × container, QF at r=0.15) — going bigger
+ * than ~44 at SF starts colliding with QF flags.
+ *
  * The `F` and `3RD` entries are 0 — a marker that we render no winner
  * flag for those rounds (Final champion shares the trophy centre).
  */
 export const FLAG_SIZE: Record<BracketRound | "OUTER", number> = {
-  OUTER: 52,
-  R32: 42,
-  R16: 36,
-  QF:  32,
-  SF:  28,
+  OUTER: 50,
+  R32: 50,
+  R16: 48,
+  QF:  44,
+  SF:  40,
   F:   0,
   "3RD": 0,
 };
