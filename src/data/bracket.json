@@ -569,8 +569,8 @@
     },
     "teamCodeA": "ARG",
     "teamCodeB": "EGY",
-    "scoreA": null,
-    "scoreB": null,
+    "scoreA": 3,
+    "scoreB": 2,
     "penaltyA": null,
     "penaltyB": null,
     "feedsInto": {
