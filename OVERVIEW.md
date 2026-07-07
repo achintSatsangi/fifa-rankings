@@ -45,7 +45,7 @@ Fan-made companion to the 2026 World Cup. A one-pager built around the circular 
 
 ## Data pipeline (build-time; no client API calls at runtime)
 
-Bundled JSON files in `src/data/` (`teams.json`, `groups.json`, `bracket.json`, `highlights.json`) are refreshed by CI every 30 minutes at `:02/:32`:
+Bundled JSON files in `src/data/` (`teams.json`, `groups.json`, `bracket.json`, `highlights.json`) are refreshed by CI hourly at `:02`:
 
 1. **`scripts/refresh-live.mjs`** — pulls scores from football-data.org (free tier, WC competition id 2000). Handles penalty-shootout goals correctly, preserves local dates against UTC-drift for US-evening kickoffs.
 2. **`scripts/resolve-highlights.mjs`** — three-tier highlight resolution:
@@ -55,7 +55,7 @@ Bundled JSON files in `src/data/` (`teams.json`, `groups.json`, `bracket.json`, 
    - Country name variants unified (`Cote d'Ivoire`, `Cabo Verde`, `USA`, `Congo DR`, `Türkiye`).
 3. **`scripts/config/youtube-fetch.json`** — manual gate for tier 1. Defaults to `{ "enabled": false }` (only FIFA runs). Flip to `true` and push to trigger a YouTube pass; script auto-resets to `false` at end of run. Prevents the daily 100-search quota from being burned on every cron.
 
-**CI workflow**: `.github/workflows/refresh-and-deploy.yml` — cron `:02,32`, plus on push to `main` and manual dispatch. Refresh → resolve → commit any changes → build → deploy to Pages.
+**CI workflow**: `.github/workflows/refresh-and-deploy.yml` — cron `:02` hourly, plus on push to `main` and manual dispatch. Refresh → resolve → commit any changes → build → deploy to Pages.
 
 **Coverage today**: 79 / 92 played matches have a direct highlights link (13 no-data cases are group matches without published articles — Curaçao / Iran / Cape Verde MD1).
 

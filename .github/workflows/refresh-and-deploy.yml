@@ -1,13 +1,13 @@
 name: Scheduled refresh + Pages deploy
 
-# Runs every 30 minutes at :02/:32 — offset from the top of the hour
-# because GitHub Actions runs are noticeably delayed at :00 due to
-# fleet-wide load. Also fires on push to main and on manual dispatch.
-# Scheduled runs pull fresh scores from football-data.org, commit any
-# JSON changes, then build and deploy to GitHub Pages.
+# Runs hourly at :02 — offset from the top of the hour because
+# GitHub Actions runs are noticeably delayed at :00 due to fleet-wide
+# load. Also fires on push to main and on manual dispatch. Scheduled
+# runs pull fresh scores from football-data.org, commit any JSON
+# changes, then build and deploy to GitHub Pages.
 on:
   schedule:
-    - cron: "2,32 * * * *"
+    - cron: "2 * * * *"
   push:
     branches: [main]
   workflow_dispatch:
