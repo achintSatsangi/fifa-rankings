@@ -67,10 +67,19 @@
     "viewRadial": "Ympyrä",
     "viewHorizontal": "Vaaka",
     "viewInteractive": "Interaktiivinen",
+    "viewReplay": "Uusinta",
     "reset": "Nollaa",
     "undo": "Kumoa",
     "share": "Jaa",
     "download": "Lataa PNG"
+  },
+  "replay": {
+    "tagline": "Katso pudotuspelien etenevän siinä järjestyksessä kuin ottelut pelattiin.",
+    "match": "Ottelu",
+    "play": "Toista",
+    "pause": "Tauko",
+    "reset": "Nollaa",
+    "done": "Valmis"
   },
   "interactive": {
     "tagline": "Valitse voittajat — klikkaa joukkuetta viedäksesi eteenpäin.",

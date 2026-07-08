@@ -67,10 +67,19 @@
     "viewRadial": "Cirkulær",
     "viewHorizontal": "Horisontal",
     "viewInteractive": "Interaktiv",
+    "viewReplay": "Genafspilning",
     "reset": "Nulstil",
     "undo": "Fortryd",
     "share": "Del",
     "download": "Hent PNG"
+  },
+  "replay": {
+    "tagline": "Se slutrunden udfolde sig i den rækkefølge, kampene blev spillet.",
+    "match": "Kamp",
+    "play": "Afspil",
+    "pause": "Pause",
+    "reset": "Nulstil",
+    "done": "Færdig"
   },
   "interactive": {
     "tagline": "Vælg vinderne — klik på et hold for at avancere.",

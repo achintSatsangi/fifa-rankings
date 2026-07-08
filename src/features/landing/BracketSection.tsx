@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { InteractiveRadial } from "../bracket/radial/InteractiveRadial";
+import { PlaybackRadial } from "../bracket/radial/PlaybackRadial";
 import { RadialBracket } from "../bracket/radial/RadialBracket";
 import {
   persistBracketView,
@@ -23,8 +24,12 @@ export function BracketSection() {
     persistBracketView(view);
   }, [view]);
 
-  const isInteractive = view === "interactive";
-  const tagline = isInteractive ? t("interactive.tagline") : t("bracket.tagline");
+  const tagline =
+    view === "interactive"
+      ? t("interactive.tagline")
+      : view === "replay"
+        ? t("replay.tagline")
+        : t("bracket.tagline");
 
   return (
     <section className="mx-auto flex w-full max-w-none flex-col gap-4 px-4 py-12 sm:py-16">
@@ -51,20 +56,28 @@ export function BracketSection() {
               laptop viewports. */}
       <ScrollReveal delay={120}>
         <div className="mx-auto aspect-square w-full max-w-[min(100%,calc(100svh-13rem),1600px)]">
-          {isInteractive ? <InteractiveRadial /> : <RadialBracket />}
+          {view === "interactive" ? (
+            <InteractiveRadial />
+          ) : view === "replay" ? (
+            <PlaybackRadial />
+          ) : (
+            <RadialBracket />
+          )}
         </div>
       </ScrollReveal>
     </section>
   );
 }
 
-type HomeView = "radial" | "interactive";
+type HomeView = "radial" | "interactive" | "replay";
 
 function coerceHomeView(v: BracketView): HomeView {
   // Legacy: someone with `horizontal` cached in localStorage should
   // fall back to `radial` on the one-pager since horizontal moved
   // to its own page.
-  return v === "interactive" ? "interactive" : "radial";
+  if (v === "interactive") return "interactive";
+  if (v === "replay") return "replay";
+  return "radial";
 }
 
 function ViewToggle({
@@ -77,6 +90,7 @@ function ViewToggle({
   const { t } = useTranslation();
   const options: { key: HomeView; label: string }[] = [
     { key: "radial", label: t("bracket.viewRadial") },
+    { key: "replay", label: t("bracket.viewReplay") },
     { key: "interactive", label: t("bracket.viewInteractive") },
   ];
   return (

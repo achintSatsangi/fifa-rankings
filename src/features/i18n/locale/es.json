@@ -67,10 +67,19 @@
     "viewRadial": "Radial",
     "viewHorizontal": "Horizontal",
     "viewInteractive": "Interactivo",
+    "viewReplay": "Repetir",
     "reset": "Reiniciar",
     "undo": "Deshacer",
     "share": "Compartir",
     "download": "Descargar PNG"
+  },
+  "replay": {
+    "tagline": "Mira el cuadro eliminatorio desarrollarse en el orden en que se jugaron los partidos.",
+    "match": "Partido",
+    "play": "Reproducir",
+    "pause": "Pausar",
+    "reset": "Reiniciar",
+    "done": "Terminado"
   },
   "interactive": {
     "tagline": "Elige a los ganadores — haz clic en un equipo para avanzarlo.",

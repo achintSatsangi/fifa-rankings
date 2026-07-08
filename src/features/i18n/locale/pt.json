@@ -67,10 +67,19 @@
     "viewRadial": "Radial",
     "viewHorizontal": "Horizontal",
     "viewInteractive": "Interativo",
+    "viewReplay": "Reprisar",
     "reset": "Redefinir",
     "undo": "Desfazer",
     "share": "Compartilhar",
     "download": "Baixar PNG"
+  },
+  "replay": {
+    "tagline": "Assista o mata-mata se desenrolar na ordem em que os jogos foram disputados.",
+    "match": "Jogo",
+    "play": "Reproduzir",
+    "pause": "Pausar",
+    "reset": "Reiniciar",
+    "done": "Concluído"
   },
   "interactive": {
     "tagline": "Escolha os vencedores — clique numa seleção para avançá-la.",

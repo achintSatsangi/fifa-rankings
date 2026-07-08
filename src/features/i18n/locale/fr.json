@@ -67,10 +67,19 @@
     "viewRadial": "Radial",
     "viewHorizontal": "Horizontal",
     "viewInteractive": "Interactif",
+    "viewReplay": "Rejouer",
     "reset": "Réinitialiser",
     "undo": "Annuler",
     "share": "Partager",
     "download": "Télécharger PNG"
+  },
+  "replay": {
+    "tagline": "Regardez le tableau à élimination directe se dérouler dans l'ordre des matches.",
+    "match": "Match",
+    "play": "Lecture",
+    "pause": "Pause",
+    "reset": "Réinitialiser",
+    "done": "Terminé"
   },
   "interactive": {
     "tagline": "Choisissez vos vainqueurs — cliquez sur une équipe pour la faire avancer.",

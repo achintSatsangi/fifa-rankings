@@ -67,10 +67,19 @@
     "viewRadial": "Sirkulær",
     "viewHorizontal": "Horisontal",
     "viewInteractive": "Interaktiv",
+    "viewReplay": "Reprise",
     "reset": "Nullstill",
     "undo": "Angre",
     "share": "Del",
     "download": "Last ned PNG"
+  },
+  "replay": {
+    "tagline": "Se utslagsrunden utspille seg i den rekkefølgen kampene ble spilt.",
+    "match": "Kamp",
+    "play": "Spill av",
+    "pause": "Pause",
+    "reset": "Nullstill",
+    "done": "Ferdig"
   },
   "interactive": {
     "tagline": "Velg vinnerne — klikk et lag for å ta det videre.",

@@ -67,10 +67,19 @@
     "viewRadial": "Cirkulärt",
     "viewHorizontal": "Horisontellt",
     "viewInteractive": "Interaktiv",
+    "viewReplay": "Repris",
     "reset": "Återställ",
     "undo": "Ångra",
     "share": "Dela",
     "download": "Ladda ner PNG"
+  },
+  "replay": {
+    "tagline": "Se slutspelet utspela sig i den ordning matcherna spelades.",
+    "match": "Match",
+    "play": "Spela",
+    "pause": "Pausa",
+    "reset": "Återställ",
+    "done": "Klart"
   },
   "interactive": {
     "tagline": "Välj vinnarna — klicka på ett lag för att gå vidare.",

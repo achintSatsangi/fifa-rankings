@@ -72,10 +72,19 @@
     "viewRadial": "Radial",
     "viewHorizontal": "Horizontal",
     "viewInteractive": "Interactive",
+    "viewReplay": "Replay",
     "reset": "Reset",
     "undo": "Undo",
     "share": "Share",
     "download": "Download PNG"
+  },
+  "replay": {
+    "tagline": "Watch the knockout unfold in the order matches were played.",
+    "match": "Match",
+    "play": "Play",
+    "pause": "Pause",
+    "reset": "Reset",
+    "done": "Done"
   },
   "interactive": {
     "tagline": "Pick your winners — click a team to advance them.",

@@ -3,14 +3,15 @@ import { getStorageItem, setStorageItem } from "../../lib/storage";
 const BRACKET_VIEW_KEY = "fifa-ranking:bracket-view";
 const BRACKET_VIEW_EVENT = "fifa-ranking:bracket-view-change";
 
-/** The two views available on the home one-pager. Horizontal lives on
- *  its own /bracket page and does not need to be persisted. Legacy
+/** The three views available on the home one-pager. Horizontal lives
+ *  on its own /bracket page and does not need to be persisted. Legacy
  *  values like "horizontal" are coerced to "radial" on read. */
-export type BracketView = "radial" | "interactive";
+export type BracketView = "radial" | "interactive" | "replay";
 
 export function readBracketView(): BracketView {
   const stored = getStorageItem(BRACKET_VIEW_KEY);
   if (stored === "interactive") return "interactive";
+  if (stored === "replay") return "replay";
   return "radial";
 }
 
