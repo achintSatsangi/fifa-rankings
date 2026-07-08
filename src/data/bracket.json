@@ -594,9 +594,9 @@
     },
     "teamCodeA": "SUI",
     "teamCodeB": "COL",
-    "scoreA": 1,
+    "scoreA": 0,
     "scoreB": 0,
-    "penaltyA": 3,
+    "penaltyA": 4,
     "penaltyB": 3,
     "feedsInto": {
       "matchId": "QF-4",
