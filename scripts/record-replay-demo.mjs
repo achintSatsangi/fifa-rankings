@@ -22,6 +22,10 @@ import {
 const TARGET = process.env.TARGET ?? "https://achintsatsangi.github.io/fifa-rankings/";
 const OUT_DIR = "docs";
 const OUT_NAME = "replay-demo.webm";
+/** Taller than the default 1280×900 so the ring + scrubber + speed/
+ *  reset/play row all fit in-frame at once. Without the extra height
+ *  the controls sit below the viewport and mouse.click(x, y) misses. */
+const VIEWPORT = { width: 1280, height: 1100 };
 
 /** Move the mouse to (targetFraction × slider width), press, drag from
  *  the current thumb position, release. Renders visually as the fake
@@ -50,21 +54,24 @@ async function dragScrubberTo(page, targetFraction) {
 
 console.log(`Recording replay demo: ${TARGET} → ${OUT_DIR}/${OUT_NAME}`);
 
-const { browser, context, page } = await launchRecording(OUT_DIR);
+const { browser, context, page } = await launchRecording(OUT_DIR, VIEWPORT);
 try {
   await page.goto(TARGET, { waitUntil: "networkidle" });
   await page.waitForSelector('[role="tablist"]', { timeout: 15000 });
-  await page.waitForTimeout(1600);
+  // The ring's ResizeObserver needs a moment after route mount before
+  // it commits a size; without this the recording occasionally caught
+  // a pre-hydrated, unstyled frame.
+  await page.waitForTimeout(2200);
 
   // Switch to Replay.
   await clickOptional(
     page,
     page.locator('[role="tab"]', { hasText: /replay/i }).first(),
-    1200,
+    1000,
     3000,
   );
 
-  // Speed → 2× (fastest of the three pills).
+  // Speed → 2× (fastest of the three pills, labelled "2×").
   await clickOptional(
     page,
     page.locator('[role="radio"]', { hasText: /^2×$/ }).first(),
