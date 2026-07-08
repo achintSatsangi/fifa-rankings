@@ -67,18 +67,28 @@ Google Analytics 4 tag `G-HHK7D4H2J2` in `index.html` with `send_page_view: fals
 
 ---
 
-## Demo video
+## Demo videos
 
-Scripted walkthrough under `docs/` — Radial view first (freshness chip → trophy tooltip → played-team hover → Journey Modal open/close), then Interactive (advance 5 teams to show slide + pop + toast → reset). Both `demo.webm` (source) and `demo.mp4` (H.264, better for social) are checked in.
+Scripted walkthroughs under `docs/` — Radial first (freshness chip → trophy tooltip → played-team hover → Journey Modal open/close), then Interactive (advance teams to show slide + pop + toast → reset). Two variants, same beats:
+
+- **`docs/demo-desktop.{webm,mp4}`** — 1280×900 landscape, desktop UI.
+- **`docs/demo-mobile.{webm,mp4}`** — 540×960 → upscaled to 1080×1920 for Instagram Reels / YouTube Shorts. Site renders in mobile layout (below the `sm` breakpoint).
 
 Recorded with Playwright + a red fake-cursor overlay, against the deployed site by default (override with `TARGET=http://localhost:5173`). Regenerate:
 
 ```bash
+# Desktop
 node scripts/record-demo.mjs
-ffmpeg -y -i docs/demo.webm -c:v libx264 -pix_fmt yuv420p -movflags +faststart docs/demo.mp4
+ffmpeg -y -i docs/demo-desktop.webm -c:v libx264 -pix_fmt yuv420p \
+  -movflags +faststart docs/demo-desktop.mp4
+
+# Mobile (Instagram/YouTube Shorts ready — upscales to 1080×1920)
+node scripts/record-demo-mobile.mjs
+ffmpeg -y -i docs/demo-mobile.webm -vf 'scale=1080:1920:flags=lanczos' \
+  -c:v libx264 -pix_fmt yuv420p -movflags +faststart docs/demo-mobile.mp4
 ```
 
-Narrower scripts `record-radial-demo.mjs` and `record-interactive-demo.mjs` still live in `scripts/` for regenerating a single flow.
+Narrower scripts `record-radial-demo.mjs` and `record-interactive-demo.mjs` also live in `scripts/` for regenerating a single flow at desktop viewport.
 
 ## Stack
 

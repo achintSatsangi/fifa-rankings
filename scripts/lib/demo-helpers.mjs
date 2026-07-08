@@ -8,9 +8,12 @@
  */
 
 import { chromium } from "@playwright/test";
-import { mkdirSync, existsSync, readdirSync, renameSync } from "node:fs";
+import { mkdirSync, existsSync, readdirSync, renameSync, statSync } from "node:fs";
 import { join } from "node:path";
 
+/** Default (desktop) viewport. Individual scripts can pass their own
+ *  size to `launchRecording()` — the mobile demo uses 540x960 so the
+ *  site renders below the sm breakpoint. */
 export const VIEWPORT = { width: 1280, height: 900 };
 
 /** Injected once per page — paints a red dot that follows the mouse
@@ -54,14 +57,14 @@ const CURSOR_SCRIPT = () => {
   );
 };
 
-export async function launchRecording(outDir) {
+export async function launchRecording(outDir, viewport = VIEWPORT) {
   if (!existsSync(outDir)) mkdirSync(outDir, { recursive: true });
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({
-    viewport: VIEWPORT,
+    viewport,
     deviceScaleFactor: 2,
     reducedMotion: "no-preference",
-    recordVideo: { dir: outDir, size: VIEWPORT },
+    recordVideo: { dir: outDir, size: viewport },
   });
   await context.addInitScript(CURSOR_SCRIPT);
   const page = await context.newPage();
@@ -103,14 +106,18 @@ export async function clickOptional(page, locator, postWaitMs = 500, timeoutMs =
   }
 }
 
-/** Playwright names videos with a random UUID; rename the newest
- *  .webm in `outDir` to a stable file name. */
+/** Playwright names videos with a random UUID (e.g. `page@abc123.webm`);
+ *  rename the newest .webm in `outDir` to a stable file name. Uses
+ *  mtime — an earlier version filtered by name and picked an unrelated
+ *  older webm that happened to be first alphabetically, clobbering a
+ *  previous stable recording. */
 export async function renameLatestVideo(context, outDir, targetName) {
   await context.close();
-  const files = readdirSync(outDir).filter((f) => f.endsWith(".webm"));
-  // Latest by lexicographic sort is not reliable; take the one that
-  // isn't the target name (there should be one just-emitted UUID).
-  const source = files.find((f) => f !== targetName);
+  const files = readdirSync(outDir)
+    .filter((f) => f.endsWith(".webm") && f !== targetName)
+    .map((f) => ({ f, mtime: statSync(join(outDir, f)).mtimeMs }))
+    .sort((a, b) => b.mtime - a.mtime);
+  const source = files[0]?.f;
   if (!source) return null;
   const src = join(outDir, source);
   const dest = join(outDir, targetName);

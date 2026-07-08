@@ -1,17 +1,24 @@
 #!/usr/bin/env node
 /**
- * Combined walkthrough of both bracket views in one continuous session,
- * → docs/demo.webm. Radial first (freshness chip → trophy tooltip →
- * played-team hover → Journey Modal open/close), then switches to
- * Interactive (advance 5 teams to show slide + pop + toast → reset).
+ * Phone-framed walkthrough → docs/demo-mobile.webm.
  *
- * The narrower split scripts (record-radial-demo, record-interactive-
- * demo) stay in the repo for regenerating a single flow when only
- * one view changed.
+ * Records at 540×960 (9:16, below the Tailwind `sm` breakpoint of 640
+ * so the site renders its mobile layout). Convert to 1080×1920 with
+ * ffmpeg for Instagram Reels / YouTube Shorts:
+ *
+ *   ffmpeg -i docs/demo-mobile.webm \
+ *     -vf 'scale=1080:1920:flags=lanczos' \
+ *     -c:v libx264 -pix_fmt yuv420p -movflags +faststart \
+ *     docs/demo-mobile.mp4
+ *
+ * Beats mirror the desktop demo but tuned for the narrower viewport:
+ * freshness chip (compact form) → trophy tooltip → played-team hover
+ * → team click → Journey Modal (mobile columns) → switch to
+ * Interactive → advance 4 teams → reset.
  *
  * Usage:
- *   node scripts/record-demo.mjs
- *   TARGET=http://localhost:5173 node scripts/record-demo.mjs
+ *   node scripts/record-demo-mobile.mjs
+ *   TARGET=http://localhost:5173 node scripts/record-demo-mobile.mjs
  */
 
 import {
@@ -23,20 +30,19 @@ import {
 
 const TARGET = process.env.TARGET ?? "https://achintsatsangi.github.io/fifa-rankings/";
 const OUT_DIR = "docs";
-const OUT_NAME = "demo-desktop.webm";
+const OUT_NAME = "demo-mobile.webm";
+const VIEWPORT = { width: 540, height: 960 };
 
-console.log(`Recording combined demo: ${TARGET} → ${OUT_DIR}/${OUT_NAME}`);
+console.log(`Recording mobile demo: ${TARGET} → ${OUT_DIR}/${OUT_NAME}`);
 
-const { browser, context, page } = await launchRecording(OUT_DIR);
+const { browser, context, page } = await launchRecording(OUT_DIR, VIEWPORT);
 try {
   await page.goto(TARGET, { waitUntil: "networkidle" });
   await page.waitForSelector('[role="tablist"]', { timeout: 15000 });
-  await page.waitForTimeout(1600);
+  await page.waitForTimeout(1800);
 
   // ══════════════════ PART 1: RADIAL (read-only) ══════════════════
 
-  // Ensure Radial (page default) — no-op click that also flushes any
-  // stale localStorage picks from a prior run's context reuse.
   await clickOptional(
     page,
     page.locator('[role="tab"]', { hasText: /^radial$/i }).first(),
@@ -44,7 +50,9 @@ try {
     2000,
   );
 
-  // Freshness chip in the header.
+  // Freshness chip in the header. Mobile renders the compact form
+  // (just the pulse dot + "Xm ago") but hover still surfaces the
+  // full title-attribute tooltip.
   await slideToOptional(page, page.locator("header [title]").first(), 1400, 3000);
 
   // Trophy tooltip = Final match info.
@@ -52,15 +60,15 @@ try {
 
   // Played team → score tooltip.
   for (const name of ["Norway", "France", "Argentina", "Spain", "England"]) {
-    if (await slideToOptional(page, page.locator(`button[aria-label="${name}"]`).first(), 1500, 2000)) {
+    if (await slideToOptional(page, page.locator(`button[aria-label="${name}"]`).first(), 1400, 2000)) {
       break;
     }
   }
 
-  // Click a team → Journey Modal.
+  // Click a team → Journey Modal (mobile column layout).
   for (const name of ["Norway", "France", "England", "Brazil"]) {
     if (
-      await clickOptional(page, page.locator(`button[aria-label="${name}"]`).first(), 2800, 2000)
+      await clickOptional(page, page.locator(`button[aria-label="${name}"]`).first(), 3000, 2000)
     ) {
       break;
     }
@@ -68,7 +76,7 @@ try {
   await page.keyboard.press("Escape");
   await page.waitForTimeout(900);
 
-  // ══════════════════ PART 2: INTERACTIVE (picks flow) ══════════════
+  // ══════════════════ PART 2: INTERACTIVE ══════════════════════════
 
   await clickOptional(
     page,
@@ -77,7 +85,8 @@ try {
     3000,
   );
 
-  // Advance a handful of teams — each click triggers slide + pop + toast.
+  // Four picks (narrower viewport = fewer visible flags at once, so
+  // one fewer than desktop's five).
   const advanceCandidates = [
     "France",
     "Morocco",
@@ -86,11 +95,10 @@ try {
     "Norway",
     "Portugal",
     "Spain",
-    "Argentina",
   ];
   let advanced = 0;
   for (const name of advanceCandidates) {
-    if (advanced >= 5) break;
+    if (advanced >= 4) break;
     if (
       await clickOptional(page, page.locator(`button[aria-label="${name}"]`).first(), 1500, 2500)
     ) {
@@ -98,13 +106,10 @@ try {
     }
   }
 
-  // Let the last toast fade cleanly.
   await page.waitForTimeout(1500);
 
-  // Reset — teams slide back to their outer slots.
   await clickOptional(page, page.locator("button", { hasText: /reset/i }).first(), 2000, 3000);
 
-  // Trailing dwell so the last frame isn't mid-click.
   await page.waitForTimeout(800);
 
   const out = await renameLatestVideo(context, OUT_DIR, OUT_NAME);
