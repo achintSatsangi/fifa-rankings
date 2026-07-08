@@ -67,19 +67,18 @@ Google Analytics 4 tag `G-HHK7D4H2J2` in `index.html` with `send_page_view: fals
 
 ---
 
-## Demo videos
+## Demo video
 
-Short scripted walkthroughs live under `docs/` — regenerated any time features change:
+Scripted walkthrough under `docs/` — Radial view first (freshness chip → trophy tooltip → played-team hover → Journey Modal open/close), then Interactive (advance 5 teams to show slide + pop + toast → reset). Both `demo.webm` (source) and `demo.mp4` (H.264, better for social) are checked in.
 
-- **`docs/radial-demo.webm`** — read-only tour: freshness chip, Final trophy tooltip, played-team score tooltip, Journey Modal open + close.
-- **`docs/interactive-demo.webm`** — picks flow: advance 5 teams (each shows the slide + pop + gamified toast), then reset.
-
-Both are recorded with Playwright + a red fake-cursor overlay, against the deployed site by default (override with `TARGET=http://localhost:5173`). Regenerate:
+Recorded with Playwright + a red fake-cursor overlay, against the deployed site by default (override with `TARGET=http://localhost:5173`). Regenerate:
 
 ```bash
-node scripts/record-radial-demo.mjs
-node scripts/record-interactive-demo.mjs
+node scripts/record-demo.mjs
+ffmpeg -y -i docs/demo.webm -c:v libx264 -pix_fmt yuv420p -movflags +faststart docs/demo.mp4
 ```
+
+Narrower scripts `record-radial-demo.mjs` and `record-interactive-demo.mjs` still live in `scripts/` for regenerating a single flow.
 
 ## Stack
 
