@@ -40,16 +40,17 @@ export function BracketSection() {
         </div>
       </ScrollReveal>
 
-      {/* Grand square: fills the viewport as wide as it can go without
-          exceeding vertical breathing room. `min(...)` clamps by:
+      {/* Grand square that stays fully in view. `min(...)` clamps by:
             - available width (100% of the section, up to a hard 1600px
               ceiling so ultra-wide monitors don't get a bracket you
               can't take in with one glance),
-            - `88svh` so the bracket + section title + toggle all fit
-              in a single viewport height without scrolling past.
-          The result is the biggest square that stays fully in view. */}
+            - `calc(100svh - 13rem)` to leave room for the app header
+              (~3rem), section title + toggle (~7rem), and section
+              padding (~3rem). Previously used `88svh` which was too
+              generous — the bottom of the ring clipped on ~900px
+              laptop viewports. */}
       <ScrollReveal delay={120}>
-        <div className="mx-auto aspect-square w-full max-w-[min(100%,88svh,1600px)]">
+        <div className="mx-auto aspect-square w-full max-w-[min(100%,calc(100svh-13rem),1600px)]">
           {isInteractive ? <InteractiveRadial /> : <RadialBracket />}
         </div>
       </ScrollReveal>
