@@ -594,15 +594,16 @@
     },
     "teamCodeA": "SUI",
     "teamCodeB": "COL",
-    "scoreA": 0,
+    "scoreA": 1,
     "scoreB": 0,
-    "penaltyA": null,
-    "penaltyB": null,
+    "penaltyA": 3,
+    "penaltyB": 3,
     "feedsInto": {
       "matchId": "QF-4",
       "slot": "B"
     },
-    "utcDate": "2026-07-07T20:00:00Z"
+    "utcDate": "2026-07-07T20:00:00Z",
+    "extraTime": true
   },
   {
     "id": "QF-1",
