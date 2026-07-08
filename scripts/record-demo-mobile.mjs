@@ -11,14 +11,11 @@
  *     -c:v libx264 -pix_fmt yuv420p -movflags +faststart \
  *     docs/demo-mobile.mp4
  *
- * Beats mirror the desktop demo but tuned for the narrower viewport:
- * freshness chip (compact form) → trophy tooltip → played-team hover
- * → team click → Journey Modal (mobile columns) → switch to
- * Interactive → advance 4 teams → reset.
- *
- * Usage:
- *   node scripts/record-demo-mobile.mjs
- *   TARGET=http://localhost:5173 node scripts/record-demo-mobile.mjs
+ * Flow order is deliberately Interactive-first for phone-vertical
+ * viewing: the slide + pop + toast pops in the first few seconds so a
+ * scroller sees the reward mechanic immediately. The Radial section
+ * runs after with the read-only feature tour (freshness chip, trophy
+ * tooltip, played-team score, Journey Modal).
  */
 
 import {
@@ -41,18 +38,51 @@ try {
   await page.waitForSelector('[role="tablist"]', { timeout: 15000 });
   await page.waitForTimeout(1800);
 
-  // ══════════════════ PART 1: RADIAL (read-only) ══════════════════
+  // ══════════════════ PART 1: INTERACTIVE (hook) ══════════════════
+
+  await clickOptional(
+    page,
+    page.locator('[role="tab"]', { hasText: /interactive/i }).first(),
+    1200,
+    3000,
+  );
+
+  const advanceCandidates = [
+    "France",
+    "Morocco",
+    "England",
+    "Brazil",
+    "Norway",
+    "Portugal",
+    "Spain",
+  ];
+  let advanced = 0;
+  for (const name of advanceCandidates) {
+    if (advanced >= 4) break;
+    if (
+      await clickOptional(page, page.locator(`button[aria-label="${name}"]`).first(), 1500, 2500)
+    ) {
+      advanced++;
+    }
+  }
+
+  // Let the last toast fade cleanly before switching modes.
+  await page.waitForTimeout(1500);
+
+  // Reset — teams slide back to their outer slots.
+  await clickOptional(page, page.locator("button", { hasText: /reset/i }).first(), 1800, 3000);
+
+  // ══════════════════ PART 2: RADIAL (read-only tour) ══════════════
 
   await clickOptional(
     page,
     page.locator('[role="tab"]', { hasText: /^radial$/i }).first(),
-    600,
-    2000,
+    1000,
+    3000,
   );
 
-  // Freshness chip in the header. Mobile renders the compact form
-  // (just the pulse dot + "Xm ago") but hover still surfaces the
-  // full title-attribute tooltip.
+  // Freshness chip in the header. Mobile renders the compact form,
+  // hover still surfaces the full title-attribute tooltip.
   await slideToOptional(page, page.locator("header [title]").first(), 1400, 3000);
 
   // Trophy tooltip = Final match info.
@@ -76,40 +106,7 @@ try {
   await page.keyboard.press("Escape");
   await page.waitForTimeout(900);
 
-  // ══════════════════ PART 2: INTERACTIVE ══════════════════════════
-
-  await clickOptional(
-    page,
-    page.locator('[role="tab"]', { hasText: /interactive/i }).first(),
-    1200,
-    3000,
-  );
-
-  // Four picks (narrower viewport = fewer visible flags at once, so
-  // one fewer than desktop's five).
-  const advanceCandidates = [
-    "France",
-    "Morocco",
-    "England",
-    "Brazil",
-    "Norway",
-    "Portugal",
-    "Spain",
-  ];
-  let advanced = 0;
-  for (const name of advanceCandidates) {
-    if (advanced >= 4) break;
-    if (
-      await clickOptional(page, page.locator(`button[aria-label="${name}"]`).first(), 1500, 2500)
-    ) {
-      advanced++;
-    }
-  }
-
-  await page.waitForTimeout(1500);
-
-  await clickOptional(page, page.locator("button", { hasText: /reset/i }).first(), 2000, 3000);
-
+  // Trailing dwell so the last frame isn't mid-click.
   await page.waitForTimeout(800);
 
   const out = await renameLatestVideo(context, OUT_DIR, OUT_NAME);

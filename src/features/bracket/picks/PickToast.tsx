@@ -30,7 +30,10 @@ export function PickToast({ message, tick }: Props) {
       key={tick}
       role="status"
       aria-live="polite"
-      className="pointer-events-none absolute left-1/2 top-2 z-20 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-[var(--accent)]/40 bg-[var(--surface-elevated)] px-3.5 py-1.5 text-xs font-medium text-[var(--text)] shadow-lg motion-safe:animate-pick-toast"
+      // Fixed to the viewport (below the sticky header) instead of the
+      // ring container so on mobile — where the outer flags sit right
+      // at the container's top edge — the toast doesn't overlay them.
+      className="pointer-events-none fixed left-1/2 top-16 z-40 inline-flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-[var(--accent)]/40 bg-[var(--surface-elevated)] px-3.5 py-1.5 text-xs font-medium text-[var(--text)] shadow-lg motion-safe:animate-pick-toast"
       style={{ boxShadow: "0 6px 24px var(--accent-glow)" }}
     >
       <span
