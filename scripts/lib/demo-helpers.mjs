@@ -76,10 +76,12 @@ export async function slideTo(page, x, y) {
   await page.waitForTimeout(180);
 }
 
-/** Try to hover a locator. If it doesn't resolve within `timeoutMs`,
- *  log and skip — the beat is optional. Returns true if it fired. */
+/** Try to hover a locator. Scrolls it into view first (the app's
+ *  <main> is overflow-auto and the ring can push controls below the
+ *  viewport). If nothing resolves within `timeoutMs`, log and skip. */
 export async function slideToOptional(page, locator, dwellMs = 800, timeoutMs = 4000) {
   try {
+    await locator.scrollIntoViewIfNeeded({ timeout: timeoutMs });
     const box = await locator.boundingBox({ timeout: timeoutMs });
     if (!box) return false;
     await slideTo(page, box.x + box.width / 2, box.y + box.height / 2);
@@ -90,9 +92,11 @@ export async function slideToOptional(page, locator, dwellMs = 800, timeoutMs = 
   }
 }
 
-/** Click a locator; skips silently if it isn't present. */
+/** Click a locator; skips silently if it isn't present. Scrolls into
+ *  view first so mouse.click at off-screen coordinates doesn't miss. */
 export async function clickOptional(page, locator, postWaitMs = 500, timeoutMs = 4000) {
   try {
+    await locator.scrollIntoViewIfNeeded({ timeout: timeoutMs });
     const box = await locator.boundingBox({ timeout: timeoutMs });
     if (!box) return false;
     const cx = box.x + box.width / 2;

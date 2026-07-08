@@ -32,6 +32,7 @@ const VIEWPORT = { width: 1280, height: 1100 };
  *  cursor overlay grabbing the pill and pulling it. */
 async function dragScrubberTo(page, targetFraction) {
   const slider = page.locator('input[type="range"]').first();
+  await slider.scrollIntoViewIfNeeded();
   const box = await slider.boundingBox();
   if (!box) return;
   // Read the slider's current normalized position so the drag STARTS
@@ -52,6 +53,16 @@ async function dragScrubberTo(page, targetFraction) {
   await page.waitForTimeout(1100);
 }
 
+/** Scroll the app's overflow-auto <main> by `dy` px. Playback controls
+ *  sit below the ring, which itself hugs the vertical viewport limit —
+ *  this brings them into frame before we start clicking. */
+async function scrollMain(page, dy) {
+  await page.evaluate((delta) => {
+    const main = document.querySelector("main");
+    if (main) main.scrollBy({ top: delta, behavior: "smooth" });
+  }, dy);
+}
+
 console.log(`Recording replay demo: ${TARGET} → ${OUT_DIR}/${OUT_NAME}`);
 
 const { browser, context, page } = await launchRecording(OUT_DIR, VIEWPORT);
@@ -67,25 +78,38 @@ try {
   await clickOptional(
     page,
     page.locator('[role="tab"]', { hasText: /replay/i }).first(),
-    1000,
+    900,
     3000,
   );
+
+  // Scroll the main content down so the scrubber + speed/reset/play
+  // row are fully in frame BEFORE we click anything. The ring is tall
+  // enough on typical viewports that controls sit below the fold
+  // otherwise, and mouse.click at off-screen coordinates misses.
+  await scrollMain(page, 260);
+  await page.waitForTimeout(900);
 
   // Speed → 2× (fastest of the three pills, labelled "2×").
   await clickOptional(
     page,
     page.locator('[role="radio"]', { hasText: /^2×$/ }).first(),
-    600,
+    700,
     2000,
   );
 
-  // Play.
+  // Play. Verify the click actually took (button text should flip
+  // to "Pause") — helps debug when a future markup change silently
+  // breaks the selector.
   await clickOptional(
     page,
     page.locator("button", { hasText: /^play$/i }).first(),
-    500,
+    400,
     2000,
   );
+  const startedPlaying = await page.locator("button", { hasText: /^pause$/i }).count();
+  if (startedPlaying === 0) {
+    console.warn("⚠ Play button click didn't flip to Pause — autoplay may not have started");
+  }
 
   // Watch autoplay for ~9 seconds → several matches at 2× labeled speed
   // (raw 4× multiplier = 600ms/step, so ~15 matches in ~9s).
