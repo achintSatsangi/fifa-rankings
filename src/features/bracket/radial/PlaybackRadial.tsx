@@ -28,6 +28,20 @@ const BASE_INFO_DWELL_MS = 1900;
 /** Card fade duration — fixed regardless of playback speed so
  *  transitions never feel "jumpy" at 2× or "sluggish" at 0.5×. */
 const CARD_FADE_MS = 390;
+/** Ring zoom transition — matches feel of the fade, distinct from the
+ *  team-flag slide (which is 550ms). */
+const ZOOM_TRANSITION_MS = 900;
+
+/** How much to zoom the ring based on how far we've played. Kicks up
+ *  each time a full round completes so the focus stays on the still-
+ *  active inner rings while eliminated outer flags recede off-frame. */
+function zoomForIndex(playbackIndex: number): number {
+  if (playbackIndex >= 30) return 2.2; // F done — celebrate champion
+  if (playbackIndex >= 28) return 1.8; // SF done — 2 finalists
+  if (playbackIndex >= 24) return 1.55; // QF done — 4 semis
+  if (playbackIndex >= 16) return 1.25; // R32 done — 16 R16 slots
+  return 1;
+}
 
 /** Speed multipliers applied to BASE_STEP_MS / BASE_INFO_DWELL_MS.
  *  Labels shown to users are half the raw value ("1" ⇒ "0.5×", "2"
@@ -123,6 +137,7 @@ export function PlaybackRadial() {
 
   const teamStates = useMemo(() => computeTeamStates(picks), [picks]);
   const finalMatch = useMemo(() => BRACKET.find((m) => m.round === "F"), []);
+  const zoom = zoomForIndex(playbackIndex);
 
   useEffect(() => {
     if (!playing) return;
@@ -189,10 +204,10 @@ export function PlaybackRadial() {
     <div className="flex h-full w-full flex-col">
       <div
         ref={outerRef}
-        className="relative flex min-h-0 flex-1 items-center justify-center"
+        className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden"
       >
         {size > 0 ? (
-          <Ring size={size} teamStates={teamStates} finalMatch={finalMatch} />
+          <Ring size={size} teamStates={teamStates} finalMatch={finalMatch} zoom={zoom} />
         ) : null}
         {infoMatch ? (
           <MatchInfoCard match={infoMatch} visible={cardVisible} onClose={handleClose} />
@@ -353,10 +368,12 @@ function Ring({
   size,
   teamStates,
   finalMatch,
+  zoom,
 }: {
   size: number;
   teamStates: TeamPickState[];
   finalMatch: BracketMatch | undefined;
+  zoom: number;
 }) {
   const sizes = useMemo(() => flagSizesFor(size), [size]);
   const trophySize = useMemo(() => trophySizeFor(size), [size]);
@@ -370,20 +387,34 @@ function Ring({
     return sizes.OUTER;
   };
 
+  // Outer wrapper keeps a stable box for layout; inner wrapper carries
+  // the scale so the transform animates without shifting the flex
+  // container around it. Overflow lives on the parent (relative flex)
+  // so overflowing outer flags get clipped cleanly during zoom.
   return (
     <div className="relative" style={{ width: size, height: size }}>
-      <Connectors />
-      {teamStates.map((state) => (
-        <TeamPoint
-          key={state.code}
-          code={state.code}
-          point={state.point}
-          size={flagSizeForRadius(state.radius)}
-          faded={state.eliminated}
-          layer={state.radius === OUTER_FLAG_RADIUS ? "outer" : "winner"}
-        />
-      ))}
-      <Trophy size={trophySize} match={finalMatch} />
+      <div
+        className="absolute inset-0"
+        style={{
+          transform: `scale(${zoom})`,
+          transformOrigin: "center center",
+          transition: `transform ${ZOOM_TRANSITION_MS}ms cubic-bezier(0.4, 0, 0.2, 1)`,
+          willChange: "transform",
+        }}
+      >
+        <Connectors />
+        {teamStates.map((state) => (
+          <TeamPoint
+            key={state.code}
+            code={state.code}
+            point={state.point}
+            size={flagSizeForRadius(state.radius)}
+            faded={state.eliminated}
+            layer={state.radius === OUTER_FLAG_RADIUS ? "outer" : "winner"}
+          />
+        ))}
+        <Trophy size={trophySize} match={finalMatch} />
+      </div>
     </div>
   );
 }
@@ -411,7 +442,11 @@ function MatchInfoCard({
     <div
       role="dialog"
       aria-label={`${roundLabel}: ${teamA?.name ?? codeA} vs ${teamB?.name ?? codeB}`}
-      className="absolute left-1/2 top-1/2 z-30 max-w-[min(90%,260px)] rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-elevated)] px-3 py-2.5 text-center text-xs shadow-xl"
+      // Fixed width + fixed height so the box doesn't resize between
+      // matches (short-name pairs shrinking, long-name pairs growing was
+      // visually distracting during autoplay). Team names inside truncate
+      // with ellipsis so a "Bosnia and Herzegovina" doesn't blow it up.
+      className="absolute left-1/2 top-1/2 z-30 flex h-[104px] w-[260px] flex-col justify-between rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-elevated)] px-3 py-2.5 text-center text-xs shadow-xl"
       style={{
         opacity: visible ? 1 : 0,
         transform: `translate(-50%, -50%) scale(${visible ? 1 : 0.96})`,
@@ -429,17 +464,17 @@ function MatchInfoCard({
           <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" />
         </svg>
       </button>
-      <div className="text-[10px] uppercase tracking-wide text-[var(--text-muted)]">
+      <div className="truncate text-[10px] uppercase tracking-wide text-[var(--text-muted)]">
         {roundLabel} · {formatMatchDateLong(match.date)}
       </div>
-      <div className="mt-1.5 flex items-center justify-center gap-1.5 text-[var(--text)]">
+      <div className="flex items-center justify-center gap-1.5 text-[var(--text)]">
         <Flag code={codeA} size={18} tooltip={false} />
-        <span className="text-[11px] font-medium">{teamA?.name ?? codeA}</span>
-        <span className="mx-1 font-mono text-[12px] tabular-nums">{formatScore(match)}</span>
-        <span className="text-[11px] font-medium">{teamB?.name ?? codeB}</span>
+        <span className="min-w-0 flex-1 truncate text-right text-[11px] font-medium">{teamA?.name ?? codeA}</span>
+        <span className="shrink-0 font-mono text-[12px] tabular-nums">{formatScore(match)}</span>
+        <span className="min-w-0 flex-1 truncate text-left text-[11px] font-medium">{teamB?.name ?? codeB}</span>
         <Flag code={codeB} size={18} tooltip={false} />
       </div>
-      <div className="mt-2 flex items-center justify-center">
+      <div className="flex items-center justify-center">
         <HighlightButton
           url={highlight.url}
           source={highlight.source}
