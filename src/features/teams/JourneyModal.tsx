@@ -53,7 +53,11 @@ export function JourneyModal({ code, onClose }: Props) {
           </header>
 
           <Table>
-            <THead>
+            {/* Hide column headers on mobile — cells (short stage code,
+                opponent flag, score, result badge, YouTube pill) are
+                self-explanatory in the narrow layout, and the labels
+                took a whole row of vertical space for no clarity gain. */}
+            <THead className="hidden sm:table-header-group">
               <TR>
                 <TH>{t("team.stage")}</TH>
                 <TH className="hidden sm:table-cell">{t("team.date")}</TH>
@@ -67,9 +71,17 @@ export function JourneyModal({ code, onClose }: Props) {
             <TBody>
               {rows.map((r) => {
                 const opp = teamByCode(r.opponentCode);
-                const scoreCell = r.played
-                  ? `${r.teamScore} – ${r.opponentScore}${r.teamPen !== null && r.opponentPen !== null ? ` (${r.teamPen}–${r.opponentPen} pens)` : r.extraTime ? " (a.e.t.)" : ""}`
-                  : t("team.notPlayed");
+                const scoreMain = r.played ? `${r.teamScore} – ${r.opponentScore}` : t("team.notPlayed");
+                // Extra qualifier (penalties / after extra time). Rendered on
+                // its own line below `sm` so a long score never triggers a
+                // horizontal scroll on narrow screens.
+                const scoreSuffix = r.played
+                  ? r.teamPen !== null && r.opponentPen !== null
+                    ? `(${r.teamPen}–${r.opponentPen} pens)`
+                    : r.extraTime
+                      ? "(a.e.t.)"
+                      : null
+                  : null;
                 return (
                   <TR key={r.matchId}>
                     <TD className="whitespace-nowrap">
@@ -97,7 +109,20 @@ export function JourneyModal({ code, onClose }: Props) {
                         <span className="text-[var(--text-muted)]">TBD</span>
                       )}
                     </TD>
-                    <TD align="center" className="whitespace-nowrap font-mono">{scoreCell}</TD>
+                    <TD align="center" className="whitespace-nowrap font-mono">
+                      <span>{scoreMain}</span>
+                      {scoreSuffix ? (
+                        <>
+                          {/* Space between score and suffix — visible on
+                              desktop only; the mobile suffix is on its own
+                              block line so no separator is needed there. */}
+                          <span className="hidden sm:inline"> </span>
+                          <span className="block text-xs opacity-80 sm:inline sm:text-base sm:opacity-100">
+                            {scoreSuffix}
+                          </span>
+                        </>
+                      ) : null}
+                    </TD>
                     <TD align="center">
                       {r.played && r.result ? (
                         <Badge variant={resultVariant(r.result)}>

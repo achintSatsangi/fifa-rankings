@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { FocusTrap } from "focus-trap-react";
 
 type ModalProps = {
@@ -33,7 +34,11 @@ export function Modal({ open, onClose, title, children, size = "lg" }: ModalProp
 
   if (!open) return null;
 
-  return (
+  // Portal to document.body so `fixed inset-0` is bounded by the
+  // viewport, not by an ancestor with a `transform` (e.g. ScrollReveal's
+  // translate-y). Without this, the modal renders inside the transformed
+  // ancestor's stacking context and page content bleeds through below it.
+  return createPortal(
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-8"
       style={{ background: "var(--modal-overlay)" }}
@@ -76,6 +81,7 @@ export function Modal({ open, onClose, title, children, size = "lg" }: ModalProp
           <div className="min-h-0 flex-1 overflow-y-auto px-3 py-4 sm:px-6 sm:py-5">{children}</div>
         </div>
       </FocusTrap>
-    </div>
+    </div>,
+    document.body,
   );
 }
