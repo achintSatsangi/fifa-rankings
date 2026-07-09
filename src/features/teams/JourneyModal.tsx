@@ -34,17 +34,20 @@ export function JourneyModal({ code, onClose }: Props) {
     <Modal open={open} onClose={onClose} title={team?.name ?? code ?? ""} size="xl">
       {team ? (
         <>
-          <header className="mb-6 flex flex-wrap items-center gap-4">
+          <header className="mb-6 flex items-center gap-3 sm:gap-4">
             <Flag code={team.code} size={64} />
-            <div className="flex flex-1 flex-col gap-1">
-              <div className="flex items-center gap-2 text-base text-[var(--text-secondary)]">
-                <span>{t("team.group")} {team.groupId}</span>
-                <span>·</span>
-                <span>{team.confederation}</span>
-                <span>·</span>
-                <span>{t("team.rank")} #{team.fifaRank}</span>
+            <div className="flex min-w-0 flex-1 flex-col gap-1">
+              {/* flex-wrap + whitespace-nowrap on each label so narrow
+                  viewports wrap in clean two-line chunks instead of
+                  breaking "Group D" or "FIFA rank" across lines. */}
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5 text-sm text-[var(--text-secondary)] sm:text-base">
+                <span className="whitespace-nowrap">{t("team.group")} {team.groupId}</span>
+                <span aria-hidden="true">·</span>
+                <span className="whitespace-nowrap">{team.confederation}</span>
+                <span aria-hidden="true">·</span>
+                <span className="whitespace-nowrap">{t("team.rank")} #{team.fifaRank}</span>
               </div>
-              <div className="text-base text-[var(--text)]">{stageLabel}</div>
+              <div className="text-sm text-[var(--text)] sm:text-base">{stageLabel}</div>
             </div>
             <FavouriteButton code={team.code} size="md" />
           </header>
@@ -70,7 +73,10 @@ export function JourneyModal({ code, onClose }: Props) {
                 return (
                   <TR key={r.matchId}>
                     <TD className="whitespace-nowrap">
-                      <div>{r.stage}</div>
+                      {/* Short compact label on mobile ("MA1" / "R16"),
+                          full ("Group A · MD1" / "Round of 16") on ≥sm. */}
+                      <div className="sm:hidden">{r.stageShort}</div>
+                      <div className="hidden sm:block">{r.stage}</div>
                       {/* On mobile, tuck the date under the stage since we
                           hide the standalone Date column below `sm`. */}
                       <div className="text-xs text-[var(--text-muted)] sm:hidden">
@@ -84,7 +90,8 @@ export function JourneyModal({ code, onClose }: Props) {
                       {r.opponentCode ? (
                         <span className="inline-flex items-center gap-2">
                           <Flag code={r.opponentCode} size={20} />
-                          <span className="truncate">{opp?.name ?? r.opponentCode}</span>
+                          {/* Team name hidden below sm — flag is enough. */}
+                          <span className="hidden truncate sm:inline">{opp?.name ?? r.opponentCode}</span>
                         </span>
                       ) : (
                         <span className="text-[var(--text-muted)]">TBD</span>

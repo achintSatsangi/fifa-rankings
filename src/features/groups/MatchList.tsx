@@ -20,7 +20,7 @@ export function MatchList({ matches }: { matches: GroupMatch[] }) {
               MD{m.matchDay} · {formatMatchDate(m.date)}
             </span>
             <span className="flex flex-1 items-center justify-end gap-2 text-right">
-              <span className="text-[var(--text)]">{home?.name ?? m.homeCode}</span>
+              <span className="hidden text-[var(--text)] sm:inline">{home?.name ?? m.homeCode}</span>
               <Flag code={m.homeCode} size={20} />
             </span>
             <span className="w-16 shrink-0 text-center font-mono text-[var(--text)]">
@@ -28,7 +28,7 @@ export function MatchList({ matches }: { matches: GroupMatch[] }) {
             </span>
             <span className="flex flex-1 items-center gap-2">
               <Flag code={m.awayCode} size={20} />
-              <span className="text-[var(--text)]">{away?.name ?? m.awayCode}</span>
+              <span className="hidden text-[var(--text)] sm:inline">{away?.name ?? m.awayCode}</span>
             </span>
           </li>
         );

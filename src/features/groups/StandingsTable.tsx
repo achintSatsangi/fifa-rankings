@@ -33,7 +33,11 @@ export function StandingsTable({ standings }: { standings: Standing[] }) {
               <TD>
                 <span className="inline-flex items-center gap-2">
                   <Flag code={s.code} size={22} />
-                  <span className="font-medium text-[var(--text)]">{team?.name ?? s.code}</span>
+                  {/* On mobile, flag alone identifies the team — the
+                      standings columns need the horizontal room. */}
+                  <span className="hidden font-medium text-[var(--text)] sm:inline">
+                    {team?.name ?? s.code}
+                  </span>
                   {advanced ? <Badge variant="success">✓</Badge> : null}
                 </span>
               </TD>

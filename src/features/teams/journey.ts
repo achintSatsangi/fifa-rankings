@@ -6,6 +6,10 @@ export type JourneyResult = "W" | "D" | "L" | null;
 
 export type JourneyRow = {
   stage: string;
+  /** Compact stage label for narrow viewports:
+   *   Group stage → "M<groupId><matchDay>"  (e.g. MA1, MD3)
+   *   Bracket     → "R32" / "R16" / "QF" / "SF" / "3rd" / "F" */
+  stageShort: string;
   date: string;
   venue: string;
   opponentCode: string | null;
@@ -30,6 +34,17 @@ function labelForRound(round: BracketMatch["round"]): string {
   }
 }
 
+function shortLabelForRound(round: BracketMatch["round"]): string {
+  switch (round) {
+    case "R32": return "R32";
+    case "R16": return "R16";
+    case "QF":  return "QF";
+    case "SF":  return "SF";
+    case "3RD": return "3rd";
+    case "F":   return "F";
+  }
+}
+
 function resultFromScores(a: number | null, b: number | null, penA: number | null, penB: number | null): JourneyResult {
   if (a === null || b === null) return null;
   if (a > b) return "W";
@@ -46,6 +61,7 @@ function rowFromGroupMatch(teamCode: string, m: GroupMatch, groupId: string): Jo
   const played = teamScore !== null && opponentScore !== null;
   return {
     stage: `Group ${groupId} · MD${m.matchDay}`,
+    stageShort: `M${groupId}${m.matchDay}`,
     date: m.date,
     venue: m.venue,
     opponentCode,
@@ -72,6 +88,7 @@ function rowFromBracketMatch(teamCode: string, m: BracketMatch): JourneyRow | nu
   const played = teamScore !== null && opponentScore !== null;
   return {
     stage: labelForRound(m.round),
+    stageShort: shortLabelForRound(m.round),
     date: m.date,
     venue: m.venue,
     opponentCode,
