@@ -620,8 +620,8 @@
     },
     "teamCodeA": "MAR",
     "teamCodeB": "FRA",
-    "scoreA": null,
-    "scoreB": null,
+    "scoreA": 0,
+    "scoreB": 0,
     "penaltyA": null,
     "penaltyB": null,
     "feedsInto": {
