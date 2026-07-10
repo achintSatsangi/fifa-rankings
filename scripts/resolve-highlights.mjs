@@ -251,18 +251,24 @@ if (onlyMatch && targets.length === 0) {
   process.exit(1);
 }
 
-// YouTube fetching is manually gated by scripts/config/youtube-fetch.json.
-// The daily free-tier quota is only 100 searches; letting every 30-min
-// cron burn 40+ calls exhausts it fast. Instead the user flips
-// `enabled: true` and pushes when they want a fetch; the workflow
-// commits any changes plus a flag reset so it's a one-shot opt-in.
-// FIFA fallback runs regardless — it costs nothing.
+// YouTube fetching is gated. Two ways to enable it:
+//   1. Manual: flip scripts/config/youtube-fetch.json → enabled: true
+//      and push. Script auto-resets the flag to false at the end —
+//      genuinely one-shot.
+//   2. Nightly CI: workflow sets FORCE_YOUTUBE_FETCH=true on its
+//      21:00-CEST cron. Doesn't touch the file flag.
+// FIFA fallback runs regardless — costs nothing, no quota to burn.
 const YT_FLAG_PATH = "scripts/config/youtube-fetch.json";
 const ytFlag = JSON.parse(readFileSync(YT_FLAG_PATH, "utf8"));
-let youtubeAvailable = ytFlag.enabled === true;
-const youtubeWasEnabled = youtubeAvailable;
+const forceEnv = process.env.FORCE_YOUTUBE_FETCH === "true";
+let youtubeAvailable = ytFlag.enabled === true || forceEnv;
+// Only the FILE-flag path is one-shot — env override doesn't rewrite
+// the file, so back-to-back nightly runs work naturally.
+const youtubeWasFileEnabled = ytFlag.enabled === true;
 if (!youtubeAvailable) {
-  console.log(`YouTube fetch disabled (flip scripts/config/youtube-fetch.json → enabled: true to run it once). FIFA fallback only for this run.\n`);
+  console.log(`YouTube fetch disabled (flip scripts/config/youtube-fetch.json → enabled: true or set FORCE_YOUTUBE_FETCH=true to run). FIFA fallback only for this run.\n`);
+} else if (forceEnv && !youtubeWasFileEnabled) {
+  console.log(`YouTube fetch enabled via FORCE_YOUTUBE_FETCH env (nightly cron).\n`);
 }
 
 console.log(`Resolving ${targets.length} match${targets.length === 1 ? "" : "es"}...\n`);
@@ -354,12 +360,10 @@ for (const t of targets) {
 
 writeFileSync(highlightsPath, JSON.stringify(highlights, null, 2) + "\n");
 
-// One-shot semantics: any run that started with the YouTube flag enabled
-// resets it to false at the end. The user re-enables when they next
-// want a fetch. This applies whether the run succeeded, hit quota, or
-// only got partway through — the flag exists to say "attempt YouTube
-// once", not "keep attempting until manually disabled".
-if (youtubeWasEnabled) {
+// One-shot semantics: any run that started with the FILE flag enabled
+// resets it to false at the end. Env-forced runs (nightly cron) don't
+// touch the file — the recurring schedule is the "opt-in" signal.
+if (youtubeWasFileEnabled) {
   ytFlag.enabled = false;
   writeFileSync(YT_FLAG_PATH, JSON.stringify(ytFlag, null, 2) + "\n");
   console.log(`\nYouTube fetch flag reset to false (was one-shot opt-in).`);
