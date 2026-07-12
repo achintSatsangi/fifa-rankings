@@ -19,7 +19,7 @@
     "yourTeam": "Your contender"
   },
   "landing": {
-    "bracketSection": "The bracket",
+    "bracketSection": "FIFA World Cup 2026",
     "groupsSection": "The groups",
     "horizontalLink": "Prefer the classic layout? →",
     "scrollHint": "Scroll to explore",
@@ -128,6 +128,16 @@
     "resultDraw": "D",
     "resultLoss": "L",
     "notPlayed": "—"
+  },
+  "historical": {
+    "title": "Past World Cups",
+    "subtitle": "The knockout matches from previous editions — data scraped from Wikipedia.",
+    "yearLabel": "Year",
+    "champion": "Champion:",
+    "hostedBy": "Hosted by",
+    "sourceNote": "Source:",
+    "viewRadial": "Radial",
+    "viewLegacy": "Legacy"
   },
   "groups": {
     "title": "Group Stage",

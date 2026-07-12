@@ -1,0 +1,111 @@
+{
+  "year": 1958,
+  "source": "https://en.wikipedia.org/wiki/1958_FIFA_World_Cup_knockout_stage",
+  "scrapedAt": "2026-07-12",
+  "matches": [
+    {
+      "round": "QF",
+      "date": "1958-06-19",
+      "time": "19:00 ([[Central European Time|CET]])",
+      "teamA": "BRA",
+      "teamB": "WAL",
+      "scoreA": 1,
+      "scoreB": 0,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Ullevi, Gothenburg"
+    },
+    {
+      "round": "QF",
+      "date": "1958-06-19",
+      "time": "19:00 ([[Central European Time|CET]])",
+      "teamA": "FRA",
+      "teamB": "NIR",
+      "scoreA": 4,
+      "scoreB": 0,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Idrottsparken, Norrköping"
+    },
+    {
+      "round": "QF",
+      "date": "1958-06-19",
+      "time": "19:00 ([[Central European Time|CET]])",
+      "teamA": "SWE",
+      "teamB": "URS",
+      "scoreA": 2,
+      "scoreB": 0,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Råsunda Stadium, Solna"
+    },
+    {
+      "round": "QF",
+      "date": "1958-06-19",
+      "time": "19:00 ([[Central European Time|CET]])",
+      "teamA": "FRG",
+      "teamB": "YUG",
+      "scoreA": 1,
+      "scoreB": 0,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Malmö Stadion, Malmö"
+    },
+    {
+      "round": "SF",
+      "date": "1958-06-24",
+      "time": "19:00 ([[Central European Time|CET]])",
+      "teamA": "BRA",
+      "teamB": "FRA",
+      "scoreA": 5,
+      "scoreB": 2,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Råsunda Stadium, Solna"
+    },
+    {
+      "round": "SF",
+      "date": "1958-06-24",
+      "time": "19:00 ([[Central European Time|CET]])",
+      "teamA": "SWE",
+      "teamB": "FRG",
+      "scoreA": 3,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Ullevi, Gothenburg"
+    },
+    {
+      "round": "3RD",
+      "date": "1958-06-28",
+      "time": "17:00 ([[Central European Time|CET]])",
+      "teamA": "FRA",
+      "teamB": "FRG",
+      "scoreA": 6,
+      "scoreB": 3,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Ullevi, Gothenburg"
+    },
+    {
+      "round": "F",
+      "date": "1958-06-29",
+      "time": "15:00 ([[Central European Time|CET]])",
+      "teamA": "BRA",
+      "teamB": "SWE",
+      "scoreA": 5,
+      "scoreB": 2,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Råsunda Stadium, Solna"
+    }
+  ]
+}

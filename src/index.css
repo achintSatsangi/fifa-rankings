@@ -153,6 +153,17 @@ body {
   animation: pulse-dot 1.8s ease-in-out infinite;
 }
 
+/* Historical radial: gentle neon pulse for the highlighted team's
+   journey overlay. Kept low-amplitude so it feels ambient, not
+   flashing. */
+@keyframes hist-path-pulse {
+  0%, 100% { opacity: 0.7; }
+  50%      { opacity: 0.95; }
+}
+.animate-hist-path {
+  animation: hist-path-pulse 2.6s ease-in-out infinite;
+}
+
 /* Pick toast: brief slide-in from just above, hold, then fade. Runs
    once per mount — the interactive picker keys the toast so a new
    pick remounts and re-triggers the animation. */

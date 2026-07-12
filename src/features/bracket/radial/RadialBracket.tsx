@@ -46,6 +46,7 @@ function currentMatchFor(teamCode: string): BracketMatch | null {
 
 export function RadialBracket() {
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
+  const [hoveredTeam, setHoveredTeam] = useState<string | null>(null);
   const outerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState(0);
 
@@ -133,6 +134,7 @@ export function RadialBracket() {
     <div className="flex h-full w-full flex-col">
       <div
         ref={outerRef}
+        onMouseLeave={() => setHoveredTeam(null)}
         className="relative flex min-h-0 flex-1 items-center justify-center"
       >
         {size > 0 ? (
@@ -146,6 +148,8 @@ export function RadialBracket() {
             r32ByTeam={r32ByTeam}
             innermostByTeam={innermostByTeam}
             finalMatch={finalMatch}
+            hoveredTeam={hoveredTeam}
+            onHoverTeam={setHoveredTeam}
             onTeamClick={setSelectedCode}
           />
         ) : null}
@@ -170,6 +174,8 @@ function RingContent({
   r32ByTeam,
   innermostByTeam,
   finalMatch,
+  hoveredTeam,
+  onHoverTeam,
   onTeamClick,
 }: {
   size: number;
@@ -181,6 +187,8 @@ function RingContent({
   r32ByTeam: Map<string, BracketMatch>;
   innermostByTeam: Map<string, number>;
   finalMatch: BracketMatch | undefined;
+  hoveredTeam: string | null;
+  onHoverTeam: (code: string | null) => void;
   onTeamClick: (code: string) => void;
 }) {
   const sizes = useMemo(() => flagSizesFor(size), [size]);
@@ -216,7 +224,7 @@ function RingContent({
 
   return (
     <div className="relative" style={{ width: size, height: size }}>
-      <Connectors />
+      <Connectors highlightedTeam={hoveredTeam} />
       {outer.map((s) => (
         <TeamPoint
           key={`o-${s.slot}`}
@@ -225,6 +233,7 @@ function RingContent({
           size={sizes.OUTER}
           faded={s.teamCode ? isFaded(s.teamCode, OUTER_FLAG_RADIUS) : false}
           onClick={s.teamCode ? onTeamClick : undefined}
+          onHoverChange={s.teamCode ? (h) => onHoverTeam(h ? s.teamCode : null) : undefined}
           layer="outer"
           match={
             s.teamCode
@@ -241,6 +250,7 @@ function RingContent({
           size={sizes[w.match.round]}
           faded={w.code ? isFaded(w.code, WINNER_RING_RADIUS[w.match.round]) : false}
           onClick={w.code ? onTeamClick : undefined}
+          onHoverChange={w.code ? (h) => onHoverTeam(h ? w.code : null) : undefined}
           layer="winner"
           match={
             w.code

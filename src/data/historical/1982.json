@@ -1,0 +1,59 @@
+{
+  "year": 1982,
+  "source": "https://en.wikipedia.org/wiki/1982_FIFA_World_Cup_knockout_stage",
+  "scrapedAt": "2026-07-12",
+  "matches": [
+    {
+      "round": "SF",
+      "date": "1982-07-08",
+      "time": "17:15 [[Central European Summer Time|CEST]]",
+      "teamA": "POL",
+      "teamB": "ITA",
+      "scoreA": 0,
+      "scoreB": 2,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Camp Nou, Barcelona"
+    },
+    {
+      "round": "3RD",
+      "date": "1982-07-10",
+      "time": "20:00 [[Central European Summer Time|CEST]]",
+      "teamA": "POL",
+      "teamB": "FRA",
+      "scoreA": 3,
+      "scoreB": 2,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio José Rico Pérez, Alicante"
+    },
+    {
+      "round": "SF",
+      "date": "1982-07-08",
+      "time": "21:00 [[Central European Summer Time|CEST]]",
+      "teamA": "FRG",
+      "teamB": "FRA",
+      "scoreA": 3,
+      "scoreB": 3,
+      "extraTime": true,
+      "penaltyA": 5,
+      "penaltyB": 4,
+      "venue": "Ramón Sánchez Pizjuán Stadium, Seville"
+    },
+    {
+      "round": "F",
+      "date": "1982-07-11",
+      "time": "20:00 [[Central European Summer Time|CEST]]",
+      "teamA": "ITA",
+      "teamB": "FRG",
+      "scoreA": 3,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Santiago Bernabéu, Madrid"
+    }
+  ]
+}

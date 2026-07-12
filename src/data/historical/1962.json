@@ -1,0 +1,111 @@
+{
+  "year": 1962,
+  "source": "https://en.wikipedia.org/wiki/1962_FIFA_World_Cup_knockout_stage",
+  "scrapedAt": "2026-07-12",
+  "matches": [
+    {
+      "round": "QF",
+      "date": "1962-06-10",
+      "time": "14:30 [[Time in Chile|CLT]] ([[UTC-04]])",
+      "teamA": "CHI",
+      "teamB": "URS",
+      "scoreA": 2,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Carlos Dittborn, Arica"
+    },
+    {
+      "round": "QF",
+      "date": "1962-06-10",
+      "time": "14:30 [[Time in Chile|CLT]] ([[UTC-04]])",
+      "teamA": "TCH",
+      "teamB": "HUN",
+      "scoreA": 1,
+      "scoreB": 0,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio El Teniente, Rancagua"
+    },
+    {
+      "round": "QF",
+      "date": "1962-06-10",
+      "time": "14:30 [[Time in Chile|CLT]] ([[UTC-04]])",
+      "teamA": "BRA",
+      "teamB": "ENG",
+      "scoreA": 3,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Sausalito, Viña del Mar"
+    },
+    {
+      "round": "QF",
+      "date": "1962-06-10",
+      "time": "14:30 [[Time in Chile|CLT]] ([[UTC-04]])",
+      "teamA": "YUG",
+      "teamB": "FRG",
+      "scoreA": 1,
+      "scoreB": 0,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Nacional, Santiago"
+    },
+    {
+      "round": "SF",
+      "date": "1962-06-13",
+      "time": "14:30 [[Time in Chile|CLT]] ([[UTC-04]])",
+      "teamA": "TCH",
+      "teamB": "YUG",
+      "scoreA": 3,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Sausalito, Viña del Mar"
+    },
+    {
+      "round": "SF",
+      "date": "1962-06-13",
+      "time": "14:30 [[Time in Chile|CLT]] ([[UTC-04]])",
+      "teamA": "BRA",
+      "teamB": "CHI",
+      "scoreA": 4,
+      "scoreB": 2,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Nacional, Santiago"
+    },
+    {
+      "round": "3RD",
+      "date": "1962-06-16",
+      "time": "14:30 [[Time in Chile|CLT]] ([[UTC-04]])",
+      "teamA": "CHI",
+      "teamB": "YUG",
+      "scoreA": 1,
+      "scoreB": 0,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Nacional, Santiago"
+    },
+    {
+      "round": "F",
+      "date": "1962-06-17",
+      "time": "14:30 [[Time in Chile|CLT]] ([[UTC-04]])",
+      "teamA": "BRA",
+      "teamB": "TCH",
+      "scoreA": 3,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Nacional, Santiago"
+    }
+  ]
+}

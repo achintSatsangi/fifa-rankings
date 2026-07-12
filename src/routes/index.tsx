@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { HistoricalWCSection } from "../features/historical/HistoricalWCSection";
 import { BracketSection } from "../features/landing/BracketSection";
 import { GroupsSection } from "../features/landing/GroupsSection";
 import { HomeFooter } from "../features/landing/HomeFooter";
@@ -18,6 +19,7 @@ function HomePage() {
     <div className="flex w-full flex-col">
       <BracketSection />
       <GroupsSection />
+      <HistoricalWCSection />
       <HomeFooter />
     </div>
   );

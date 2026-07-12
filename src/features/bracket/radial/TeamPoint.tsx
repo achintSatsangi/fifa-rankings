@@ -20,6 +20,9 @@ type Props = {
    *  inner flag wrapper. When this changes, the inner wrapper remounts
    *  and the pop plays fresh. */
   pulseKey?: number;
+  /** Called when the pointer enters/leaves this flag. Used by the
+   *  historical radial to highlight the hovered team's tournament path. */
+  onHoverChange?: (hovering: boolean) => void;
 };
 
 /**
@@ -43,6 +46,7 @@ export function TeamPoint({
   layer = "outer",
   match,
   pulseKey,
+  onHoverChange,
 }: Props) {
   const team = teamByCode(code);
   const [hovered, setHovered] = useState(false);
@@ -75,16 +79,30 @@ export function TeamPoint({
       size={size}
       title={team.name}
       tooltip={!showTooltip}
-      className={faded ? "opacity-40 grayscale" : ""}
+      // Faded flags stay OPAQUE so the disc hides the highlight path
+      // drawn behind them — earlier `opacity-40` made them see-through
+      // and the accent-color line bled through grayed flags. Instead
+      // we desaturate + darken via filters, keeping the disc solid.
+      className={faded ? "grayscale brightness-[0.55]" : ""}
     />
   );
 
-  const hoverProps = showTooltip
-    ? {
-        onMouseEnter: () => setHovered(true),
-        onMouseLeave: () => setHovered(false),
-      }
-    : {};
+  // Merge tooltip-hover state with the optional external callback so
+  // parents (e.g. HistoricalRadial) can drive their own "highlight the
+  // hovered team's path" logic off the same mouse events.
+  const hoverProps =
+    showTooltip || onHoverChange
+      ? {
+          onMouseEnter: () => {
+            setHovered(true);
+            onHoverChange?.(true);
+          },
+          onMouseLeave: () => {
+            setHovered(false);
+            onHoverChange?.(false);
+          },
+        }
+      : {};
 
   const tooltipEl = showTooltip && match ? (
     <MatchTooltip match={match} visible={hovered} focusTeam={team.code} />
@@ -102,7 +120,7 @@ export function TeamPoint({
   if (!onClick) {
     return (
       <span
-        className="absolute"
+        className="absolute hover:z-30 focus-within:z-30"
         style={style}
         title={showTooltip ? undefined : team.name}
         {...hoverProps}
@@ -119,7 +137,7 @@ export function TeamPoint({
     <button
       type="button"
       onClick={() => onClick(team.code)}
-      className="absolute rounded-full ring-0 hover:z-10 focus-visible:z-10"
+      className="absolute rounded-full ring-0 hover:z-30 focus-visible:z-30"
       style={style}
       aria-label={team.name}
       title={showTooltip ? undefined : team.name}

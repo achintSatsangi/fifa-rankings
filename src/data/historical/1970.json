@@ -1,0 +1,111 @@
+{
+  "year": 1970,
+  "source": "https://en.wikipedia.org/wiki/1970_FIFA_World_Cup_knockout_stage",
+  "scrapedAt": "2026-07-12",
+  "matches": [
+    {
+      "round": "QF",
+      "date": "1970-06-14",
+      "time": "12:00",
+      "teamA": "URS",
+      "teamB": "URU",
+      "scoreA": 0,
+      "scoreB": 1,
+      "extraTime": true,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Azteca, Mexico City"
+    },
+    {
+      "round": "QF",
+      "date": "1970-06-14",
+      "time": "12:00",
+      "teamA": "ITA",
+      "teamB": "MEX",
+      "scoreA": 4,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Luis Dosal, Toluca"
+    },
+    {
+      "round": "QF",
+      "date": "1970-06-14",
+      "time": "12:00",
+      "teamA": "BRA",
+      "teamB": "PER",
+      "scoreA": 4,
+      "scoreB": 2,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Jalisco, Guadalajara"
+    },
+    {
+      "round": "QF",
+      "date": "1970-06-14",
+      "time": "12:00",
+      "teamA": "FRG",
+      "teamB": "ENG",
+      "scoreA": 3,
+      "scoreB": 2,
+      "extraTime": true,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Nou Camp, León"
+    },
+    {
+      "round": "SF",
+      "date": "1970-06-17",
+      "time": "16:00",
+      "teamA": "BRA",
+      "teamB": "URU",
+      "scoreA": 3,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Jalisco, Guadalajara"
+    },
+    {
+      "round": "3RD",
+      "date": "1970-06-20",
+      "time": "16:00",
+      "teamA": "FRG",
+      "teamB": "URU",
+      "scoreA": 1,
+      "scoreB": 0,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Azteca, Mexico City"
+    },
+    {
+      "round": "SF",
+      "date": "1970-06-17",
+      "time": "16:00",
+      "teamA": "ITA",
+      "teamB": "FRG",
+      "scoreA": 4,
+      "scoreB": 3,
+      "extraTime": true,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Azteca, Mexico City"
+    },
+    {
+      "round": "F",
+      "date": "1970-06-21",
+      "time": "12:00 [[Central Time Zone|UTC−6]]",
+      "teamA": "BRA",
+      "teamB": "ITA",
+      "scoreA": 4,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Estadio Azteca, Mexico City"
+    }
+  ]
+}

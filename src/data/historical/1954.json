@@ -1,0 +1,111 @@
+{
+  "year": 1954,
+  "source": "https://en.wikipedia.org/wiki/1954_FIFA_World_Cup_knockout_stage",
+  "scrapedAt": "2026-07-12",
+  "matches": [
+    {
+      "round": "QF",
+      "date": "1954-06-26",
+      "time": "17:00 [[Central European Time|CET]]",
+      "teamA": "URU",
+      "teamB": "ENG",
+      "scoreA": 4,
+      "scoreB": 2,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "St. Jakob Stadium, Basel"
+    },
+    {
+      "round": "QF",
+      "date": "1954-06-27",
+      "time": "17:00 [[Central European Time|CET]]",
+      "teamA": "FRG",
+      "teamB": "YUG",
+      "scoreA": 2,
+      "scoreB": 0,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Charmilles Stadium, Geneva"
+    },
+    {
+      "round": "SF",
+      "date": "1954-06-30",
+      "time": "18:00 [[Central European Time|CET]]",
+      "teamA": "FRG",
+      "teamB": "AUT",
+      "scoreA": 6,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "St. Jakob Stadium, Basel"
+    },
+    {
+      "round": "SF",
+      "date": "1954-06-30",
+      "time": "18:00 ([[Central European Time|CET]])",
+      "teamA": "HUN",
+      "teamB": "URU",
+      "scoreA": 4,
+      "scoreB": 2,
+      "extraTime": true,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Stade Olympique de la Pontaise, Lausanne"
+    },
+    {
+      "round": "3RD",
+      "date": "1954-07-03",
+      "time": "17:00 ([[Central European Time|CET]])",
+      "teamA": "AUT",
+      "teamB": "URU",
+      "scoreA": 3,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Hardturm Stadium, Zürich"
+    },
+    {
+      "round": "QF",
+      "date": "1954-06-26",
+      "time": "17:00 [[Central European Time|CET]]",
+      "teamA": "AUT",
+      "teamB": "SUI",
+      "scoreA": 7,
+      "scoreB": 5,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Stade Olympique de la Pontaise, Lausanne"
+    },
+    {
+      "round": "QF",
+      "date": "1954-06-27",
+      "time": "17:00 [[Central European Time|CET]]",
+      "teamA": "HUN",
+      "teamB": "BRA",
+      "scoreA": 4,
+      "scoreB": 2,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Wankdorf Stadium, Bern"
+    },
+    {
+      "round": "F",
+      "date": "1954-07-04",
+      "time": "17:00 [[Central European Time|CET]]",
+      "teamA": "FRG",
+      "teamB": "HUN",
+      "scoreA": 3,
+      "scoreB": 2,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Wankdorf Stadium, Bern"
+    }
+  ]
+}

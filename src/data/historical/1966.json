@@ -1,0 +1,111 @@
+{
+  "year": 1966,
+  "source": "https://en.wikipedia.org/wiki/1966_FIFA_World_Cup_knockout_stage",
+  "scrapedAt": "2026-07-12",
+  "matches": [
+    {
+      "round": "QF",
+      "date": "1966-07-23",
+      "time": "15:00 [[British Summer Time|BST]]",
+      "teamA": "ENG",
+      "teamB": "ARG",
+      "scoreA": 1,
+      "scoreB": 0,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Wembley Stadium, London"
+    },
+    {
+      "round": "QF",
+      "date": "1966-07-23",
+      "time": "15:00 [[British Summer Time|BST]]",
+      "teamA": "FRG",
+      "teamB": "URU",
+      "scoreA": 4,
+      "scoreB": 0,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Hillsborough Stadium, Sheffield"
+    },
+    {
+      "round": "QF",
+      "date": "1966-07-23",
+      "time": "15:00 [[British Summer Time|BST]]",
+      "teamA": "URS",
+      "teamB": "HUN",
+      "scoreA": 2,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Roker Park, Sunderland"
+    },
+    {
+      "round": "QF",
+      "date": "1966-07-23",
+      "time": "15:00 [[British Summer Time|BST]]",
+      "teamA": "POR",
+      "teamB": "PRK",
+      "scoreA": 5,
+      "scoreB": 3,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Goodison Park, Liverpool"
+    },
+    {
+      "round": "SF",
+      "date": "1966-07-25",
+      "time": "19:30 [[British Summer Time|BST]]",
+      "teamA": "FRG",
+      "teamB": "URS",
+      "scoreA": 2,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Goodison Park, Liverpool"
+    },
+    {
+      "round": "SF",
+      "date": "1966-07-26",
+      "time": "19:30 [[British Summer Time|BST]]",
+      "teamA": "ENG",
+      "teamB": "POR",
+      "scoreA": 2,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Wembley Stadium, London"
+    },
+    {
+      "round": "3RD",
+      "date": "1966-07-28",
+      "time": "19:30 [[British Summer Time|BST]]",
+      "teamA": "POR",
+      "teamB": "URS",
+      "scoreA": 2,
+      "scoreB": 1,
+      "extraTime": false,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Wembley Stadium, London"
+    },
+    {
+      "round": "F",
+      "date": "1966-07-30",
+      "time": "15:00 [[British Summer Time|BST]]",
+      "teamA": "ENG",
+      "teamB": "FRG",
+      "scoreA": 4,
+      "scoreB": 2,
+      "extraTime": true,
+      "penaltyA": null,
+      "penaltyB": null,
+      "venue": "Wembley Stadium, London"
+    }
+  ]
+}
