@@ -670,15 +670,16 @@
     },
     "teamCodeA": "ENG",
     "teamCodeB": "NOR",
-    "scoreA": 1,
-    "scoreB": 2,
+    "scoreA": 2,
+    "scoreB": 1,
     "penaltyA": null,
     "penaltyB": null,
     "feedsInto": {
       "matchId": "SF-2",
       "slot": "A"
     },
-    "utcDate": "2026-07-11T21:00:00Z"
+    "utcDate": "2026-07-11T21:00:00Z",
+    "extraTime": true
   },
   {
     "id": "QF-4",
