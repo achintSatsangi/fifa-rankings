@@ -10,6 +10,7 @@ import { formatMatchDateLong, formatScore, isMatchPlayed } from "../matchTime";
 import { computeTeamStates, type TeamPickState } from "../picks/state";
 import type { Picks } from "../picks/store";
 import { winnerCode } from "../resolver";
+import { Confetti } from "../../celebrations/Confetti";
 import { Connectors } from "./Connectors";
 import {
   flagSizesFor,
@@ -199,8 +200,15 @@ export function PlaybackRadial() {
 
   const done = playbackIndex >= totalPlayed;
 
+  // Confetti fires when the CURRENT (most recently played) match is the
+  // Final. Scrubbing away flips this back off; re-hitting the Final
+  // triggers a fresh burst.
+  const finalJustPlayed =
+    playbackIndex > 0 && sortedMatches[playbackIndex - 1]?.round === "F";
+
   return (
     <div className="flex h-full w-full flex-col">
+      <Confetti active={finalJustPlayed} />
       <div
         ref={outerRef}
         // Aspect-square by WIDTH so the ring gets the full viewport

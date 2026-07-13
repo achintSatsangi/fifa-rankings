@@ -21,6 +21,7 @@ import {
   type LayoutResult,
 } from "./HistoricalRadial";
 import { formatMatchDateLong, formatScore } from "../bracket/matchTime";
+import { Confetti } from "../celebrations/Confetti";
 
 /**
  * Replay view for historical tournaments. Reuses `layoutBracket` for
@@ -185,8 +186,15 @@ export function HistoricalPlayback({ tournament }: { tournament: HistoricalTourn
 
   const done = playbackIndex >= total;
 
+  // Confetti fires when the CURRENT (most recently played) match is the
+  // Final. Scrubbing away flips this back off, and re-hitting the
+  // Final triggers a fresh burst.
+  const finalJustPlayed =
+    playbackIndex > 0 && sortedMatches[playbackIndex - 1]?.round === "F";
+
   return (
     <div className="flex h-full w-full flex-col">
+      <Confetti active={finalJustPlayed} />
       <div
         ref={outerRef}
         // Aspect-square by width — full mobile width for the ring,

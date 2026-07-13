@@ -164,6 +164,7 @@ body {
   animation: hist-path-pulse 2.6s ease-in-out infinite;
 }
 
+
 /* Pick toast: brief slide-in from just above, hold, then fade. Runs
    once per mount — the interactive picker keys the toast so a new
    pick remounts and re-triggers the animation. */
