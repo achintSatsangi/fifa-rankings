@@ -50,6 +50,44 @@ const readJson = async (name) => JSON.parse(await readFile(join(dataDir, name), 
 const writeJson = async (name, data) =>
   writeFile(join(dataDir, name), JSON.stringify(data, null, 2) + "\n");
 
+/** Return the winner of a completed knockout match, or null if the
+ *  result is missing / a draw without penalty shootout. */
+function winnerOf(m) {
+  if (m.scoreA === null || m.scoreB === null) return null;
+  if (m.scoreA > m.scoreB) return m.teamCodeA;
+  if (m.scoreB > m.scoreA) return m.teamCodeB;
+  if (m.penaltyA != null && m.penaltyB != null) {
+    return m.penaltyA > m.penaltyB ? m.teamCodeA : m.teamCodeB;
+  }
+  return null;
+}
+
+/** Walk the bracket and fill any null teamCodeA/teamCodeB whose slot
+ *  references a played predecessor's winner. Iterates to a fixpoint so
+ *  a single R16 update can cascade all the way to the Final. */
+function resolveKnockoutSlots(bracket) {
+  const byId = new Map(bracket.map((m) => [m.id, m]));
+  const resolveSlot = (slot) => {
+    if (!slot || slot.type !== "winner") return null;
+    const src = byId.get(slot.ref);
+    return src ? winnerOf(src) : null;
+  };
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const m of bracket) {
+      if (!m.teamCodeA && m.slotA) {
+        const w = resolveSlot(m.slotA);
+        if (w) { m.teamCodeA = w; changed = true; }
+      }
+      if (!m.teamCodeB && m.slotB) {
+        const w = resolveSlot(m.slotB);
+        if (w) { m.teamCodeB = w; changed = true; }
+      }
+    }
+  }
+}
+
 console.log(`Fetching ${COMP} matches + standings…`);
 const [matchesResp, standingsResp] = await Promise.all([
   fetchApi(`/competitions/${COMP}/matches`),
@@ -115,6 +153,13 @@ for (const s of standingsResp.standings) {
 }
 
 // ---- Bracket ----
+// Propagate R16 winners → QF (and QF → SF, SF → F) so downstream
+// slots have concrete teamCodeA/teamCodeB before we try to match
+// them against the API's later-round results. Without this pass,
+// API matches like "QF ARG vs SUI" fail to find a local bracket
+// entry because our QF-4 still reads {teamCodeA: null, teamCodeB: null}.
+resolveKnockoutSlots(bracket);
+
 let bracketUpdates = 0;
 let bracketMissing = 0;
 for (const api of matchesResp.matches) {
@@ -164,6 +209,13 @@ for (const api of matchesResp.matches) {
     console.log(`  ${target.id}: ${before} → ${after} (${home} v ${away})`);
   }
 }
+
+// Second pass: some of the API results we just applied are R16 games
+// whose scores were previously unknown — resolving them may now fill
+// downstream QF/SF slots that were still null. Run the resolver again
+// so subsequent runs (and the client-side bracket) reflect the full
+// chain from newly-played matches.
+resolveKnockoutSlots(bracket);
 
 await writeJson("groups.json", groups);
 await writeJson("bracket.json", bracket);

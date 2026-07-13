@@ -643,17 +643,17 @@
       "type": "winner",
       "ref": "R16-6"
     },
-    "teamCodeA": null,
-    "teamCodeB": null,
-    "scoreA": null,
-    "scoreB": null,
+    "teamCodeA": "ESP",
+    "teamCodeB": "BEL",
+    "scoreA": 2,
+    "scoreB": 1,
     "penaltyA": null,
     "penaltyB": null,
     "feedsInto": {
       "matchId": "SF-1",
       "slot": "B"
     },
-    "utcDate": "2026-07-12T01:00:00Z"
+    "utcDate": "2026-07-10T19:00:00Z"
   },
   {
     "id": "QF-3",
@@ -694,16 +694,18 @@
       "type": "winner",
       "ref": "R16-8"
     },
-    "teamCodeA": null,
-    "teamCodeB": null,
-    "scoreA": null,
-    "scoreB": null,
+    "teamCodeA": "ARG",
+    "teamCodeB": "SUI",
+    "scoreA": 3,
+    "scoreB": 1,
     "penaltyA": null,
     "penaltyB": null,
     "feedsInto": {
       "matchId": "SF-2",
       "slot": "B"
-    }
+    },
+    "extraTime": true,
+    "utcDate": "2026-07-12T01:00:00Z"
   },
   {
     "id": "SF-1",
@@ -718,8 +720,8 @@
       "type": "winner",
       "ref": "QF-2"
     },
-    "teamCodeA": null,
-    "teamCodeB": null,
+    "teamCodeA": "FRA",
+    "teamCodeB": "ESP",
     "scoreA": null,
     "scoreB": null,
     "penaltyA": null,
@@ -732,7 +734,7 @@
       "matchId": "3RD",
       "slot": "A"
     },
-    "utcDate": "2026-07-15T19:00:00Z"
+    "utcDate": "2026-07-14T19:00:00Z"
   },
   {
     "id": "SF-2",
@@ -747,8 +749,8 @@
       "type": "winner",
       "ref": "QF-4"
     },
-    "teamCodeA": null,
-    "teamCodeB": null,
+    "teamCodeA": "ENG",
+    "teamCodeB": "ARG",
     "scoreA": null,
     "scoreB": null,
     "penaltyA": null,
@@ -760,7 +762,8 @@
     "losersFeedInto": {
       "matchId": "3RD",
       "slot": "B"
-    }
+    },
+    "utcDate": "2026-07-15T19:00:00Z"
   },
   {
     "id": "3RD",
