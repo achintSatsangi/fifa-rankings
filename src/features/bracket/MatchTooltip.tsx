@@ -10,6 +10,11 @@ type Props = {
   /** When provided, the middle line shows this team's name first with
    *  either the score (played) or "vs opponent" (upcoming). */
   focusTeam?: string;
+  /** Which side of the anchor to render the tooltip on. Defaults to
+   *  "below". For flags on the top half of a radial, callers should
+   *  pass "above" so the tooltip goes outward (away from the crowded
+   *  ring interior) instead of covering nearby flags. */
+  placement?: "above" | "below";
   className?: string;
 };
 
@@ -20,15 +25,17 @@ type Props = {
  *   upcoming + focusTeam → date, "focus vs opponent", live countdown, venue
  *   upcoming + no focus  → date, live countdown, venue
  */
-export function MatchTooltip({ match, visible, focusTeam, className = "" }: Props) {
+export function MatchTooltip({ match, visible, focusTeam, placement = "below", className = "" }: Props) {
   const { t } = useTranslation();
   const played = isMatchPlayed(match);
+  const placementClasses =
+    placement === "above" ? "bottom-full mb-2" : "top-full mt-2";
 
   return (
     <div
       role="tooltip"
       className={
-        "absolute left-1/2 top-full z-40 mt-2 -translate-x-1/2 whitespace-nowrap " +
+        `absolute left-1/2 ${placementClasses} z-40 -translate-x-1/2 whitespace-nowrap ` +
         "rounded-md px-3 py-2 text-xs shadow-md transition-opacity duration-150 " +
         (visible
           ? "pointer-events-auto opacity-100"

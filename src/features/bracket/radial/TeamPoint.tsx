@@ -104,8 +104,14 @@ export function TeamPoint({
         }
       : {};
 
+  // Tooltip points radially outward: for flags in the top half of the
+  // ring (y < 0.5) it renders ABOVE the flag; bottom-half flags keep
+  // the default below-flag placement. This keeps the tooltip out of
+  // the crowded ring interior where it used to collide with other
+  // teams' flags on the same team's path (see mobile screenshot).
+  const tooltipPlacement: "above" | "below" = point.y < 0.5 ? "above" : "below";
   const tooltipEl = showTooltip && match ? (
-    <MatchTooltip match={match} visible={hovered} focusTeam={team.code} />
+    <MatchTooltip match={match} visible={hovered} focusTeam={team.code} placement={tooltipPlacement} />
   ) : null;
 
   // Inner wrapper carries both the hover-scale and the pick-pop

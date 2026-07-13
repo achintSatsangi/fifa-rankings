@@ -24,29 +24,29 @@ import {
  * (dashed placeholder) rather than shifting positions.
  */
 
-const OUTER_R = 0.44;
-const R16_WIN_R = 0.32;
-const QF_WIN_R = 0.21;
-const SF_WIN_R = 0.10;
+export const OUTER_R = 0.44;
+export const R16_WIN_R = 0.32;
+export const QF_WIN_R = 0.21;
+export const SF_WIN_R = 0.10;
 
 // 8-team knockout variant (1954-1970 World Cups): no R16 stage, so the
 // 4 QF winners sit further from the trophy to preserve visible spacing.
-const QF8_WIN_R = 0.30;
-const SF8_WIN_R = 0.16;
+export const QF8_WIN_R = 0.30;
+export const SF8_WIN_R = 0.16;
 
 // 4-team knockout variant (1982): only SF + Final on the knockout
 // bracket (a second group stage played the QF role). Very shallow ring.
-const SF4_WIN_R = 0.22;
+export const SF4_WIN_R = 0.22;
 
-type Point = { x: number; y: number };
+export type Point = { x: number; y: number };
 
-function pointAt(angle: number, radius: number): Point {
+export function pointAt(angle: number, radius: number): Point {
   return {
     x: 0.5 + radius * Math.sin(angle),
     y: 0.5 - radius * Math.cos(angle),
   };
 }
-function svgPoint(angle: number, radius: number): Point {
+export function svgPoint(angle: number, radius: number): Point {
   const p = pointAt(angle, radius);
   return { x: p.x * 100, y: p.y * 100 };
 }
@@ -54,16 +54,16 @@ function svgPoint(angle: number, radius: number): Point {
 /** Outer slot i (0..total-1) → angle. Half-step offset centers the flag
  *  in its wedge; matches the WC26 layout convention. `total` defaults to
  *  16 for the standard R16 bracket; pass 8 for the QF-start variant. */
-function slotAngle(slot: number, total: number = 16): number {
+export function slotAngle(slot: number, total: number = 16): number {
   return ((slot + 0.5) / total) * Math.PI * 2;
 }
 
 /** Angle midpoint of a range of outer slots (inclusive endpoints). */
-function midAngleOfSlots(startSlot: number, endSlot: number, total: number = 16): number {
+export function midAngleOfSlots(startSlot: number, endSlot: number, total: number = 16): number {
   return ((startSlot + endSlot + 1) / total) * Math.PI;
 }
 
-function flagSizesFor(size: number) {
+export function flagSizesFor(size: number) {
   const s = Math.min(1, Math.max(0, size) / 720);
   return {
     OUTER: Math.round(52 * s),
@@ -73,11 +73,11 @@ function flagSizesFor(size: number) {
   };
 }
 
-function trophySizeFor(size: number): number {
+export function trophySizeFor(size: number): number {
   return Math.round(44 * Math.min(1, size / 720));
 }
 
-type LaidOutMatch = {
+export type LaidOutMatch = {
   match: HistoricalMatch | null;
   winner: string | null;
   loser: string | null;
@@ -102,7 +102,7 @@ function bracketShape(t: HistoricalTournament): "R16" | "QF" | "SF" {
 /** Shim a scraped historical match into the BracketMatch shape that
  *  the shared MatchTooltip understands. Fields the tooltip doesn't
  *  read (feedsInto, slotA/B) get harmless defaults. */
-function toBracketMatch(h: HistoricalMatch, year: number): BracketMatch {
+export function toBracketMatch(h: HistoricalMatch, year: number): BracketMatch {
   return {
     id: `hist-${year}-${h.round}-${h.teamA}-${h.teamB}`,
     round: h.round as BracketRound,
@@ -125,7 +125,7 @@ function toBracketMatch(h: HistoricalMatch, year: number): BracketMatch {
 /** Route to the correct layout based on the tournament's bracket shape
  *  — 16-team (R16 start) for 1986-2022, 8-team (QF start) for 1954-1970,
  *  4-team (SF start) for 1982. */
-function layoutBracket(t: HistoricalTournament) {
+export function layoutBracket(t: HistoricalTournament) {
   const shape = bracketShape(t);
   if (shape === "R16") return layoutBracket16(t);
   if (shape === "QF") return layoutBracket8(t);
@@ -496,7 +496,7 @@ function layoutBracket4(t: HistoricalTournament) {
   return { outerTeams, outerPoints, r16Layout, qfLayout, sfLayout, finalLayout, innermost };
 }
 
-type LayoutResult = ReturnType<typeof layoutBracket>;
+export type LayoutResult = ReturnType<typeof layoutBracket>;
 
 /** For a match, which side (A or B or none) does the highlighted team
  *  occupy? teamA always aligns with srcA (the walk in layoutBracket
@@ -707,7 +707,7 @@ function Ring({
  *  When `highlightedTeam` is set, an accent-coloured polyline is
  *  drawn on top connecting that team's ring positions from their
  *  outer slot inward — the "journey" overlay. */
-function HistoricalConnectors({
+export function HistoricalConnectors({
   layout,
   highlightedTeam,
 }: {

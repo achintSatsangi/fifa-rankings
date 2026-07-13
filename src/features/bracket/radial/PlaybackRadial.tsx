@@ -176,7 +176,6 @@ export function PlaybackRadial() {
     setInfoMatch(null);
     setCardVisible(false);
   };
-  const handleClose = useCallback(() => setCardVisible(false), []);
 
   /** Scrub — fires on every value change (drag live, drag end, click,
    *  keyboard). Updates the card in-flight so users see the current
@@ -204,13 +203,24 @@ export function PlaybackRadial() {
     <div className="flex h-full w-full flex-col">
       <div
         ref={outerRef}
-        className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden"
+        // Aspect-square by WIDTH so the ring gets the full viewport
+        // width on mobile. Card + scrubber stack below and add their
+        // own height — the parent wrapper is no longer forced-square,
+        // so nothing steals height from the ring.
+        className="relative mx-auto flex aspect-square w-full max-w-[calc(100svh-15rem)] items-center justify-center overflow-hidden"
       >
         {size > 0 ? (
           <Ring size={size} teamStates={teamStates} finalMatch={finalMatch} zoom={zoom} />
         ) : null}
+      </div>
+      {/* Match info card lives INLINE between the ring and the scrubber
+          — reserved height so the scrubber never jumps when a match is
+          scrubbed in or out. Card fades via opacity so successive
+          matches transition smoothly during autoplay. Compact height
+          on mobile so the bracket keeps more vertical real estate. */}
+      <div className="mt-2 flex min-h-[80px] shrink-0 justify-center sm:mt-3 sm:min-h-[104px]">
         {infoMatch ? (
-          <MatchInfoCard match={infoMatch} visible={cardVisible} onClose={handleClose} />
+          <MatchInfoCard match={infoMatch} visible={cardVisible} />
         ) : null}
       </div>
       {/* All controls stacked at the bottom: scrubber first (visual
@@ -419,17 +429,16 @@ function Ring({
   );
 }
 
-/** Compact opaque card centred over the ring. Fades in/out via a CSS
- *  opacity transition — the parent controls `visible`, we stay mounted
- *  through the fade so it never pops in/out. */
+/** Compact inline card rendered between the ring and the scrubber.
+ *  Fades in/out via a CSS opacity transition — the parent controls
+ *  `visible`, we stay mounted through the fade so successive matches
+ *  transition smoothly during autoplay. */
 function MatchInfoCard({
   match,
   visible,
-  onClose,
 }: {
   match: BracketMatch;
   visible: boolean;
-  onClose: () => void;
 }) {
   const { t } = useTranslation();
   const codeA = match.teamCodeA ?? "";
@@ -440,38 +449,33 @@ function MatchInfoCard({
   const highlight = resolveHighlight(match.id, codeA, codeB);
   return (
     <div
-      role="dialog"
       aria-label={`${roundLabel}: ${teamA?.name ?? codeA} vs ${teamB?.name ?? codeB}`}
       // Fixed width + fixed height so the box doesn't resize between
       // matches (short-name pairs shrinking, long-name pairs growing was
       // visually distracting during autoplay). Team names inside truncate
       // with ellipsis so a "Bosnia and Herzegovina" doesn't blow it up.
-      className="absolute left-1/2 top-1/2 z-30 flex h-[104px] w-[260px] flex-col justify-between rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-elevated)] px-3 py-2.5 text-center text-xs shadow-xl"
+      // Mobile compact: shorter card + tighter padding so the bracket
+      // keeps most of the viewport height.
+      className="flex h-[80px] w-[240px] flex-col justify-between rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-elevated)] px-2.5 py-1.5 text-center text-xs shadow-sm sm:h-[104px] sm:w-[260px] sm:px-3 sm:py-2.5"
       style={{
         opacity: visible ? 1 : 0,
-        transform: `translate(-50%, -50%) scale(${visible ? 1 : 0.96})`,
-        transition: `opacity ${CARD_FADE_MS}ms ease, transform ${CARD_FADE_MS}ms ease`,
-        pointerEvents: visible ? "auto" : "none",
+        transition: `opacity ${CARD_FADE_MS}ms ease`,
       }}
     >
-      <button
-        type="button"
-        onClick={onClose}
-        aria-label="Close"
-        className="absolute right-1 top-1 rounded-full p-1 text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-muted)] hover:text-[var(--text)]"
-      >
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" />
-        </svg>
-      </button>
-      <div className="truncate text-[10px] uppercase tracking-wide text-[var(--text-muted)]">
+      <div className="truncate text-[9px] uppercase tracking-wide text-[var(--text-muted)] sm:text-[10px]">
         {roundLabel} · {formatMatchDateLong(match.date)}
       </div>
-      <div className="flex items-center justify-center gap-1.5 text-[var(--text)]">
+      <div className="flex items-center justify-center gap-2 text-[var(--text)] sm:gap-1.5">
         <Flag code={codeA} size={18} tooltip={false} />
-        <span className="min-w-0 flex-1 truncate text-right text-[11px] font-medium">{teamA?.name ?? codeA}</span>
+        {/* Team names hidden on mobile — flags already identify the
+            teams, and the extra text pushed the card too wide. */}
+        <span className="hidden min-w-0 flex-1 truncate text-right text-[11px] font-medium sm:inline">
+          {teamA?.name ?? codeA}
+        </span>
         <span className="shrink-0 font-mono text-[12px] tabular-nums">{formatScore(match)}</span>
-        <span className="min-w-0 flex-1 truncate text-left text-[11px] font-medium">{teamB?.name ?? codeB}</span>
+        <span className="hidden min-w-0 flex-1 truncate text-left text-[11px] font-medium sm:inline">
+          {teamB?.name ?? codeB}
+        </span>
         <Flag code={codeB} size={18} tooltip={false} />
       </div>
       <div className="flex items-center justify-center">

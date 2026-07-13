@@ -12,9 +12,10 @@ import {
   type HistoricalMatch,
   type HistoricalRound,
 } from "./data";
+import { HistoricalPlayback } from "./HistoricalPlayback";
 import { HistoricalRadial } from "./HistoricalRadial";
 
-type ViewMode = "radial" | "legacy";
+type ViewMode = "radial" | "replay" | "legacy";
 
 /**
  * Below the bracket + groups on the home one-pager. Pick a past World
@@ -34,16 +35,13 @@ export function HistoricalWCSection() {
   return (
     <section className="mx-auto w-full max-w-6xl px-2 py-12 sm:py-16">
       <ScrollReveal>
-        <header className="mb-6 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <h2 className="m-0 text-2xl font-semibold text-[var(--text)] sm:text-3xl">
-              {t("historical.title")}
-            </h2>
-            <p className="mt-1 text-sm text-[var(--text-secondary)]">
-              {t("historical.subtitle")}
-            </p>
-          </div>
-          <ViewToggle value={view} onChange={setView} />
+        <header className="mb-6">
+          <h2 className="m-0 text-2xl font-semibold text-[var(--text)] sm:text-3xl">
+            {t("historical.title")}
+          </h2>
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">
+            {t("historical.subtitle")}
+          </p>
         </header>
       </ScrollReveal>
 
@@ -78,9 +76,23 @@ export function HistoricalWCSection() {
         </ScrollReveal>
       ) : null}
 
+      {/* View toggle sits directly above the bracket — the choice is
+          about how the bracket below renders, so it lives where the
+          user's eye is when they make it. Right-aligned to stay out
+          of the way of the host/champion callout above. */}
+      <ScrollReveal delay={100}>
+        <div className="mb-3 flex justify-end">
+          <ViewToggle value={view} onChange={setView} />
+        </div>
+      </ScrollReveal>
+
       {view === "radial" ? (
         <ScrollReveal delay={60}>
           <HistoricalRadial tournament={tournament} />
+        </ScrollReveal>
+      ) : view === "replay" ? (
+        <ScrollReveal delay={60}>
+          <HistoricalPlayback tournament={tournament} />
         </ScrollReveal>
       ) : (
         <div className="flex flex-col gap-6">
@@ -120,11 +132,18 @@ function YearPicker({ value, onChange }: { value: number; onChange: (v: number) 
   }, [value]);
 
   return (
-    <div
-      role="radiogroup"
-      aria-label={t("historical.yearLabel")}
-      className="-mx-2 flex snap-x snap-mandatory gap-2 overflow-x-auto px-2 pb-2 [scrollbar-width:thin]"
-    >
+    <div className="relative">
+      <div
+        role="radiogroup"
+        aria-label={t("historical.yearLabel")}
+        className={
+          "-mx-2 flex snap-x snap-mandatory gap-2 overflow-x-auto px-2 pb-2 " +
+          // Hide scrollbar cross-browser — the fade + snap-mandatory
+          // scroll are the affordances for horizontal navigation.
+          "[scrollbar-width:none] [-ms-overflow-style:none] " +
+          "[&::-webkit-scrollbar]:hidden"
+        }
+      >
       {HISTORICAL_YEARS.map((y) => {
         const active = y === value;
         const tournament = HISTORICAL_TOURNAMENTS[y];
@@ -162,6 +181,15 @@ function YearPicker({ value, onChange }: { value: number; onChange: (v: number) 
           </button>
         );
       })}
+      </div>
+      {/* Edge fade — right side hints at more years scrollable off-screen.
+          `from-[var(--bg)]` matches the page background so the last card
+          appears to dissolve into it. Non-interactive; the scroll region
+          underneath still receives wheel/touch events. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[var(--bg)] to-transparent"
+      />
     </div>
   );
 }
@@ -170,6 +198,7 @@ function ViewToggle({ value, onChange }: { value: ViewMode; onChange: (v: ViewMo
   const { t } = useTranslation();
   const options: { key: ViewMode; label: string }[] = [
     { key: "radial", label: t("historical.viewRadial") },
+    { key: "replay", label: t("historical.viewReplay") },
     { key: "legacy", label: t("historical.viewLegacy") },
   ];
   return (

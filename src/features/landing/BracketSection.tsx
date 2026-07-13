@@ -32,7 +32,7 @@ export function BracketSection() {
         : t("bracket.tagline");
 
   return (
-    <section className="mx-auto flex w-full max-w-none flex-col gap-4 px-4 py-12 sm:py-16">
+    <section className="mx-auto flex w-full max-w-none flex-col gap-4 px-2 py-12 sm:px-4 sm:py-16">
       <ScrollReveal>
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-baseline justify-between gap-3">
           <div>
@@ -54,16 +54,21 @@ export function BracketSection() {
               padding (~3rem). Previously used `88svh` which was too
               generous — the bottom of the ring clipped on ~900px
               laptop viewports. */}
+      {/* Replay needs vertical room for card + scrubber BELOW the ring
+          — an aspect-square wrapper starves the ring of height. So we
+          keep aspect-square only for radial/interactive views, and let
+          replay use full width + auto height (PlaybackRadial's own
+          outer div is aspect-square by width). */}
       <ScrollReveal delay={120}>
-        <div className="mx-auto aspect-square w-full max-w-[min(100%,calc(100svh-13rem),1600px)]">
-          {view === "interactive" ? (
-            <InteractiveRadial />
-          ) : view === "replay" ? (
+        {view === "replay" ? (
+          <div className="mx-auto w-full max-w-[min(100%,1600px)]">
             <PlaybackRadial />
-          ) : (
-            <RadialBracket />
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="mx-auto aspect-square w-full max-w-[min(100%,calc(100svh-13rem),1600px)]">
+            {view === "interactive" ? <InteractiveRadial /> : <RadialBracket />}
+          </div>
+        )}
       </ScrollReveal>
     </section>
   );
