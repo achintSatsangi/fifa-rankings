@@ -126,14 +126,26 @@ try {
   await scrollPickerTo(page, picker, scrollWidth, 1600);
   await scrollPickerTo(page, picker, 0, 1200);
 
-  // ─── Beat 3: 2022 is default; click it to make the selection
-  //     explicit on camera, then hover 2 outer-ring flags. ─────────
-  await clickOptional(
-    page,
-    picker.locator('[role="radio"]', { hasText: /^2022$/ }).first(),
-    700,
-    2000,
-  );
+  // ─── Beat 3: tap through a couple of older editions so viewers
+  //     see the bracket redraw for each — 1 s pause BEFORE each
+  //     click gives them time to take in the previous tournament
+  //     before the next one loads.
+  //     NOTE: each year card renders both the year AND the champion
+  //     code (e.g. "2018 FRA"), so an anchored regex like /^2018$/
+  //     silently misses. Match the exact year via a child <span>
+  //     whose text IS the year — that filters cleanly. ────────────
+  const yearCard = (y) =>
+    picker.locator(`[role="radio"]:has(span:text-is("${y}"))`).first();
+
+  for (const year of ["2018", "2014"]) {
+    await page.waitForTimeout(1000);
+    await clickOptional(page, yearCard(year), 900, 3000);
+  }
+
+  // ─── Beat 4: back to 2022 for the rest of the demo — hover 2
+  //     outer-ring flags, then switch to Replay. ──────────────
+  await page.waitForTimeout(1000);
+  await clickOptional(page, yearCard("2022"), 900, 3000);
 
   // Wait for the radial to settle before hovering.
   await page.waitForTimeout(1200);
