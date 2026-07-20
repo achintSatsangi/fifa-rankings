@@ -807,6 +807,7 @@
     "penaltyA": null,
     "penaltyB": null,
     "feedsInto": null,
-    "utcDate": "2026-07-19T19:00:00Z"
+    "utcDate": "2026-07-19T19:00:00Z",
+    "extraTime": true
   }
 ]
